@@ -7,8 +7,6 @@ import android.mxdlzg.com.bluewindmill.local.ManageSetting;
 import android.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import android.mxdlzg.com.bluewindmill.net.request.LoginRequest;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -24,22 +22,6 @@ public class LoginActivity extends AppCompatActivity{
     private AppCompatButton buttonLogin;
     private TextInputLayout userLayout;
     private TextInputLayout passwordLayout;
-    private Handler messageHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            switch (msg.what){
-                case 0:
-                    Toast.makeText(LoginActivity.this, (String)msg.obj, Toast.LENGTH_SHORT).show();
-                    break;
-                case 1:
-                    Toast.makeText(LoginActivity.this, msg.obj.toString(), Toast.LENGTH_SHORT).show();
-                    LoginActivity.this.finish();
-                    break;
-                default:break;
-            }
-            return false;
-        }
-    });
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,7 +72,7 @@ public class LoginActivity extends AppCompatActivity{
 
     }
 
-    private int Login(String user,String password){
+    private void Login(String user, String password){
         final ProgressDialog dialog = ProgressDialog.show(this,"Login","Login into EMS system",true,true);
 
         //Storage with UserInfo
@@ -111,28 +93,6 @@ public class LoginActivity extends AppCompatActivity{
                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
-//        new GetCookieTest("http://ems.sit.edu.cn:85/login.jsp", user, password, new GetCookieTest.SuccessCallback() {
-//            @Override
-//            public void onSuccess(java.net.CookieStore cookieStore) {
-//                dialog.dismiss();
-//                ManageCookie manageCookie = new ManageCookie(LoginActivity.this);
-//                manageCookie.setNetCookieStore(cookieStore);
-//                manageCookie.cacheNetCookie();
-//                Message message = new Message();
-//                message.obj = "登录成功";
-//                message.what = 1;
-//                messageHandler.sendMessage(message);
-//            }
-//        }, new GetCookieTest.FailCallback() {
-//            @Override
-//            public void onFail() {
-//                dialog.dismiss();
-//                Message message = new Message();
-//                message.obj = "登录失败";
-//                message.what = 0;
-//                messageHandler.sendMessage(message);
-//            }
-//        },null,null);
-        return 0;
+
     }
 }

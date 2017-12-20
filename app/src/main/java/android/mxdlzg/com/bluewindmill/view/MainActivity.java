@@ -94,9 +94,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main);
 
-        //init CookieStore
-        initCookieStore();
-
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         DateFormat format = new SimpleDateFormat("MM");
@@ -110,23 +107,6 @@ public class MainActivity extends AppCompatActivity {
         initBottomNavigation();
         initViewPager();
         initNiceSpinner();
-    }
-
-    private void initCookieStore() {
-        ManageCookie manageCookie = new ManageCookie(this);
-        manageCookie.getNetCookieFromCache();
-        CookieManager cookieManager;
-        //如果时间大于15分钟，就设置一个新的，否则读取旧cookie并继续使用
-        if ((System.currentTimeMillis()-manageCookie.getNetCacheTime())>15*60*1000){
-            Toast.makeText(this, "cookie过期,请重新登录（暂时使用手动模式）", Toast.LENGTH_SHORT).show();
-            cookieManager = new CookieManager();
-            cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-        }else {
-            Toast.makeText(this, "读取已存储的cookie", Toast.LENGTH_SHORT).show();
-            cookieManager = new CookieManager(manageCookie.getNetCookieStore(),CookiePolicy.ACCEPT_ALL);
-        }
-        //设置默认cookieManager
-        CookieHandler.setDefault(cookieManager);
     }
 
     private void initNiceSpinner() {

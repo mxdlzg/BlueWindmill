@@ -162,54 +162,11 @@ public class AddScheduleActivity extends AppCompatActivity {
                                 handler_notifiy_add.sendMessage(new Message());
                             }
                         });
-//                        new GetScheduleTest(new GetScheduleTest.SuccessCallback() {
-//                            @Override
-//                            public void onSuccess(String result) {
-//                                getScheduleDialog.setMessage("schedule获取完毕");
-//                                System.out.println(result);
-//                                Toast.makeText(AddScheduleActivity.this, result.substring(0,200), Toast.LENGTH_SHORT).show();
-//
-//                                //准备分析schedule
-//                                getScheduleDialog.setTitle("分析中");
-//                                getScheduleDialog.setMessage("正在分析schedule");
-//                                PrepareSchedule prepareSchedule = new PrepareSchedule();
-//                                List<ClassOBJ> newScheduleList = prepareSchedule.getList(result,false);
-//
-//                                //分析
-//                                getScheduleDialog.setMessage("正在存储");
-//                                ManageClassOBJ.cacheClassList(AddScheduleActivity.this,Long.valueOf(termTime[termPicker.getValue()]),newScheduleList);
-//                                getScheduleDialog.dismiss();
-//                                System.out.println("获取、分析、存储完毕");
-//
-//                                //更新ui
-//                                String name = termPicker.getDisplayedValues()[termPicker.getValue()];
-//                                int start = Integer.valueOf(name.substring(0,4));
-//                                int end = Integer.valueOf(name.substring(5,9));
-//                                int num = Integer.valueOf(name.substring(10,11));
-//                                Long id = Long.valueOf((start+"2"+end+num).toString());
-//                                TermOBJ termOBJ = new TermOBJ(name,start,end,num,id);
-//                                list.add(termOBJ);
-//
-//                                // TODO: 2017/3/28 cache Schedule信息到文件
-//                                ManageSchedule.addSchedule(AddScheduleActivity.this,termOBJ);
-//
-//                                // TODO: 2017/3/28 handler更新ui
-//                                handler_notifiy_add.sendMessage(new Message());
-//                            }
-//                        }, new GetScheduleTest.FailCallback() {
-//                            @Override
-//                            public void onFail() {
-//                                System.out.println("addSchedule中获取课程表失败");
-//                                getScheduleDialog.dismiss();
-//                                Toast.makeText(AddScheduleActivity.this, "获取课程表失败", Toast.LENGTH_SHORT).show();
-//                            }
-//                        },"http://ems.sit.edu.cn:85/student/selCourse/syllabuslist.jsp",yearPicker.getDisplayedValues()[yearPicker.getValue()],"1",termPicker.getDisplayedValues()[termPicker.getValue()]);
                     }
                 });
                 builder.setView(newTermView);
                 builder.setCancelable(true);
                 builder.show();
-
 
             }
         });
