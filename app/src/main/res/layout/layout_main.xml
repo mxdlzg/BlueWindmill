@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:elevation="3dp" tools:targetApi="LOLLIPOP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue700"
+            android:fitsSystemWindows="true">
+            <org.angmarch.views.NiceSpinner
+                android:visibility="visible"
+                android:layout_gravity="center"
+                app:arrowTint="@color/white"
+                app:textTint="@color/black"
+                app:dropDownListPaddingBottom="300dp"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/schedule_niceSpinner"
+                android:backgroundTint="@android:color/transparent"
+                tools:ignore="NewApi" />
+        </android.support.v7.widget.Toolbar>
+
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
+        android:id="@+id/main_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager>
+
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        android:id="@+id/main_bottomview"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="bottom"
+        app:selectedBackgroundVisible="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.aurelhubert.ahbottomnavigation.AHBottomNavigation>
+
+</android.support.design.widget.CoordinatorLayout>

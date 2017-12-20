@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_more"
+        android:icon="@drawable/ic_more_horiz_black_24dp"
+        android:title="新建学期">
+    </item>
+    <item
+        android:id="@+id/menu_colored"
+        android:checkable="true"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="渐变渲染">
+
+    </item>
+    <item
+        android:id="@+id/menu_setting"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="设置">
+    </item>
+</menu>

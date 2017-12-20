@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.codetail.widget.RevealLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:id="@+id/color_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.flask.colorpicker.ColorPickerView
+        android:id="@+id/color_picker_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:alphaSlider="true"
+        app:density="12"
+        app:lightnessSlider="true"
+        app:wheelType="FLOWER"
+        app:lightnessSliderView="@+id/v_lightness_slider"
+        app:alphaSliderView="@+id/v_alpha_slider"
+        />
+
+    <com.flask.colorpicker.slider.LightnessSlider
+        android:id="@+id/v_lightness_slider"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        />
+
+    <com.flask.colorpicker.slider.AlphaSlider
+        android:id="@+id/v_alpha_slider"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        />
+    </LinearLayout>
+
+    <!--<android.support.v7.widget.CardView-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/awesome_card"-->
+        <!--style="@style/CardView"-->
+        <!--app:cardBackgroundColor="@color/material_deep_teal_500"-->
+        <!--app:cardElevation="2dp"-->
+        <!--app:cardPreventCornerOverlap="false"-->
+        <!--app:cardUseCompatPadding="true"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--/>-->
+
+</io.codetail.widget.RevealLinearLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/schedule_add_toolbar"
+        android:layout_width="match_parent"
+        android:background="@color/green400"
+        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/schedule_add_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/schedule_add_toolbar"
+        android:layout_above="@+id/schedule_add_btn_newTerm">
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="新建学期"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/blue500"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/schedule_add_btn_newTerm" />
+</RelativeLayout>

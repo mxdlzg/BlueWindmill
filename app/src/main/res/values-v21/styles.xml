@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/blue400</item>
+        <item name="android:colorAccent">@color/green300</item>
+        <item name="android:colorPrimaryDark">@color/blue500</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.Launcher" >
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+    </style>
+</resources>

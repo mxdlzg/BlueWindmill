@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/schedule_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/schedule_scrollview"
+        android:layout_marginBottom="@dimen/bottom_navigation_height"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.percent.PercentFrameLayout
+            android:background="@color/grey200"
+            android:id="@+id/schedule_percent_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize">
+
+            <View
+                android:id="@+id/schedule_float_view"
+                android:alpha="0.1"
+                android:background="@android:color/black"
+                android:elevation="1dp"
+                app:layout_heightPercent="140%"
+                app:layout_marginLeftPercent="20%"
+                app:layout_widthPercent="20%"
+                tools:targetApi="LOLLIPOP" />
+
+
+            <!--<View-->
+            <!--android:id="@+id/template_view"-->
+            <!--app:layout_marginTopPercent="00%"-->
+            <!--app:layout_marginLeftPercent="00%"-->
+            <!--app:layout_heightPercent="16%"-->
+            <!--app:layout_widthPercent="20%"-->
+            <!--android:background="@color/blue500" />-->
+
+            <!--<View-->
+            <!--app:layout_marginTopPercent="00%"-->
+            <!--app:layout_marginLeftPercent="20%"-->
+            <!--app:layout_heightPercent="16%"-->
+            <!--app:layout_widthPercent="20%"-->
+            <!--android:background="@color/red500" />-->
+            <!--<View-->
+            <!--app:layout_marginTopPercent="00%"-->
+            <!--app:layout_marginLeftPercent="40%"-->
+            <!--app:layout_heightPercent="16%"-->
+            <!--app:layout_widthPercent="20%"-->
+            <!--android:background="@color/amber500" />-->
+            <!--<View-->
+            <!--app:layout_marginTopPercent="00%"-->
+            <!--app:layout_marginLeftPercent="60%"-->
+            <!--app:layout_heightPercent="16%"-->
+            <!--app:layout_widthPercent="20%"-->
+            <!--android:background="@color/green500" />-->
+            <!--<View-->
+            <!--app:layout_marginTopPercent="00%"-->
+            <!--app:layout_marginLeftPercent="80%"-->
+            <!--app:layout_heightPercent="16%"-->
+            <!--app:layout_widthPercent="20%"-->
+            <!--android:background="@color/blue500" />-->
+            <!--<View-->
+            <!--app:layout_marginTopPercent="16%"-->
+            <!--app:layout_marginLeftPercent="00%"-->
+            <!--app:layout_heightPercent="16%"-->
+            <!--app:layout_widthPercent="20%"-->
+            <!--android:background="@color/cyan500" />-->
+            <!--<View-->
+            <!--app:layout_marginTopPercent="16%"-->
+            <!--app:layout_marginLeftPercent="20%"-->
+            <!--app:layout_heightPercent="16%"-->
+            <!--app:layout_widthPercent="20%"-->
+            <!--android:background="@color/purple500" />-->
+            <!--<View-->
+            <!--app:layout_marginTopPercent="16%"-->
+            <!--app:layout_marginLeftPercent="40%"-->
+            <!--app:layout_heightPercent="16%"-->
+            <!--app:layout_widthPercent="20%"-->
+            <!--android:background="@color/grey500" />-->
+            <!--<View-->
+            <!--app:layout_marginTopPercent="16%"-->
+            <!--app:layout_marginLeftPercent="60%"-->
+            <!--app:layout_heightPercent="16%"-->
+            <!--app:layout_widthPercent="20%"-->
+            <!--android:background="@color/indigo500" />-->
+            <!--<View-->
+            <!--app:layout_marginTopPercent="16%"-->
+            <!--app:layout_marginLeftPercent="80%"-->
+            <!--app:layout_heightPercent="16%"-->
+            <!--app:layout_widthPercent="20%"-->
+            <!--android:background="@color/orange500" />-->
+
+        </android.support.percent.PercentFrameLayout>
+    </ScrollView>
+
+</RelativeLayout>
