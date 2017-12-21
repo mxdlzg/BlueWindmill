@@ -18,6 +18,7 @@ public class Config {
     public static final int NOT_LOGIN = 50;
     public static final int LOGIN = 51;
     public static final String EMS_SCHEDULE_URL = "http://ems.sit.edu.cn:85/student/selCourse/syllabuslist.jsp";
+    public static final String EMS_EXAM_URL = "http://ems.sit.edu.cn:85/student/main.jsp";
     public static List<HttpParams> httpParamsList;
     private SharedPreferences httpParamsPreferences;
     private SharedPreferences settingPre;

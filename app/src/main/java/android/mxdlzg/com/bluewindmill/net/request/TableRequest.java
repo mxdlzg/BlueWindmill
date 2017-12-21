@@ -3,8 +3,10 @@ package android.mxdlzg.com.bluewindmill.net.request;
 import android.content.Context;
 import android.mxdlzg.com.bluewindmill.model.entity.config.ClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.entity.config.Config;
+import android.mxdlzg.com.bluewindmill.model.process.PrepareExam;
 import android.mxdlzg.com.bluewindmill.model.process.PrepareSchedule;
 import android.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
+import android.widget.Toast;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.AbsCallback;
@@ -54,6 +56,35 @@ public class TableRequest {
                     }
                 });
 
+    }
+
+    public static void requestExam(final Context context, final CommonCallback<List<String>> callback){
+        OkGo.<List<String>>get(Config.EMS_EXAM_URL)
+                .tag(context)
+                .execute(new AbsCallback<List<String>>() {
+                    @Override
+                    public void onSuccess(Response<List<String>> response) {
+                        if (response.isFromCache()){
+                            Toast.makeText(context, "获取失败，从缓存读取", Toast.LENGTH_SHORT).show();
+                        }
+                        if (callback != null){
+                            callback.onSuccess(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<List<String>> response) {
+                        if (callback != null){
+                            Toast.makeText(context, Config.codeConvertor(response.code()), Toast.LENGTH_SHORT).show();
+                            callback.onFail(null);
+                        }
+                    }
+
+                    @Override
+                    public List<String> convertResponse(okhttp3.Response response) throws Throwable {
+                        return new PrepareExam().getExam(response.body().string());
+                    }
+                });
     }
 
 }

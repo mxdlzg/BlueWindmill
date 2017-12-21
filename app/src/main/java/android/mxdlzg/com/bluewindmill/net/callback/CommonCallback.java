@@ -6,7 +6,9 @@ package android.mxdlzg.com.bluewindmill.net.callback;
 
 public abstract class CommonCallback<T> {
     public abstract void onSuccess(T message);
-    public abstract void onFail(T message);
+    public void onFail(T message){
+
+    }
     public void onProgress(String status){
 
     }

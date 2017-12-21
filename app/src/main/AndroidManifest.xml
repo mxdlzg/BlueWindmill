@@ -26,6 +26,9 @@
         <activity android:name=".view.AddScheduleActivity">
 
         </activity>
+        <activity android:name=".view.ExamActivity">
+
+        </activity>
         <activity android:name=".view.SettingActivity">
 
         </activity>
