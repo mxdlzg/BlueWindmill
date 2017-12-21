@@ -124,7 +124,7 @@ public class AddScheduleActivity extends AppCompatActivity {
 
                         String year1 = yearPicker.getDisplayedValues()[yearPicker.getValue()];
                         String year2 = termPicker.getDisplayedValues()[termPicker.getValue()];
-                        TableRequest.requestSchedule(AddScheduleActivity.this, termTime[termPicker.getValue()], year1, "1", year2, new CommonCallback<List<ClassOBJ>>() {
+                        TableRequest.requestSchedule(AddScheduleActivity.this, year1, "1", year2, new CommonCallback<List<ClassOBJ>>() {
                             @Override
                             public void onFail(List<ClassOBJ> message) {
                                 getScheduleDialog.dismiss();
