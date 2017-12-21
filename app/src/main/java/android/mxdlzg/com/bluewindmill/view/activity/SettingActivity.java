@@ -1,4 +1,4 @@
-package android.mxdlzg.com.bluewindmill.view;
+package android.mxdlzg.com.bluewindmill.view.activity;
 
 import android.mxdlzg.com.bluewindmill.R;
 import android.mxdlzg.com.bluewindmill.local.ManageSetting;

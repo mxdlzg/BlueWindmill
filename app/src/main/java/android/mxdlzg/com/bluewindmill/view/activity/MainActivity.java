@@ -1,4 +1,4 @@
-package android.mxdlzg.com.bluewindmill.view;
+package android.mxdlzg.com.bluewindmill.view.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,7 +8,6 @@ import android.mxdlzg.com.bluewindmill.model.entity.config.ClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.entity.config.Config;
 import android.mxdlzg.com.bluewindmill.model.entity.config.TermOBJ;
 import android.mxdlzg.com.bluewindmill.view.fragment.MainFragment;
-import android.mxdlzg.com.bluewindmill.local.ManageCookie;
 import android.mxdlzg.com.bluewindmill.local.ManageSetting;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -29,9 +27,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
 
 import org.angmarch.views.NiceSpinner;
 
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;

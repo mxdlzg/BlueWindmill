@@ -1,16 +1,13 @@
-package android.mxdlzg.com.bluewindmill.view;
+package android.mxdlzg.com.bluewindmill.view.activity;
 
 import android.mxdlzg.com.bluewindmill.R;
 import android.mxdlzg.com.bluewindmill.local.ManageExam;
 import android.mxdlzg.com.bluewindmill.local.ManageSetting;
-import android.mxdlzg.com.bluewindmill.model.process.PrepareExam;
 import android.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import android.mxdlzg.com.bluewindmill.net.request.TableRequest;
 import android.mxdlzg.com.bluewindmill.util.wdUtil;
 import android.mxdlzg.com.bluewindmill.view.adapter.ExamAdapter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;

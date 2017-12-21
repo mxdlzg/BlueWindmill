@@ -1,4 +1,4 @@
-package android.mxdlzg.com.bluewindmill.view;
+package android.mxdlzg.com.bluewindmill.view.activity;
 
 import android.app.ProgressDialog;
 import android.mxdlzg.com.bluewindmill.R;

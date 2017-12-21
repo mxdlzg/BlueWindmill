@@ -1,4 +1,4 @@
-package android.mxdlzg.com.bluewindmill.view;
+package android.mxdlzg.com.bluewindmill.view.activity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -10,8 +10,6 @@ import android.mxdlzg.com.bluewindmill.model.entity.config.ClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.entity.config.TermOBJ;
 import android.mxdlzg.com.bluewindmill.local.ManageClassOBJ;
 import android.mxdlzg.com.bluewindmill.local.ManageSchedule;
-import android.mxdlzg.com.bluewindmill.net.GetScheduleTest;
-import android.mxdlzg.com.bluewindmill.model.process.PrepareSchedule;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,8 +27,6 @@ import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
