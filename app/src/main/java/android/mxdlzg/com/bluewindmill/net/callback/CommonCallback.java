@@ -9,6 +9,9 @@ public abstract class CommonCallback<T> {
     public void onFail(T message){
 
     }
+    public void onError(String message){
+
+    }
     public void onProgress(String status){
 
     }
