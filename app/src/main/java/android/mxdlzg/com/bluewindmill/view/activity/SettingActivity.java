@@ -1,7 +1,7 @@
 package android.mxdlzg.com.bluewindmill.view.activity;
 
 import android.mxdlzg.com.bluewindmill.R;
-import android.mxdlzg.com.bluewindmill.local.ManageSetting;
+import android.mxdlzg.com.bluewindmill.model.local.ManageSetting;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;

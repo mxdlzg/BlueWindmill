@@ -1,4 +1,4 @@
-package android.mxdlzg.com.bluewindmill.local;
+package android.mxdlzg.com.bluewindmill.model.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;

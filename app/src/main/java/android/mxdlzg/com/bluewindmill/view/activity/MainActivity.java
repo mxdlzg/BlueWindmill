@@ -8,7 +8,7 @@ import android.mxdlzg.com.bluewindmill.model.entity.config.ClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.entity.config.Config;
 import android.mxdlzg.com.bluewindmill.model.entity.config.TermOBJ;
 import android.mxdlzg.com.bluewindmill.view.fragment.MainFragment;
-import android.mxdlzg.com.bluewindmill.local.ManageSetting;
+import android.mxdlzg.com.bluewindmill.model.local.ManageSetting;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;

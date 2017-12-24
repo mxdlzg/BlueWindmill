@@ -1,8 +1,8 @@
 package android.mxdlzg.com.bluewindmill.view.activity;
 
 import android.mxdlzg.com.bluewindmill.R;
-import android.mxdlzg.com.bluewindmill.local.ManageExam;
-import android.mxdlzg.com.bluewindmill.local.ManageSetting;
+import android.mxdlzg.com.bluewindmill.model.local.ManageExam;
+import android.mxdlzg.com.bluewindmill.model.local.ManageSetting;
 import android.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import android.mxdlzg.com.bluewindmill.net.request.TableRequest;
 import android.mxdlzg.com.bluewindmill.util.wdUtil;
