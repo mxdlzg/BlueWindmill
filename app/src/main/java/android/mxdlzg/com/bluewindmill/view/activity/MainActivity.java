@@ -1,15 +1,14 @@
-package android.mxdlzg.com.bluewindmill.view;
+package android.mxdlzg.com.bluewindmill.view.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.mxdlzg.com.bluewindmill.R;
 import android.mxdlzg.com.bluewindmill.view.adapter.MainViewPagerAdapter;
-import android.mxdlzg.com.bluewindmill.model.entity.config.ClassOBJ;
+import android.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.entity.config.Config;
-import android.mxdlzg.com.bluewindmill.model.entity.config.TermOBJ;
+import android.mxdlzg.com.bluewindmill.model.entity.TermOBJ;
 import android.mxdlzg.com.bluewindmill.view.fragment.MainFragment;
-import android.mxdlzg.com.bluewindmill.local.ManageCookie;
-import android.mxdlzg.com.bluewindmill.local.ManageSetting;
+import android.mxdlzg.com.bluewindmill.model.local.ManageSetting;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -29,9 +27,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
 
 import org.angmarch.views.NiceSpinner;
 
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -94,9 +89,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main);
 
-        //init CookieStore
-        initCookieStore();
-
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         DateFormat format = new SimpleDateFormat("MM");
@@ -110,23 +102,6 @@ public class MainActivity extends AppCompatActivity {
         initBottomNavigation();
         initViewPager();
         initNiceSpinner();
-    }
-
-    private void initCookieStore() {
-        ManageCookie manageCookie = new ManageCookie(this);
-        manageCookie.getNetCookieFromCache();
-        CookieManager cookieManager;
-        //如果时间大于15分钟，就设置一个新的，否则读取旧cookie并继续使用
-        if ((System.currentTimeMillis()-manageCookie.getNetCacheTime())>15*60*1000){
-            Toast.makeText(this, "cookie过期,请重新登录（暂时使用手动模式）", Toast.LENGTH_SHORT).show();
-            cookieManager = new CookieManager();
-            cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-        }else {
-            Toast.makeText(this, "读取已存储的cookie", Toast.LENGTH_SHORT).show();
-            cookieManager = new CookieManager(manageCookie.getNetCookieStore(),CookiePolicy.ACCEPT_ALL);
-        }
-        //设置默认cookieManager
-        CookieHandler.setDefault(cookieManager);
     }
 
     private void initNiceSpinner() {

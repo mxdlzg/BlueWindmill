@@ -1,4 +1,4 @@
-package android.mxdlzg.com.bluewindmill.local;
+package android.mxdlzg.com.bluewindmill.model.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -43,7 +43,7 @@ public class ManageSetting {
         SharedPreferences.Editor editor = preferences.edit();
         for (int i = 0; i < kvs.length; i+=2) {
             if (!preferences.contains(kvs[i])){
-                editor.putString(kvs[i+1],"");
+                editor.putString(kvs[i],kvs[i+1]);
                 editor.apply();
             }
         }

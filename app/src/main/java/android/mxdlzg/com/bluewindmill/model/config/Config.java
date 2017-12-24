@@ -1,4 +1,4 @@
-package android.mxdlzg.com.bluewindmill.model.entity.config;
+package android.mxdlzg.com.bluewindmill.model.config;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,7 +17,14 @@ public class Config {
     public static final String AUTH_TYPE = "2";
     public static final int NOT_LOGIN = 50;
     public static final int LOGIN = 51;
+
+    public static final String EMS_URL = "http://ems.sit.edu.cn:85/";
+    public static final String EMS_URL_1 = "http://ems1.sit.edu.cn:85/";
     public static final String EMS_SCHEDULE_URL = "http://ems.sit.edu.cn:85/student/selCourse/syllabuslist.jsp";
+    public static final String EMS_EXAM_URL = "http://ems.sit.edu.cn:85/student/main.jsp";
+    public static final String EMS_SCORE_URL = "http://ems.sit.edu.cn:85/student/graduate/scorelist.jsp";
+    public static final String EMS_SCORE_POINT_URL = "http://ems.sit.edu.cn:85/student/graduate/scorepoint.jsp";
+    public static final String EMS_UNIFIED_SCORE_URL = "http://ems.sit.edu.cn:85/student/unifiedExamScore.jsp";
     public static List<HttpParams> httpParamsList;
     private SharedPreferences httpParamsPreferences;
     private SharedPreferences settingPre;

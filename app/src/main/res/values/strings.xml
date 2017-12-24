@@ -3,4 +3,5 @@
     <string name="loginFailEMS">Login into EMS fail!</string>
     <string name="loginCheckEMS">欢迎进入管理系统</string>
     <string name="requestScheduleFail">Get Schedule Fail!</string>
+    <string name="titleExam">Exam</string>
 </resources>

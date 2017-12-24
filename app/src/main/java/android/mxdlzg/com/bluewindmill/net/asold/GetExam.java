@@ -1,4 +1,4 @@
-package android.mxdlzg.com.bluewindmill.net;
+package android.mxdlzg.com.bluewindmill.net.asold;
 
 import android.mxdlzg.com.bluewindmill.model.entity.config.HttpMethod;
 

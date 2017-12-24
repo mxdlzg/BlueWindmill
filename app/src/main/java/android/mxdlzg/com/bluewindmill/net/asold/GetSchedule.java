@@ -1,4 +1,4 @@
-package android.mxdlzg.com.bluewindmill.net;
+package android.mxdlzg.com.bluewindmill.net.asold;
 
 import org.apache.http.client.CookieStore;
 import org.apache.http.message.BasicNameValuePair;

@@ -1,8 +1,8 @@
-package android.mxdlzg.com.bluewindmill.local;
+package android.mxdlzg.com.bluewindmill.model.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.mxdlzg.com.bluewindmill.model.entity.config.ClassOBJ;
+import android.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.entity.config.Config;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package android.mxdlzg.com.bluewindmill.view;
+package android.mxdlzg.com.bluewindmill.view.activity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -6,12 +6,10 @@ import android.mxdlzg.com.bluewindmill.R;
 import android.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import android.mxdlzg.com.bluewindmill.net.request.TableRequest;
 import android.mxdlzg.com.bluewindmill.view.adapter.AddScheduleAdapter;
-import android.mxdlzg.com.bluewindmill.model.entity.config.ClassOBJ;
-import android.mxdlzg.com.bluewindmill.model.entity.config.TermOBJ;
-import android.mxdlzg.com.bluewindmill.local.ManageClassOBJ;
-import android.mxdlzg.com.bluewindmill.local.ManageSchedule;
-import android.mxdlzg.com.bluewindmill.net.GetScheduleTest;
-import android.mxdlzg.com.bluewindmill.model.process.PrepareSchedule;
+import android.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
+import android.mxdlzg.com.bluewindmill.model.entity.TermOBJ;
+import android.mxdlzg.com.bluewindmill.model.local.ManageClassOBJ;
+import android.mxdlzg.com.bluewindmill.model.local.ManageSchedule;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,8 +27,6 @@ import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,7 +120,7 @@ public class AddScheduleActivity extends AppCompatActivity {
 
                         String year1 = yearPicker.getDisplayedValues()[yearPicker.getValue()];
                         String year2 = termPicker.getDisplayedValues()[termPicker.getValue()];
-                        TableRequest.requestSchedule(AddScheduleActivity.this, termTime[termPicker.getValue()], year1, "1", year2, new CommonCallback<List<ClassOBJ>>() {
+                        TableRequest.requestSchedule(AddScheduleActivity.this, year1, "1", year2, new CommonCallback<List<ClassOBJ>>() {
                             @Override
                             public void onFail(List<ClassOBJ> message) {
                                 getScheduleDialog.dismiss();
@@ -162,54 +158,11 @@ public class AddScheduleActivity extends AppCompatActivity {
                                 handler_notifiy_add.sendMessage(new Message());
                             }
                         });
-//                        new GetScheduleTest(new GetScheduleTest.SuccessCallback() {
-//                            @Override
-//                            public void onSuccess(String result) {
-//                                getScheduleDialog.setMessage("schedule获取完毕");
-//                                System.out.println(result);
-//                                Toast.makeText(AddScheduleActivity.this, result.substring(0,200), Toast.LENGTH_SHORT).show();
-//
-//                                //准备分析schedule
-//                                getScheduleDialog.setTitle("分析中");
-//                                getScheduleDialog.setMessage("正在分析schedule");
-//                                PrepareSchedule prepareSchedule = new PrepareSchedule();
-//                                List<ClassOBJ> newScheduleList = prepareSchedule.getList(result,false);
-//
-//                                //分析
-//                                getScheduleDialog.setMessage("正在存储");
-//                                ManageClassOBJ.cacheClassList(AddScheduleActivity.this,Long.valueOf(termTime[termPicker.getValue()]),newScheduleList);
-//                                getScheduleDialog.dismiss();
-//                                System.out.println("获取、分析、存储完毕");
-//
-//                                //更新ui
-//                                String name = termPicker.getDisplayedValues()[termPicker.getValue()];
-//                                int start = Integer.valueOf(name.substring(0,4));
-//                                int end = Integer.valueOf(name.substring(5,9));
-//                                int num = Integer.valueOf(name.substring(10,11));
-//                                Long id = Long.valueOf((start+"2"+end+num).toString());
-//                                TermOBJ termOBJ = new TermOBJ(name,start,end,num,id);
-//                                list.add(termOBJ);
-//
-//                                // TODO: 2017/3/28 cache Schedule信息到文件
-//                                ManageSchedule.addSchedule(AddScheduleActivity.this,termOBJ);
-//
-//                                // TODO: 2017/3/28 handler更新ui
-//                                handler_notifiy_add.sendMessage(new Message());
-//                            }
-//                        }, new GetScheduleTest.FailCallback() {
-//                            @Override
-//                            public void onFail() {
-//                                System.out.println("addSchedule中获取课程表失败");
-//                                getScheduleDialog.dismiss();
-//                                Toast.makeText(AddScheduleActivity.this, "获取课程表失败", Toast.LENGTH_SHORT).show();
-//                            }
-//                        },"http://ems.sit.edu.cn:85/student/selCourse/syllabuslist.jsp",yearPicker.getDisplayedValues()[yearPicker.getValue()],"1",termPicker.getDisplayedValues()[termPicker.getValue()]);
                     }
                 });
                 builder.setView(newTermView);
                 builder.setCancelable(true);
                 builder.show();
-
 
             }
         });

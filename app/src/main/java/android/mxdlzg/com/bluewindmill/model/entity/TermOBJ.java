@@ -1,4 +1,4 @@
-package android.mxdlzg.com.bluewindmill.model.entity.config;
+package android.mxdlzg.com.bluewindmill.model.entity;
 
 import java.io.Serializable;
 

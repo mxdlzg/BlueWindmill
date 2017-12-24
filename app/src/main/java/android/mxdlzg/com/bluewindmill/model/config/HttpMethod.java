@@ -1,4 +1,4 @@
-package android.mxdlzg.com.bluewindmill.model.entity.config;
+package android.mxdlzg.com.bluewindmill.model.config;
 
 /**
  * Created by 廷江 on 2017/3/24.
