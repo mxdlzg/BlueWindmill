@@ -85,6 +85,7 @@ public class LoginActivity extends AppCompatActivity{
             public void onSuccess(String message) {
                 dialog.dismiss();
                 Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
+                LoginActivity.this.finish();
             }
 
             @Override
