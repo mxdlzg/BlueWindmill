@@ -4,7 +4,7 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.mxdlzg.com.bluewindmill.model.entity.config.ClassOBJ;
+import android.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.local.ManageClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.local.ManageSetting;
 import android.mxdlzg.com.bluewindmill.view.activity.ExamActivity;

@@ -3,7 +3,7 @@ package android.mxdlzg.com.bluewindmill.model.local;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.mxdlzg.com.bluewindmill.model.entity.config.Config;
-import android.mxdlzg.com.bluewindmill.model.entity.config.TermOBJ;
+import android.mxdlzg.com.bluewindmill.model.entity.TermOBJ;
 
 import java.io.File;
 import java.util.List;

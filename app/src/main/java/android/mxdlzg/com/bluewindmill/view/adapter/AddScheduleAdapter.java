@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.mxdlzg.com.bluewindmill.R;
 import android.mxdlzg.com.bluewindmill.model.entity.config.Config;
-import android.mxdlzg.com.bluewindmill.model.entity.config.TermOBJ;
+import android.mxdlzg.com.bluewindmill.model.entity.TermOBJ;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

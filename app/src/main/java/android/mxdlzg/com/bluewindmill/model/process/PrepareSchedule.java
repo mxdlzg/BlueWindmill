@@ -1,6 +1,6 @@
 package android.mxdlzg.com.bluewindmill.model.process;
 
-import android.mxdlzg.com.bluewindmill.model.entity.config.ClassOBJ;
+import android.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
 import android.mxdlzg.com.bluewindmill.util.Util;
 
 import org.jsoup.Jsoup;

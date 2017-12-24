@@ -1,7 +1,7 @@
 package android.mxdlzg.com.bluewindmill.net.request;
 
 import android.content.Context;
-import android.mxdlzg.com.bluewindmill.model.entity.config.ClassOBJ;
+import android.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.entity.config.Config;
 import android.mxdlzg.com.bluewindmill.model.process.PrepareExam;
 import android.mxdlzg.com.bluewindmill.model.process.PrepareSchedule;
