@@ -25,6 +25,9 @@ public class Config {
     public static final String EMS_SCORE_URL = "http://ems.sit.edu.cn:85/student/graduate/scorelist.jsp";
     public static final String EMS_SCORE_POINT_URL = "http://ems.sit.edu.cn:85/student/graduate/scorepoint.jsp";
     public static final String EMS_UNIFIED_SCORE_URL = "http://ems.sit.edu.cn:85/student/unifiedExamScore.jsp";
+    public static final String SC_LOGIN_URL = "http://sc.sit.edu.cn/j_spring_security_check";
+    public static final String SC_SCORE_DETAIL_URL = "http://sc.sit.edu.cn/public/pcenter/scoreDetail.action";
+    public static final String SC_INDEX_URL = "http://sc.sit.edu.cn/public/init/index.action";
     public static List<HttpParams> httpParamsList;
     private SharedPreferences httpParamsPreferences;
     private SharedPreferences settingPre;
