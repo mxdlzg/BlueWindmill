@@ -43,4 +43,5 @@ public class BaseProcess {
     public void setBody(String body) {
         this.body = body;
     }
+
 }

@@ -28,6 +28,7 @@ public class Config {
     public static final String SC_LOGIN_URL = "http://sc.sit.edu.cn/j_spring_security_check";
     public static final String SC_SCORE_DETAIL_URL = "http://sc.sit.edu.cn/public/pcenter/scoreDetail.action";
     public static final String SC_INDEX_URL = "http://sc.sit.edu.cn/public/init/index.action";
+
     public static List<HttpParams> httpParamsList;
     private SharedPreferences httpParamsPreferences;
     private SharedPreferences settingPre;
