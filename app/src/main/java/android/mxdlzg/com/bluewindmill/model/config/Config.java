@@ -18,8 +18,30 @@ public class Config {
     public static final int NOT_LOGIN = 50;
     public static final int LOGIN = 51;
 
+    public static final int CALENDAR_MAXHEIGHT = 350;
+    public static final int CALENDAR_MINHEIGHT = 30;
+    public static final int GET_COOKIE_ERROR = -1;
+
+    //cache
+    public static final String NET_COOKIE_CACHE = "netCookie";
+    public static final String COOKIE_CACHE = "cookie";
+    public static final String CLASSOBJ_CACHE = "classList";
+    public static final String SETTING = "setting";
+    public static final String HTTP_PARAMS = "httpParams";
+
+    //activity Result
+    public static final int LOGIN_OK = 200;
+    public static final int LOGIN_FAIL = 400;
+    public static final int LOGIN_CANCEL = 204;
+    public static final int ADD_SCHEDULE_OK = 100;
+
+    //requestCode
+    public static final int START_ADD_SCHEDULE = 150;
+
+    //url
     public static final String EMS_URL = "http://ems.sit.edu.cn:85/";
     public static final String EMS_URL_1 = "http://ems1.sit.edu.cn:85/";
+    public static final String EMS_LOGIN_URL = "http://ems.sit.edu.cn:85/login.jsp";
     public static final String EMS_SCHEDULE_URL = "http://ems.sit.edu.cn:85/student/selCourse/syllabuslist.jsp";
     public static final String EMS_EXAM_URL = "http://ems.sit.edu.cn:85/student/main.jsp";
     public static final String EMS_SCORE_URL = "http://ems.sit.edu.cn:85/student/graduate/scorelist.jsp";
@@ -27,8 +49,12 @@ public class Config {
     public static final String EMS_UNIFIED_SCORE_URL = "http://ems.sit.edu.cn:85/student/unifiedExamScore.jsp";
     public static final String SC_LOGIN_URL = "http://sc.sit.edu.cn/j_spring_security_check";
     public static final String SC_SCORE_DETAIL_URL = "http://sc.sit.edu.cn/public/pcenter/scoreDetail.action";
+    public static final String SC_ACTIVITY_DETAIL_URL = "http://sc.sit.edu.cn/public/activity/activityDetail.action";
     public static final String SC_INDEX_URL = "http://sc.sit.edu.cn/public/init/index.action";
+    public static final String SC_ACTIVITY_LIST_URL = "http://sc.sit.edu.cn/public/activity/activityList.action";
+    public static final String EMS_EVALUATE_URL = "http://ems.sit.edu.cn:85/student/EvalTeachScore.action";
 
+    //var
     public static List<HttpParams> httpParamsList;
     private SharedPreferences httpParamsPreferences;
     private SharedPreferences settingPre;
@@ -55,30 +81,6 @@ public class Config {
     public void init(Context context){
         this.context = context;
     }
-
-    public static final int CALENDAR_MAXHEIGHT = 350;
-    public static final int CALENDAR_MINHEIGHT = 30;
-
-    public static final int GET_COOKIE_ERROR = -1;
-
-
-    //cache
-    public static final String NET_COOKIE_CACHE = "netCookie";
-    public static final String COOKIE_CACHE = "cookie";
-    public static final String CLASSOBJ_CACHE = "classList";
-    public static final String SETTING = "setting";
-    public static final String HTTP_PARAMS = "httpParams";
-
-    //activity Result
-    public static final int LOGIN_OK = 200;
-    public static final int LOGIN_FAIL = 400;
-    public static final int LOGIN_CANCEL = 204;
-    public static final int ADD_SCHEDULE_OK = 100;
-
-    //requestCode
-    public static final int START_ADD_SCHEDULE = 150;
-    public static final String EMS_LOGIN_URL = "http://ems.sit.edu.cn:85/login.jsp";
-
 
 
     /**
