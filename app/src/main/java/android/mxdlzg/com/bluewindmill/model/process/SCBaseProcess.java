@@ -1,5 +1,6 @@
 package android.mxdlzg.com.bluewindmill.model.process;
 
+import android.mxdlzg.com.bluewindmill.model.entity.SCActivityDetail;
 import android.mxdlzg.com.bluewindmill.model.entity.SCInfo;
 import android.mxdlzg.com.bluewindmill.model.entity.SCScoreDetail;
 
@@ -29,5 +30,13 @@ public class SCBaseProcess extends BaseProcess{
         List<String> list = null;
         // TODO: 2018/1/2  
         return list;
+    }
+
+    public static SCActivityDetail getActivityDetail(String content) {
+        throw new UnsupportedOperationException();
+    }
+
+    public static List<SCActivityDetail> getActivityList(String content) {
+        throw new UnsupportedOperationException();
     }
 }
