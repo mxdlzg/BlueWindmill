@@ -2,6 +2,7 @@ package android.mxdlzg.com.bluewindmill.net.request;
 
 import android.content.Context;
 import android.mxdlzg.com.bluewindmill.model.config.Config;
+import android.mxdlzg.com.bluewindmill.model.entity.SCActivityDetail;
 import android.mxdlzg.com.bluewindmill.model.entity.SCInfo;
 import android.mxdlzg.com.bluewindmill.model.entity.SCScoreDetail;
 import android.mxdlzg.com.bluewindmill.model.process.SCBaseProcess;
@@ -79,7 +80,7 @@ public class SCRequest {
      * @param context context
      * @param callback callback
      */
-    public static void requestURLNavigation(final Context context, final CommonCallback<List<String>> callback){
+    public static void requestURLNavigation(final Context context, final CommonCallback<Response<List<String>>> callback){
         OkGo.<List<String>>get(Config.SC_INDEX_URL)
                 .tag(context)
                 .execute(new AbsCallback<List<String>>() {
@@ -88,7 +89,7 @@ public class SCRequest {
                         if (response.body() == null){
                             callback.onFail(null);
                         }else{
-                            callback.onSuccess(response.body());
+                            callback.onSuccess(response);
                         }
                     }
 
@@ -100,6 +101,66 @@ public class SCRequest {
                     @Override
                     public List<String> convertResponse(okhttp3.Response response) throws Throwable {
                         return SCBaseProcess.getNavigationUrls(response.body().string());
+                    }
+                });
+    }
+
+    /**
+     * 获取活动list
+     * @param context context
+     * @param pageNo no
+     * @param pageSize size / page
+     * @param categoryID id
+     * @param callback callback
+     */
+    public static void requestActivityList(final Context context,String pageNo,String pageSize, String categoryID, final CommonCallback<List<SCActivityDetail>> callback){
+        OkGo.<List<SCActivityDetail>>get(Config.SC_ACTIVITY_LIST_URL)
+                .tag(context)
+                .params("pageNo",pageNo)
+                .params("pageSize",pageSize)
+                .params("categoryId",categoryID)
+                .execute(new AbsCallback<List<SCActivityDetail>>() {
+                    @Override
+                    public void onSuccess(Response<List<SCActivityDetail>> response) {
+                        callback.onSuccess(response.body());
+                    }
+
+                    @Override
+                    public void onError(Response<List<SCActivityDetail>> response) {
+                        callback.onError(response.getException().getMessage(),context);
+                    }
+
+                    @Override
+                    public List<SCActivityDetail> convertResponse(okhttp3.Response response) throws Throwable {
+                        return SCBaseProcess.getActivityList(response.body().string());
+                    }
+                });
+    }
+
+    /**
+     * 获取活动详情
+     * @param context context
+     * @param activityID acId
+     * @param callback callback
+     */
+    public static void requestActivityDetail(final Context context, String activityID, final CommonCallback<SCActivityDetail> callback){
+        OkGo.<SCActivityDetail>post(Config.SC_ACTIVITY_DETAIL_URL)
+                .tag(context)
+                .params("activityId",activityID)
+                .execute(new AbsCallback<SCActivityDetail>() {
+                    @Override
+                    public void onSuccess(Response<SCActivityDetail> response) {
+                        callback.onSuccess(response.body());
+                    }
+
+                    @Override
+                    public void onError(Response<SCActivityDetail> response) {
+                        callback.onError(response.getException().getMessage(),context);
+                    }
+
+                    @Override
+                    public SCActivityDetail convertResponse(okhttp3.Response response) throws Throwable {
+                        return SCBaseProcess.getActivityDetail(response.body().string());
                     }
                 });
     }

@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.AbsCallback;
+import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.GetRequest;
 import com.lzy.okgo.request.base.Request;
 
 import java.sql.ResultSet;
@@ -194,6 +196,46 @@ public class TableRequest {
                         throw new UnsupportedOperationException();
                     }
                 });
+    }
+
+    /**
+     * 100分评教
+     * @param context context
+     * @param courseID courseID
+     * @param teacherType teacherType
+     * @param yearTerm yearTerm
+     * @param teacherID teacherID
+     * @param callback callback
+     */
+    public static void evaluateTeacher(Context context, String courseID, String teacherType, String yearTerm, String teacherID, final CommonCallback<String> callback){
+        final GetRequest<String> request = OkGo.<String>get(Config.EMS_EVALUATE_URL)
+                .tag(context)
+                .charSet("gbk")
+                .params("courseID",courseID)
+                .params("teachType",teacherType)
+                .params("studentID",Config.USER_NAME)
+                .params("yearTerm",yearTerm)
+                .params("teacher",teacherID)
+                .params("items","100,100,100,100,100,100,100,100,0,0,0,0")
+                .params("sucURL","eval.jsp?msg=操作成功")
+                .params("failURL","eval.jsp")
+                .params("op","setSheet")
+                .params("_tbName","openAdmin.teacheval.EvalTeachScore");
+        for (int i = 1; i <= 8; i++) {
+            request.params("score"+i,"100");
+        }
+        request.execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                callback.onError(Config.codeConvertor(response.code()));
+            }
+        });
+
     }
 
 }
