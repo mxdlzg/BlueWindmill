@@ -39,4 +39,5 @@ public class SCBaseProcess extends BaseProcess{
     public static List<SCActivityDetail> getActivityList(String content) {
         throw new UnsupportedOperationException();
     }
+
 }
