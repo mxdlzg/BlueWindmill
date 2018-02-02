@@ -6,6 +6,7 @@ import android.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.entity.DataTable;
 import android.mxdlzg.com.bluewindmill.model.entity.ScoreOBJ;
 import android.mxdlzg.com.bluewindmill.model.entity.UnifiedScore;
+import android.mxdlzg.com.bluewindmill.model.local.ManageSetting;
 import android.mxdlzg.com.bluewindmill.model.process.PrepareExam;
 import android.mxdlzg.com.bluewindmill.model.process.PrepareSchedule;
 import android.mxdlzg.com.bluewindmill.model.process.PrepareScore;
@@ -111,7 +112,7 @@ public class TableRequest {
                 .tag(context)
                 .charSet("gbk")
                 .params("yearTerm",yearTerm)
-                .params("studentID",Config.USER_NAME)
+                .params("studentID", ManageSetting.getStringSetting(context,Config.USER_NAME))
                 .execute(new AbsCallback<DataTable<ScoreOBJ>>() {
                     @Override
                     public void onSuccess(Response<DataTable<ScoreOBJ>> response) {
@@ -165,7 +166,7 @@ public class TableRequest {
 
                     @Override
                     public String convertResponse(okhttp3.Response response) throws Throwable {
-                        throw new UnsupportedOperationException();
+                        return null;// TODO: 2018/1/4  
                     }
                 });
     }
@@ -213,7 +214,7 @@ public class TableRequest {
                 .charSet("gbk")
                 .params("courseID",courseID)
                 .params("teachType",teacherType)
-                .params("studentID",Config.USER_NAME)
+                .params("studentID",ManageSetting.getStringSetting(context,Config.USER_NAME))
                 .params("yearTerm",yearTerm)
                 .params("teacher",teacherID)
                 .params("items","100,100,100,100,100,100,100,100,0,0,0,0")

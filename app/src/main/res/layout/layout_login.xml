@@ -56,6 +56,29 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/login_verificationLayout"
+        android:layout_below="@+id/login_passwordLayout"
+        android:layout_centerHorizontal="true">
+
+        <EditText
+            android:inputType="textPassword"
+            android:id="@+id/login_verification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="验证码" />
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"/>
+    </android.support.design.widget.TextInputLayout>
+
+
+
     <android.support.v7.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:gravity="center"
@@ -64,7 +87,7 @@
         android:id="@+id/login_btn_login"
         android:backgroundTint="@color/blue600"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_passwordLayout"
+        android:layout_below="@+id/login_verificationLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="19dp" />
 

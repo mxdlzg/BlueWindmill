@@ -53,6 +53,9 @@ public class Config {
     public static final String SC_INDEX_URL = "http://sc.sit.edu.cn/public/init/index.action";
     public static final String SC_ACTIVITY_LIST_URL = "http://sc.sit.edu.cn/public/activity/activityList.action";
     public static final String EMS_EVALUATE_URL = "http://ems.sit.edu.cn:85/student/EvalTeachScore.action";
+    public static final String SC_LOGIN_PASS_URL = "http://my.sit.edu.cn/userPasswordValidate.portal";
+    public static final String SC_LOGIN_SUCCESS_URL = "http://my.sit.edu.cn/loginSuccess.portal";
+    public static final String SC_LOGIN_FAIL_URL = "http://my.sit.edu.cn/loginFailure.portal";
 
     //var
     public static List<HttpParams> httpParamsList;

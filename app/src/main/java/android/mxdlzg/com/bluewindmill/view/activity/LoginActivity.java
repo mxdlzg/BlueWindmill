@@ -2,7 +2,7 @@ package android.mxdlzg.com.bluewindmill.view.activity;
 
 import android.app.ProgressDialog;
 import android.mxdlzg.com.bluewindmill.R;
-import android.mxdlzg.com.bluewindmill.model.entity.config.Config;
+import android.mxdlzg.com.bluewindmill.model.config.Config;
 import android.mxdlzg.com.bluewindmill.model.local.ManageSetting;
 import android.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import android.mxdlzg.com.bluewindmill.net.request.LoginRequest;

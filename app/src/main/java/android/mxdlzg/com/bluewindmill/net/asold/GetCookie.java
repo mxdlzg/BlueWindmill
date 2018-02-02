@@ -1,6 +1,6 @@
 package android.mxdlzg.com.bluewindmill.net.asold;
 
-import android.mxdlzg.com.bluewindmill.model.entity.config.Config;
+import android.mxdlzg.com.bluewindmill.model.config.Config;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;

@@ -1,6 +1,6 @@
 package android.mxdlzg.com.bluewindmill.net.asold;
 
-import android.mxdlzg.com.bluewindmill.model.entity.config.HttpMethod;
+import android.mxdlzg.com.bluewindmill.model.config.HttpMethod;
 
 import java.net.CookieStore;
 import java.net.HttpCookie;

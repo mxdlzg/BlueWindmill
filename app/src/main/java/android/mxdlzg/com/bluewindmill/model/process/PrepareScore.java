@@ -13,6 +13,7 @@ public class PrepareScore extends BaseProcess {
     }
 
     public static DataTable<ScoreOBJ> getScoreTable(String body){
-        throw new UnsupportedOperationException();
+//        throw new UnsupportedOperationException();
+        return null; // TODO: 2018/1/4
     }
 }
