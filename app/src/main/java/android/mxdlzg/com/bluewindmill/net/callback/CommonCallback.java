@@ -22,7 +22,9 @@ public abstract class CommonCallback<T> {
     }
 
     public void onError(String message,Context context){
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        if (context != null){
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onProgress(String status){

@@ -1,7 +1,7 @@
 package android.mxdlzg.com.bluewindmill.view;
 
 import android.app.Application;
-import android.mxdlzg.com.bluewindmill.model.entity.config.Config;
+import android.mxdlzg.com.bluewindmill.model.config.Config;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
@@ -37,7 +37,7 @@ public class WindApplication extends Application {
             //Log
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");
             //Log Level
-            loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY);
+            loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.HEADERS);
             //Log Color
             loggingInterceptor.setColorLevel(Level.INFO);
 

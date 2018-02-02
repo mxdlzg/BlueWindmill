@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/net_login"
+        android:text="Login"/>
+
+    <Button
+        android:id="@+id/net_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="score Test" />
+
+    <Button
+        android:id="@+id/net_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="point Test" />
+
+    <Button
+        android:id="@+id/net_unifiedScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="unified Score" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/net_sc_login"
+        android:text="SCLogin"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/net_sc_items"
+        android:text="SC Items"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/net_sc_detail"
+        android:text="SC Score Detail"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/net_sc_nav"
+        android:text="SC Nav"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/net_sc_ac_list"
+        android:text="SC AC List"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/net_sc_ac_detail"
+        android:text="SC AC Detail"/>
+</LinearLayout>

@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.mxdlzg.com.bluewindmill.R;
 import android.mxdlzg.com.bluewindmill.view.adapter.MainViewPagerAdapter;
 import android.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
-import android.mxdlzg.com.bluewindmill.model.entity.config.Config;
+import android.mxdlzg.com.bluewindmill.model.config.Config;
 import android.mxdlzg.com.bluewindmill.model.entity.TermOBJ;
 import android.mxdlzg.com.bluewindmill.view.fragment.MainFragment;
 import android.mxdlzg.com.bluewindmill.model.local.ManageSetting;

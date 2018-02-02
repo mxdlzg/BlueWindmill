@@ -14,11 +14,7 @@
         android:theme="@style/AppTheme">
         <activity android:name="android.mxdlzg.com.bluewindmill.view.activity.MainActivity"
             android:theme="@style/AppTheme.Launcher">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".view.activity.LoginActivity">
 
@@ -31,6 +27,14 @@
         </activity>
         <activity android:name=".view.activity.SettingActivity">
 
+        </activity>
+
+        <activity android:name=".view.activity.NetTest">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
