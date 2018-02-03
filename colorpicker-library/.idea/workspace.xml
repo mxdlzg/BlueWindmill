@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
     <shared>
       <config />
     </shared>
   </component>
+  <component name="ChangeListManager">
     <list default="true" id="cdaa7a51-e17b-4faf-b4e5-ab9f6327fd77" name="Default" comment="" />
     <ignored path="colorpicker-library.iws" />
     <ignored path=".idea/workspace.xml" />

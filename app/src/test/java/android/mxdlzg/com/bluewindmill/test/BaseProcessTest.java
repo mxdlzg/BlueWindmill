@@ -1,18 +1,14 @@
 package android.mxdlzg.com.bluewindmill.test;
 
-import android.mxdlzg.com.bluewindmill.model.entity.DataTable;
+import android.mxdlzg.com.bluewindmill.model.entity.NetResult;
 import android.mxdlzg.com.bluewindmill.model.process.BaseProcess;
 
 import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by 廷江 on 2017/12/24.
@@ -31,7 +27,7 @@ public class BaseProcessTest {
         }
         bufferedReader.close();reader.close();inputStream.close();
         line = builder.toString();
-        DataTable dataTable = BaseProcess.process(line,"成绩课程列表");
+        NetResult netResult = BaseProcess.process(line,"成绩课程列表");
 
     }
 
