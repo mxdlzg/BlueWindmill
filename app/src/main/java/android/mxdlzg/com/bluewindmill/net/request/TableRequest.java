@@ -3,13 +3,13 @@ package android.mxdlzg.com.bluewindmill.net.request;
 import android.content.Context;
 import android.mxdlzg.com.bluewindmill.model.config.Config;
 import android.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
-import android.mxdlzg.com.bluewindmill.model.entity.DataTable;
+import android.mxdlzg.com.bluewindmill.model.entity.NetResult;
 import android.mxdlzg.com.bluewindmill.model.entity.ScoreOBJ;
 import android.mxdlzg.com.bluewindmill.model.entity.UnifiedScore;
 import android.mxdlzg.com.bluewindmill.model.local.ManageSetting;
 import android.mxdlzg.com.bluewindmill.model.process.PrepareExam;
 import android.mxdlzg.com.bluewindmill.model.process.PrepareSchedule;
-import android.mxdlzg.com.bluewindmill.model.process.PrepareScore;
+import android.mxdlzg.com.bluewindmill.model.process.ScoreProcess;
 import android.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import android.widget.Toast;
 
@@ -20,7 +20,6 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.lzy.okgo.request.base.Request;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 /**
@@ -107,30 +106,30 @@ public class TableRequest {
      * @param yearTerm year
      * @param callback callback
      */
-    public static void requestScore(final Context context,String yearTerm, final CommonCallback<DataTable<ScoreOBJ>> callback){
-        OkGo.<DataTable<ScoreOBJ>>post(Config.EMS_SCORE_URL)
+    public static void requestScore(final Context context,String yearTerm, final CommonCallback<NetResult<List<ScoreOBJ>>> callback){
+        OkGo.<NetResult<List<ScoreOBJ>>>post(Config.EMS_SCORE_URL)
                 .tag(context)
                 .charSet("gbk")
                 .params("yearTerm",yearTerm)
                 .params("studentID", ManageSetting.getStringSetting(context,Config.USER_NAME))
-                .execute(new AbsCallback<DataTable<ScoreOBJ>>() {
+                .execute(new AbsCallback<NetResult<List<ScoreOBJ>>>() {
                     @Override
-                    public void onSuccess(Response<DataTable<ScoreOBJ>> response) {
+                    public void onSuccess(Response<NetResult<List<ScoreOBJ>>> response) {
                         if (callback != null){
                             callback.onSuccess(response.body());
                         }
                     }
 
                     @Override
-                    public void onError(Response<DataTable<ScoreOBJ>> response) {
+                    public void onError(Response<NetResult<List<ScoreOBJ>>> response) {
                         if (callback != null){
                             callback.onError(Config.codeConvertor(response.code()));
                         }
                     }
 
                     @Override
-                    public DataTable<ScoreOBJ> convertResponse(okhttp3.Response response) throws Throwable {
-                        return PrepareScore.getScoreTable(response.body().string());
+                    public NetResult<List<ScoreOBJ>> convertResponse(okhttp3.Response response) throws Throwable {
+                        return ScoreProcess.getScoreTable(response.body().string());
                     }
                 });
     }
@@ -142,31 +141,31 @@ public class TableRequest {
      * @param st2 end
      * @param callback callback
      */
-    public static void requestScorePoint(final Context context, String st1, String st2, final CommonCallback<String> callback){
-        OkGo.<String>post(Config.EMS_SCORE_POINT_URL)
+    public static void requestScorePoint(final Context context, String st1, String st2, final CommonCallback<NetResult<String>> callback){
+        OkGo.<NetResult<String>>post(Config.EMS_SCORE_POINT_URL)
                 .tag(context)
                 .charSet("gbk")
                 .params("srTerm",st1)
                 .params("srTerm2",st2)
                 .params("op","list")
-                .execute(new AbsCallback<String>() {
+                .execute(new AbsCallback<NetResult<String>>() {
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<NetResult<String>> response) {
                         if (callback != null){
                             callback.onSuccess(response.body());
                         }
                     }
 
                     @Override
-                    public void onError(Response<String> response) {
+                    public void onError(Response<NetResult<String>> response) {
                         if (callback !=null){
                             callback.onError(Config.codeConvertor(response.code()));
                         }
                     }
 
                     @Override
-                    public String convertResponse(okhttp3.Response response) throws Throwable {
-                        return null;// TODO: 2018/1/4  
+                    public NetResult<String> convertResponse(okhttp3.Response response) throws Throwable {
+                        return ScoreProcess.getScorePoint(response.body().toString());
                     }
                 });
     }
@@ -176,25 +175,25 @@ public class TableRequest {
      * @param context context
      * @param callback callback
      */
-    public static void requestUnifiedExamScore(final Context context, final CommonCallback<DataTable<UnifiedScore>> callback){
-        OkGo.<DataTable<UnifiedScore>>get(Config.EMS_UNIFIED_SCORE_URL)
+    public static void requestUnifiedExamScore(final Context context, final CommonCallback<NetResult<List<UnifiedScore>>> callback){
+        OkGo.<NetResult<List<UnifiedScore>>>get(Config.EMS_UNIFIED_SCORE_URL)
                 .tag(context)
-                .execute(new AbsCallback<DataTable<UnifiedScore>>() {
+                .execute(new AbsCallback<NetResult<List<UnifiedScore>>>() {
                     @Override
-                    public void onSuccess(Response<DataTable<UnifiedScore>> response) {
+                    public void onSuccess(Response<NetResult<List<UnifiedScore>>> response) {
                         if (callback != null)callback.onSuccess(response.body());
                     }
 
                     @Override
-                    public void onError(Response<DataTable<UnifiedScore>> response) {
+                    public void onError(Response<NetResult<List<UnifiedScore>>> response) {
                         if (callback !=null){
                             callback.onError(Config.codeConvertor(response.code()));
                         }
                     }
 
                     @Override
-                    public DataTable<UnifiedScore> convertResponse(okhttp3.Response response) throws Throwable {
-                        throw new UnsupportedOperationException();
+                    public NetResult<List<UnifiedScore>> convertResponse(okhttp3.Response response) throws Throwable {
+                        return ScoreProcess.getUnifiedScore(response.body().toString());
                     }
                 });
     }

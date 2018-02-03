@@ -1,8 +1,7 @@
 package android.mxdlzg.com.bluewindmill.view.activity;
 
-import android.content.Context;
 import android.mxdlzg.com.bluewindmill.R;
-import android.mxdlzg.com.bluewindmill.model.entity.DataTable;
+import android.mxdlzg.com.bluewindmill.model.entity.NetResult;
 import android.mxdlzg.com.bluewindmill.model.entity.SCActivityDetail;
 import android.mxdlzg.com.bluewindmill.model.entity.SCInfo;
 import android.mxdlzg.com.bluewindmill.model.entity.SCScoreDetail;
@@ -51,9 +50,9 @@ public class NetTest extends AppCompatActivity {
         btnScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TableRequest.requestScore(NetTest.this, "2017秋", new CommonCallback<DataTable<ScoreOBJ>>() {
+                TableRequest.requestScore(NetTest.this, "2017秋", new CommonCallback<NetResult<List<ScoreOBJ>>>() {
                     @Override
-                    public void onSuccess(DataTable<ScoreOBJ> message) {
+                    public void onSuccess(NetResult<List<ScoreOBJ>> message) {
                         Toast.makeText(NetTest.this, "score Success!", Toast.LENGTH_SHORT).show();
                     }
 
@@ -69,9 +68,9 @@ public class NetTest extends AppCompatActivity {
         findViewById(R.id.net_point).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TableRequest.requestScorePoint(NetTest.this, "2017秋", "2017秋", new CommonCallback<String>() {
+                TableRequest.requestScorePoint(NetTest.this, "2017秋", "2017秋", new CommonCallback<NetResult<String>>() {
                     @Override
-                    public void onSuccess(String message) {
+                    public void onSuccess(NetResult<String> message) {
                         Toast.makeText(NetTest.this, "success", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -81,9 +80,9 @@ public class NetTest extends AppCompatActivity {
         findViewById(R.id.net_unifiedScore).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TableRequest.requestUnifiedExamScore(NetTest.this, new CommonCallback<DataTable<UnifiedScore>>() {
+                TableRequest.requestUnifiedExamScore(NetTest.this, new CommonCallback<NetResult<List<UnifiedScore>>>() {
                     @Override
-                    public void onSuccess(DataTable<UnifiedScore> message) {
+                    public void onSuccess(NetResult<List<UnifiedScore>> message) {
                         Toast.makeText(NetTest.this, "success", Toast.LENGTH_SHORT).show();
                     }
                 });
