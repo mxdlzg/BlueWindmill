@@ -1,6 +1,9 @@
 package android.mxdlzg.com.bluewindmill.model.process;
 
-import android.mxdlzg.com.bluewindmill.model.entity.DataTable;
+import android.mxdlzg.com.bluewindmill.model.entity.Cell;
+import android.mxdlzg.com.bluewindmill.model.entity.ColumnLocation;
+import android.mxdlzg.com.bluewindmill.model.entity.NetResult;
+import android.mxdlzg.com.bluewindmill.model.entity.Table;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,22 +21,59 @@ public class BaseProcess {
         this.body = body;
     }
 
-    private DataTable processTable(String body,String identifer){
-        return process(body,identifer);
-    }
+//
+//    private NetResult processTable(String body,String identifer){
+//        return process(body,identifer);
+//    }
 
-    public static DataTable<Element> process(String body,String identifer){
-        DataTable<Element> dataTable = new DataTable<>(null);
+    public static NetResult<Element> process(String body, String identifer){
+        NetResult<Element> netResult = new NetResult<>(null);
         Document document = Jsoup.parse(body);
         Elements elements = document.select("table");
 
         for (Element table:
              elements) {
             if (table.html().contains(identifer)){
-                dataTable.addRow(table);
+                netResult.setData(table);
             }
         }
-        return dataTable;
+        return netResult;
+    }
+
+    public static Table processTable(String body,String identifer){
+        //doc
+        Document document = Jsoup.parse(body,"utf-8");
+
+        //elements
+        Elements tables = document.select(identifer);
+        Elements rows = tables.get(0).select("tr");
+        Elements cells = null;
+        Table table = null;
+
+        for (int i = 0; i < rows.size(); i++) {
+            cells = rows.get(i).select("td");
+            if (cells.size() == 0){
+                cells = rows.get(i).select("th");
+            }
+            if (table  == null){
+                if (cells.size() == 0){
+                    table = new Table(rows.size(),1);
+                }else {
+                    table = new Table(rows.size(),cells.size());
+                }
+            }
+
+            for (int j = 0; j < cells.size(); j++) {
+                //Append Col
+                if (j>=table.getColNumber()){
+                    table.addColumn(ColumnLocation.RIGHT);
+                }
+                //add row
+                table.setCell(new Cell(cells.get(j).text()),i,j);
+            }
+        }
+
+        return table;
     }
 
     public String getBody() {
