@@ -3,12 +3,8 @@ package android.mxdlzg.com.bluewindmill.model.entity;
 import com.lzy.okgo.db.ColumnEntity;
 import com.lzy.okgo.db.TableEntity;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.sql.RowSet;
 
 /**
  * Created by 廷江 on 2017/12/24.

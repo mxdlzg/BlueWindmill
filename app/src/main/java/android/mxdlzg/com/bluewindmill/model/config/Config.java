@@ -21,6 +21,8 @@ public class Config {
     public static final int CALENDAR_MAXHEIGHT = 350;
     public static final int CALENDAR_MINHEIGHT = 30;
     public static final int GET_COOKIE_ERROR = -1;
+    public static final int NET_RESULT_DEFAULT_CODE = 0;
+    public static final int NET_RESULT_DEFAULT_ERROR_CODE = -50;
 
     //cache
     public static final String NET_COOKIE_CACHE = "netCookie";
