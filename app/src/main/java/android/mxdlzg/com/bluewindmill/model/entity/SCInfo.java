@@ -10,11 +10,34 @@ public class SCInfo {
     private int itemCountPerPage;
     private int remainder;
 
+    private float[] scScore,scPresentation;
+
     public SCInfo(int totalItems, int totalPages) {
         this.totalItems = totalItems;
         this.totalPages = totalPages;
         itemCountPerPage = totalItems/totalPages;
         remainder = totalItems%totalPages;
+    }
+
+    public SCInfo(int count, int totalPages, float[] scScore, float[] scPresentation) {
+        this.totalItems = count;
+        this.totalPages = totalPages;
+        this.scPresentation = scPresentation;
+        this.scScore = scScore;
+    }
+
+    public float getScScore(int index){
+        if (scScore != null){
+            return scScore[index];
+        }
+        return 0;
+    }
+
+    public float getScPresentation(int index){
+        if (scPresentation != null){
+            return scPresentation[index];
+        }
+        return 0;
     }
 
     public int getRemainder() {
