@@ -2,6 +2,7 @@ package android.mxdlzg.com.bluewindmill.net.request;
 
 import android.content.Context;
 import android.mxdlzg.com.bluewindmill.model.config.Config;
+import android.mxdlzg.com.bluewindmill.model.entity.NetResult;
 import android.mxdlzg.com.bluewindmill.model.entity.SCActivityDetail;
 import android.mxdlzg.com.bluewindmill.model.entity.SCInfo;
 import android.mxdlzg.com.bluewindmill.model.entity.SCScoreDetail;
@@ -52,24 +53,24 @@ public class SCRequest {
      * @param pageSize total count / page
      * @param callback callback
      */
-    public static void requestSCScoreDetail(Context context, String pageNo, String pageSize, final CommonCallback<List<SCScoreDetail>> callback){
-        OkGo.<List<SCScoreDetail>>post(Config.SC_SCORE_DETAIL_URL)
+    public static void requestSCScoreDetail(Context context, String pageNo, String pageSize, final CommonCallback<NetResult<List<SCScoreDetail>>> callback){
+        OkGo.<NetResult<List<SCScoreDetail>>>post(Config.SC_SCORE_DETAIL_URL)
                 .tag(context)
                 .params("pageNo",pageNo)
                 .params("pageSize",pageSize)
-                .execute(new AbsCallback<List<SCScoreDetail>>() {
+                .execute(new AbsCallback<NetResult<List<SCScoreDetail>>>() {
                     @Override
-                    public void onSuccess(Response<List<SCScoreDetail>> response) {
+                    public void onSuccess(Response<NetResult<List<SCScoreDetail>>> response) {
                         callback.onSuccess(response.body());
                     }
 
                     @Override
-                    public void onError(Response<List<SCScoreDetail>> response) {
+                    public void onError(Response<NetResult<List<SCScoreDetail>>> response) {
                         callback.onError(response.getException().getMessage()+Config.codeConvertor(response.code()));
                     }
 
                     @Override
-                    public List<SCScoreDetail> convertResponse(okhttp3.Response response) throws Throwable {
+                    public NetResult<List<SCScoreDetail>> convertResponse(okhttp3.Response response) throws Throwable {
                         return SCBaseProcess.getScoreDetailList(response.body().string());
                     }
                 });
