@@ -1,14 +1,20 @@
 package android.mxdlzg.com.bluewindmill.model.process;
 
 import android.mxdlzg.com.bluewindmill.model.config.Config;
+import android.mxdlzg.com.bluewindmill.model.entity.Cell;
 import android.mxdlzg.com.bluewindmill.model.entity.NetResult;
 import android.mxdlzg.com.bluewindmill.model.entity.SCActivityDetail;
 import android.mxdlzg.com.bluewindmill.model.entity.SCInfo;
 import android.mxdlzg.com.bluewindmill.model.entity.SCScoreDetail;
 import android.mxdlzg.com.bluewindmill.model.entity.Table;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +25,17 @@ import javax.crypto.Mac;
  */
 
 public class SCBaseProcess extends BaseProcess{
+    public final static String[] pats = new String[]{
+            "活动编号：\\d+",
+            "活动地点：.*?(?=&nbsp)",
+            "活动时长：.*?(?=<br)",
+            "负责人：.*?(?=&nbsp)",
+            "负责人电话：.*?(?=&nbsp)",
+            "主办方：.*?(?=&nbsp)",
+            "承办方：.*?(?=&nbsp)",
+            "\\d{4}\\D+\\d{1,2}\\D+\\d{1,2}\\D+\\d{1,2}\\D\\d{1,2}\\D\\d{1,2}",
+    };
+
 
     public SCBaseProcess(String body) {
         super(body);
@@ -34,15 +51,19 @@ public class SCBaseProcess extends BaseProcess{
         Pattern totalPagesPat = Pattern.compile("\\d+(?=</span>页)");
         Pattern totalPattern = Pattern.compile("\\d+(\\.\\d+)?(?=</font)");
         Pattern detailPattern = Pattern.compile("\\d+(\\.\\d+)?(?=\\()");
+        Pattern urlsPat = Pattern.compile("categoryId=.*\\n");
 
         Matcher matcher = pattern.matcher(content);
         Matcher matcherPat = totalPagesPat.matcher(content);
         Matcher totalMatcher = totalPattern.matcher(content);
         Matcher detailMatcher = detailPattern.matcher(content);
+        Matcher urlsMatcher = urlsPat.matcher(content);
 
         int count = 0,totalPages = 0;
         float[] scScore = new float[3];
         float[] scPresentation = new float[5];
+        Map<String,String> urlKV = new HashMap<>();
+
         if (matcher.find()){
             count = Integer.parseInt(matcher.group(0));
         }
@@ -61,8 +82,15 @@ public class SCBaseProcess extends BaseProcess{
         if (matcherPat.find()){
             totalPages = Integer.parseInt(matcherPat.group(0));
         }
+        if (urlsMatcher.find()){
+            String str = null;
+            for (int i = 0; i < urlsMatcher.groupCount(); i++) {
+                str = urlsMatcher.group(i);
+                urlKV.put(str.substring(10,str.indexOf("\"")),str.substring(str.indexOf("<span>"),str.lastIndexOf("</span>")));
+            }
+        }
 
-        return new SCInfo(count,totalPages,scScore,scPresentation);
+        return new SCInfo(count,totalPages,scScore,scPresentation,urlKV);
     }
 
     /**
@@ -96,18 +124,55 @@ public class SCBaseProcess extends BaseProcess{
         return result;
     }
 
+    @Deprecated
     public static List<String> getNavigationUrls(String content) {
-        List<String> list = null;
-        // TODO: 2018/1/2  
-        return list;
+        throw new UnsupportedOperationException("此操作功能整合到SCinfo的获取中");
     }
 
+    /**
+     * @param content body
+     * @return Sc Ac Detail
+     */
     public static SCActivityDetail getActivityDetail(String content) {
-        throw new UnsupportedOperationException();
+        content = content.substring(6000);
+
+        String[] strings = new String[10];
+
+        Pattern pattern = null;Matcher matcher = null;
+        for (int i = 0; i < pats.length; i++) {
+            pattern = Pattern.compile(pats[i]);
+            matcher = pattern.matcher(content);
+            if (matcher.find()){
+                strings[i] = matcher.group(0);
+                if (i == pats.length-1){
+                    strings[i+1] = matcher.group(1);
+                    strings[i+2] = matcher.group(2);
+                }
+            }
+        }
+        return new SCActivityDetail(strings);
     }
 
     public static List<SCActivityDetail> getActivityList(String content) {
-        throw new UnsupportedOperationException();
+        //Table
+        Table table = BaseProcess.processUL(content,"ul[class=ul_7]");
+
+        //Result
+        List<SCActivityDetail> list = new ArrayList<>();
+
+        Pattern idPat = Pattern.compile("(?<=activityId=).*?(?=>)");
+
+        //IF
+        if (table != null){
+            for (int i = 0; i < table.getRowNumber(); i++) {
+                Cell cell = table.getCell(i,0);
+                Element element = Jsoup.parse(cell.getName());
+
+                list.add(new SCActivityDetail(idPat.matcher(cell.getName()).group(0),element.text(),
+                        table.getCell(i,1).getName().replace("<span>","").replace("</span>","")));
+            }
+        }
+        return list;
     }
 
 }
