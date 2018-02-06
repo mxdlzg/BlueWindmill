@@ -16,6 +16,7 @@ public class SCInfo {
     private float[] scScore,scPresentation;
     private Map<String, String> urlKV;
 
+
     public SCInfo(int totalItems, int totalPages) {
         this.totalItems = totalItems;
         this.totalPages = totalPages;
