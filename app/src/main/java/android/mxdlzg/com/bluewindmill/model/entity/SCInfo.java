@@ -1,5 +1,8 @@
 package android.mxdlzg.com.bluewindmill.model.entity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by 廷江 on 2018/1/2.
  */
@@ -11,12 +14,21 @@ public class SCInfo {
     private int remainder;
 
     private float[] scScore,scPresentation;
+    private Map<String, String> urlKV;
 
     public SCInfo(int totalItems, int totalPages) {
         this.totalItems = totalItems;
         this.totalPages = totalPages;
         itemCountPerPage = totalItems/totalPages;
         remainder = totalItems%totalPages;
+    }
+
+    public SCInfo(int count, int totalPages, float[] scScore, float[] scPresentation, Map<String, String> urlKV) {
+        this.totalItems = count;
+        this.totalPages = totalPages;
+        this.scPresentation = scPresentation;
+        this.scScore = scScore;
+        this.urlKV = urlKV;
     }
 
     public SCInfo(int count, int totalPages, float[] scScore, float[] scPresentation) {
@@ -31,6 +43,10 @@ public class SCInfo {
             return scScore[index];
         }
         return 0;
+    }
+
+    public String getUrl(String key){
+        return urlKV.get(key);
     }
 
     public float getScPresentation(int index){
