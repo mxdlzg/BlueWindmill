@@ -1,23 +1,19 @@
 package android.mxdlzg.com.bluewindmill.view.fragment;
 
 import android.animation.Animator;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.mxdlzg.com.bluewindmill.R;
 import android.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.local.ManageClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.local.ManageSetting;
-import android.mxdlzg.com.bluewindmill.view.activity.ExamActivity;
-import android.mxdlzg.com.bluewindmill.view.activity.LoginActivity;
-import android.mxdlzg.com.bluewindmill.view.activity.MainActivity;
-import android.mxdlzg.com.bluewindmill.R;
 import android.mxdlzg.com.bluewindmill.util.Util;
+import android.mxdlzg.com.bluewindmill.view.activity.MainActivity;
+import android.mxdlzg.com.bluewindmill.view.base.BaseFragment;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.percent.PercentFrameLayout;
 import android.support.percent.PercentLayoutHelper;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.view.Gravity;
@@ -25,16 +21,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
@@ -48,65 +39,31 @@ import static android.mxdlzg.com.bluewindmill.util.Util.getIncrement;
 import static android.mxdlzg.com.bluewindmill.util.Util.getStatusBarSize;
 
 /**
- * Created by 廷江 on 2017/9/13.
+ * Created by mxdlzg on 18-2-6.
  */
 
-public class MainFragment extends Fragment {
-    private RelativeLayout fragmentContainer;
-    private PercentFrameLayout scheduleParentLayout;
+public class ScheduleFragment extends BaseFragment {
+    private PercentFrameLayout scheduleParentLayout;    //container
+
 
     private Long currentId;  //当前课程表的uuid
     private int currentWeek; //当前周,1开始
     private int currentDay;
     private List<ClassOBJ> classList;
     private int selectedColor;
-
-    public void setScheduleColored(Boolean scheduleColored) {
-        this.scheduleColored = scheduleColored;
-    }
-
     private Boolean scheduleColored;
 
-    /**
-     * create a new fragment
-     *
-     * @param index index
-     * @return mainFragment
-     */
-    public static MainFragment newInstance(int index) {
-        MainFragment fragment = new MainFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("index", index);
-        fragment.setArguments(bundle);//add one bundle,will be use in onCreateView
-        return fragment;
+
+    @Override
+    protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return null;
     }
 
     @Override
-    public void setArguments(Bundle args) {
-        super.setArguments(args);
+    protected void initData() {
+
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (getArguments().getInt("index", 0) == 0) {
-            View view = inflater.inflate(R.layout.fragment_schedule, container, false);
-            initScheduleSetting(view);
-            return view;
-        } else if (getArguments().getInt("index", 0) == 2) {
-            View view = inflater.inflate(R.layout.fragment_user, container, false);
-            initUserSetting(view);
-            return view;
-        } else if (getArguments().getInt("index", 0) == 1) {
-            View view = inflater.inflate(R.layout.fragment_second_class, container, false);
-            initSecondClassSetting(view);
-            return view;
-        } else {
-            return null;
-        }
-    }
-
-    //Fragment Setting
     private void initScheduleSetting(final View view) {
         //setting
         initScheduleSetting();
@@ -140,125 +97,7 @@ public class MainFragment extends Fragment {
             ((MainActivity)getActivity()).getNiceSpinner().setSelectedIndex(currentWeek);
             prepareScheduleTable(currentWeek);
         }
-
-//        addClassItem(percentFrameLayout,"计算机网络原理@二教F205",1,1,2,R.color.green400);
-//        addClassItem(percentFrameLayout,"专业外语@一教D205",1,5,2,R.color.green600);
-//        addClassItem(percentFrameLayout,"程序设计实践与分析@奉计1（三教111）",1,7,2,R.color.blue400);
-//        addClassItem(percentFrameLayout,"软件需求分析与建模@二教E203",2,1,2,R.color.green400);
-//        addClassItem(percentFrameLayout,"JAVA应用系统设计@C104",2,5,2,R.color.blue400);
-//        addClassItem(percentFrameLayout,"专业外语@一教D205",2,7,2,R.color.green400);
-//        addClassItem(percentFrameLayout,"小机械，大机会--初识微型机械@二教F107",2,9,3,R.color.blue600);
-
     }
-
-    private void initSecondClassSetting(View view) {
-        fragmentContainer = (RelativeLayout) view.findViewById(R.id.second_class_container);
-//        final ToggleButton toggleButton = (ToggleButton) view.findViewById(R.id.toggleButton);
-//        toggleButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (toggleButton.isChecked()) {
-//                    MainActivity activity = (MainActivity) getActivity();
-//                    activity.setBottomItemTitleHide(true);
-//                } else {
-//                    MainActivity activity = (MainActivity) getActivity();
-//                    activity.setBottomItemTitleHide(false);
-//                }
-//            }
-//        });
-    }
-
-    private void initUserSetting(View view) {
-        fragmentContainer = (RelativeLayout) view.findViewById(R.id.user_container);
-        final ToggleButton toggleButton = (ToggleButton) view.findViewById(R.id.test_toggleButton2);
-        toggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (toggleButton.isChecked()) {
-                    MainActivity activity = (MainActivity) getActivity();
-                    activity.updateBottomNavigationColor(true);
-//                    activity.getBottomNavigation().hideBottomNavigation();
-                } else {
-                    MainActivity activity = (MainActivity) getActivity();
-                    activity.updateBottomNavigationColor(false);
-                }
-            }
-        });
-        ImageView userImage = (ImageView) view.findViewById(R.id.user_image);
-        userImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), LoginActivity.class));
-            }
-        });
-        Button btnExam = (Button) view.findViewById(R.id.user_btn_exam);
-        btnExam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), ExamActivity.class));
-            }
-        });
-    }
-
-
-    //Show Or Hidden
-    public void refresh() {
-        // TODO: 2017/9/13 do something when user enter this fragment
-        Toast.makeText(getActivity(), "refresh recyclerView", Toast.LENGTH_SHORT).show();
-    }
-
-    public void willBeHidden(final int nextPosition) {
-        if (fragmentContainer != null) {
-            Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
-            fragmentContainer.startAnimation(fadeOut);
-            fadeOut.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    MainActivity activity = (MainActivity) getActivity();
-                    switch (nextPosition){
-                        case 0:
-                            activity.getToolbar().setBackgroundColor(activity.getColor(R.color.blue700));
-                            activity.getNiceSpinner().setVisibility(View.VISIBLE);
-                            break;
-                        case 1:
-                            Animation fadeIns = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
-                            activity.getToolbar().startAnimation(fadeIns);
-                            activity.getToolbar().setBackgroundColor(Color.TRANSPARENT);
-                            activity.getNiceSpinner().setVisibility(View.INVISIBLE);
-                            break;
-                        case 2:
-                            Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
-                            activity.getToolbar().startAnimation(fadeIn);
-                            activity.getToolbar().setBackgroundColor(Color.TRANSPARENT);
-                            activity.getNiceSpinner().setVisibility(View.INVISIBLE);
-                            break;
-                        default:break;
-                    }
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    MainActivity activity = (MainActivity) getActivity();
-                    activity.getViewPager().setCurrentItem(nextPosition,false);
-                    activity.setMainFragment(activity.getNavigationAdapter().getCurrentFragment());
-                    activity.getMainFragment().willBeDisplay();
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-        }
-    }
-
-    public void willBeDisplay() {
-        if (fragmentContainer != null) {
-            Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
-            fragmentContainer.startAnimation(fadeIn);
-        }
-    }
-
 
     //从这里开始是schedule页面的函数
     /**
@@ -318,11 +157,6 @@ public class MainFragment extends Fragment {
         @Override
         public void onClick(View v) {
             ClassOBJ classOBJ = classList.get((Integer) v.getTag());
-//            LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.class_detial_content_view, null);
-//            ((TextView)linearLayout.findViewById(R.id.class_name)).setText("名称："+classOBJ.getName());
-//            ((TextView)linearLayout.findViewById(R.id.class_time)).setText("时间：第"+classOBJ.getIndex()+"-"+(classOBJ.getIndex()+classOBJ.getNum()-1)+"节");
-//            ((TextView)linearLayout.findViewById(R.id.class_position)).setText("地点："+classOBJ.getWeek(currentWeek));
-//            ((TextView)linearLayout.findViewById(R.id.class_other)).setText("其他："+classOBJ.getALL());
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
                     .setView(R.layout.class_detial_content_view)
@@ -532,7 +366,4 @@ public class MainFragment extends Fragment {
         prepareScheduleTable(currentWeek);
     }
 
-    public View getContainer() {
-        return null;
-    }
 }

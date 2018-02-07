@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="titles">
+        <item>讲座</item>
+        <item>志愿</item>
+        <item>三创</item>
+        <item>安全</item>
+        <item>竞赛</item>
+        <item>活动</item>
+        <item>实践</item>
+        <item>论文</item>
+    </string-array>
+
+</resources>

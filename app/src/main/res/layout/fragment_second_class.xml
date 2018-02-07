@@ -1,20 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/second_class_container"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!--android:background="#ff252e39">-->
 
+    <FrameLayout
+        android:id="@+id/second_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@drawable/scbackground" />
 
+        <View
+            android:layout_width="match_parent"
+            android:background="#473b3b3b"
+            android:layout_height="160dp"/>
+    </FrameLayout>
 
-    <ToggleButton
-        android:visibility="visible"
-        android:id="@+id/toggleButton"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:clipToPadding="true"
+        android:id="@+id/secondTabHeader"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue500"
-        android:text="ToggleButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="234dp" />
+        android:layout_marginTop="116dp"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:background="@android:color/transparent" />
+
+        <com.gigamole.navigationtabstrip.NavigationTabStrip
+            android:id="@+id/nts_center"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            app:nts_active_color="#fff"
+            app:nts_size="6pt"
+            app:nts_color="#ab00fff2"
+            app:nts_corners_radius="3.5dp"
+            app:nts_factor="0.8"
+            app:nts_gravity="bottom"
+            app:nts_inactive_color="#cdffffff"
+            app:nts_titles="@array/titles"
+            app:nts_type="point"
+            app:nts_typeface="fonts/moon.otf"
+            app:nts_weight="7dp" />
+
+    </FrameLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/second_viewPager"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/secondTabHeader" />
+
 </RelativeLayout>
