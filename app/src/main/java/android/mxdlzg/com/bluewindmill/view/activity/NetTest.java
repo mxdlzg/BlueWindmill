@@ -116,12 +116,11 @@ public class NetTest extends AppCompatActivity {
         findViewById(R.id.net_sc_detail).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SCRequest.requestSCScoreDetail(NetTest.this, "1", "20", new CommonCallback<List<SCScoreDetail>>() {
-                    @Override
-                    public void onSuccess(List<SCScoreDetail> message) {
-                        Toast.makeText(NetTest.this, "score detail success!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+//                SCRequest.requestSCScoreDetail(NetTest.this, "1", "20", new CommonCallback<List<SCScoreDetail>>() {
+//                    @Override
+//                    public void onSuccess(List<SCScoreDetail> message) {
+//                    }
+//                });
             }
         });
 

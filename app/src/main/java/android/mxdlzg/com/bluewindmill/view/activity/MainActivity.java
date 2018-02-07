@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (AHBottomNavigationViewPager) findViewById(R.id.main_viewpager);
         viewPager.setOffscreenPageLimit(4);
         navigationAdapter = new MainViewPagerAdapter(this.getSupportFragmentManager());
+        navigationAdapter.setParentActivity(this);
         viewPager.setAdapter(navigationAdapter);
         mainFragment = navigationAdapter.getCurrentFragment();
 
@@ -219,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         AHBottomNavigationItem item3 = new AHBottomNavigationItem("item3",R.drawable.ic_person_black_24dp);
 
         item1.setColor(getColor(R.color.blue900));
-        item2.setColor(getColor(R.color.green900));
+        item2.setColor(getColor(R.color.grey800));
         item3.setColor(getColor(R.color.brown900));
         bottomNavigation.setAccentColor(getColor(R.color.blue400));
         bottomNavigation.addItem(item1);
