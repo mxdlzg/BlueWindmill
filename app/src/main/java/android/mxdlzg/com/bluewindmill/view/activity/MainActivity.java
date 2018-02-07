@@ -7,8 +7,9 @@ import android.mxdlzg.com.bluewindmill.view.adapter.MainViewPagerAdapter;
 import android.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
 import android.mxdlzg.com.bluewindmill.model.config.Config;
 import android.mxdlzg.com.bluewindmill.model.entity.TermOBJ;
-import android.mxdlzg.com.bluewindmill.view.fragment.MainFragment;
+import android.mxdlzg.com.bluewindmill.view.base.BaseFragment;
 import android.mxdlzg.com.bluewindmill.model.local.ManageSetting;
+import android.mxdlzg.com.bluewindmill.view.fragment.ScheduleFragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -65,21 +66,22 @@ public class MainActivity extends AppCompatActivity {
 
     private NiceSpinner niceSpinner;
 
-    public MainFragment getMainFragment() {
+    public BaseFragment getMainFragment() {
         return mainFragment;
     }
 
-    public void setMainFragment(MainFragment mainFragment) {
+    public void setMainFragment(BaseFragment mainFragment) {
         this.mainFragment = mainFragment;
     }
 
-    private MainFragment mainFragment;
+    private BaseFragment mainFragment;
 
     //Parameter
     private Long currentId; //当前课程表的uuid
     private int currentWeek; //当前周,1开始
-
     private List<ClassOBJ> classList;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         //theme
@@ -104,28 +106,6 @@ public class MainActivity extends AppCompatActivity {
         initNiceSpinner();
     }
 
-    private void initNiceSpinner() {
-        //niceSpinner设置
-        niceSpinner = (NiceSpinner) findViewById(R.id.schedule_niceSpinner);
-        List<String> dataset = new LinkedList<>(Arrays.asList("第1周", "第2周", "第3周", "第4周", "第5周", "第6周", "第7周", "第8周", "第9周", "第10周", "第11周", "第12周", "第13周", "第14周", "第15周", "第16周", "第17周", "第18周", "第19周", "第20周"));
-        niceSpinner.attachDataSource(dataset);
-        niceSpinner.setTextColor(getColor(R.color.white));
-        niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (mainFragment == null){
-                    mainFragment = navigationAdapter.getCurrentFragment();
-                }
-                mainFragment.prepareScheduleTable(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
@@ -145,8 +125,10 @@ public class MainActivity extends AppCompatActivity {
                 if (mainFragment == null){
                     mainFragment = navigationAdapter.getCurrentFragment();
                 }
-                mainFragment.setScheduleColored(item.isChecked());
-                mainFragment.refreshSchedule();
+                if (mainFragment instanceof ScheduleFragment){
+                    ((ScheduleFragment)mainFragment).setScheduleColored(item.isChecked());
+                    ((ScheduleFragment)mainFragment).refreshSchedule();
+                }
                 break;
             case  R.id.menu_setting:
                 startActivity(new Intent(this,SettingActivity.class));
@@ -166,13 +148,39 @@ public class MainActivity extends AppCompatActivity {
                 if (mainFragment == null){
                     mainFragment = navigationAdapter.getCurrentFragment();
                 }
-                mainFragment.prepareScheduleTable(currentWeek,obj.getId());
+                if (mainFragment instanceof ScheduleFragment){
+                    ((ScheduleFragment)mainFragment).prepareScheduleTable(currentWeek,obj.getId());
+                }
                 ManageSetting.addLongSetting(this,"id",obj.getId());
                 niceSpinner.setSelectedIndex(currentWeek);
                 break;
             default:
                 break;
         }
+    }
+
+    private void initNiceSpinner() {
+        //niceSpinner设置
+        niceSpinner = (NiceSpinner) findViewById(R.id.schedule_niceSpinner);
+        List<String> dataset = new LinkedList<>(Arrays.asList("第1周", "第2周", "第3周", "第4周", "第5周", "第6周", "第7周", "第8周", "第9周", "第10周", "第11周", "第12周", "第13周", "第14周", "第15周", "第16周", "第17周", "第18周", "第19周", "第20周"));
+        niceSpinner.attachDataSource(dataset);
+        niceSpinner.setTextColor(getColor(R.color.white));
+        niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (mainFragment == null){
+                    mainFragment = navigationAdapter.getCurrentFragment();
+                }
+                if (mainFragment instanceof ScheduleFragment){
+                    ((ScheduleFragment)mainFragment).prepareScheduleTable(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void initViewPager() {
@@ -235,14 +243,8 @@ public class MainActivity extends AppCompatActivity {
                     mainFragment = navigationAdapter.getCurrentFragment();
                 }
                 if (mainFragment != null){
-                    mainFragment.willBeHidden(position);
+                    navigationAdapter.willBeHidden(position);
                 }
-//                viewPager.setCurrentItem(position,false);
-//                if (mainFragment == null){
-//                    return  true;
-//                }
-//                mainFragment = navigationAdapter.getCurrentFragment();
-//                mainFragment.willBeDisplay();
                 return true;
             }
         });

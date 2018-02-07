@@ -3,7 +3,10 @@ package android.mxdlzg.com.bluewindmill.view.adapter;
 import android.graphics.Color;
 import android.mxdlzg.com.bluewindmill.R;
 import android.mxdlzg.com.bluewindmill.view.activity.MainActivity;
-import android.mxdlzg.com.bluewindmill.view.fragment.MainFragment;
+import android.mxdlzg.com.bluewindmill.view.base.BaseFragment;
+import android.mxdlzg.com.bluewindmill.view.fragment.SCFragment;
+import android.mxdlzg.com.bluewindmill.view.fragment.ScheduleFragment;
+import android.mxdlzg.com.bluewindmill.view.fragment.UserFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -19,24 +22,23 @@ import java.util.ArrayList;
  */
 
 public class MainViewPagerAdapter extends FragmentPagerAdapter {
-    private ArrayList<MainFragment> fragments = new ArrayList<>();
-    private MainFragment currentFragment;
+    private ArrayList<BaseFragment> fragments = new ArrayList<>();
+    private BaseFragment currentFragment;
     private View currentFragmentContainer;
     private AppCompatActivity parentActivity;
     
     
     public MainViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        
+
         fragments.clear();
-        fragments.add(MainFragment.newInstance(0));
-        fragments.add(MainFragment.newInstance(1));
-        fragments.add(MainFragment.newInstance(2));
+        fragments.add(new ScheduleFragment());
+        fragments.add(new SCFragment());
+        fragments.add(new UserFragment());
     }
 
     @Override
-    public MainFragment getItem(int position) {
-        currentFragmentContainer = fragments.get(position).getContainer();
+    public BaseFragment getItem(int position) {
         return fragments.get(position);
     }
 
@@ -49,25 +51,23 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
         return fragments.size();
     }
 
-    public MainFragment getCurrentFragment(){
+    public BaseFragment getCurrentFragment(){
         return currentFragment;
     }
 
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         if (getCurrentFragment() != object){
-            currentFragment = ((MainFragment)object);
+            currentFragment = ((BaseFragment)object);
         }
         super.setPrimaryItem(container, position, object);
     }
 
-
-
     //BottomNav
     public void willBeHidden(final int nextPosition) {
-        if (currentFragmentContainer != null) {
+        if (currentFragment.getContainer() != null) {
             Animation fadeOut = AnimationUtils.loadAnimation(parentActivity, R.anim.fade_out);
-            currentFragmentContainer.startAnimation(fadeOut);
+            currentFragment.getContainer().startAnimation(fadeOut);
             fadeOut.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
@@ -98,7 +98,7 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
                     MainActivity activity = (MainActivity) parentActivity;
                     activity.getViewPager().setCurrentItem(nextPosition,false);
                     activity.setMainFragment(activity.getNavigationAdapter().getCurrentFragment());
-                    activity.getMainFragment().willBeDisplay();
+                    willBeDisplay();
                 }
 
                 @Override
@@ -110,9 +110,9 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void willBeDisplay() {
-        if (currentFragmentContainer != null) {
+        if (currentFragment.getContainer() != null) {
             Animation fadeIn = AnimationUtils.loadAnimation(parentActivity, R.anim.fade_in);
-            currentFragmentContainer.startAnimation(fadeIn);
+            currentFragment.getContainer().startAnimation(fadeIn);
         }
     }
 

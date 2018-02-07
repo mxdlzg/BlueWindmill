@@ -241,7 +241,7 @@ public class MainFragment extends Fragment {
                     MainActivity activity = (MainActivity) getActivity();
                     activity.getViewPager().setCurrentItem(nextPosition,false);
                     activity.setMainFragment(activity.getNavigationAdapter().getCurrentFragment());
-                    activity.getMainFragment().willBeDisplay();
+                    //activity.getMainFragment().willBeDisplay();
                 }
 
                 @Override

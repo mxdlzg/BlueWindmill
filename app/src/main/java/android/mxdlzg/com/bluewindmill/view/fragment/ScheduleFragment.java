@@ -56,7 +56,9 @@ public class ScheduleFragment extends BaseFragment {
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return null;
+        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
+        initScheduleSetting(view);
+        return view;
     }
 
     @Override
@@ -152,54 +154,6 @@ public class ScheduleFragment extends BaseFragment {
 
         return testView;
     }
-
-    View.OnClickListener testOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            ClassOBJ classOBJ = classList.get((Integer) v.getTag());
-
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
-                    .setView(R.layout.class_detial_content_view)
-                    .setCancelable(true)
-                    .setPositiveButton("确定", null)
-                    .setNegativeButton("取消", null);
-
-            final AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-            ((TextView) alertDialog.findViewById(R.id.class_name)).setText("名称：" + classOBJ.getName());
-            ((TextView) alertDialog.findViewById(R.id.class_time)).setText("时间：第" + classOBJ.getIndex() + "-" + (classOBJ.getIndex() + classOBJ.getNum() - 1) + "节");
-            ((TextView) alertDialog.findViewById(R.id.class_position)).setText("地点：" + classOBJ.getWeek(currentWeek));
-            ((TextView) alertDialog.findViewById(R.id.class_other)).setText("其他：" + classOBJ.getALL());
-            alertDialog.findViewById(R.id.class_edit_btn).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    alertDialog.setContentView(R.layout.class_edit_content_view);
-                    alertDialog.findViewById(R.id.color_picker_view).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            View view = alertDialog.findViewById(R.id.color_picker_view);
-                            // get the center for the clipping circle
-                            int cx = (view.getLeft() + view.getRight()) / 2;
-                            int cy = (view.getTop() + view.getBottom()) / 2;
-                            System.out.println(cx);
-                            // get the final radius for the clipping circle
-                            int dx = Math.max(cx, view.getWidth() - cx);
-                            int dy = Math.max(cy, view.getHeight() - cy);
-                            float finalRadius = (float) Math.hypot(dx, dy);
-
-                            // Android native animator
-                            Animator animator =
-                                    ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
-                            animator.setInterpolator(new AccelerateDecelerateInterpolator());
-                            animator.setDuration(1500);
-                            animator.start();
-                        }
-                    });
-                }
-            });
-
-        }
-    };
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
@@ -314,8 +268,9 @@ public class ScheduleFragment extends BaseFragment {
             scheduleParentLayout = (PercentFrameLayout) getView().findViewById(R.id.schedule_percent_layout);
             System.out.println("recreate root view");
         }
-//        scheduleParentLayout.removeAllViews();
+
         scheduleParentLayout.removeViewsInLayout(1, scheduleParentLayout.getChildCount() - 1);
+
         for (ClassOBJ obj : classList) {
             if (week < obj.getWeeks().length) {
                 if (obj.getWeek(week) != null && !obj.getWeek(week).equals("")) {
@@ -366,4 +321,7 @@ public class ScheduleFragment extends BaseFragment {
         prepareScheduleTable(currentWeek);
     }
 
+    public void setScheduleColored(Boolean scheduleColored) {
+        this.scheduleColored = scheduleColored;
+    }
 }
