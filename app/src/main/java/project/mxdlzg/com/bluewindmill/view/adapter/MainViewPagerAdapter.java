@@ -4,7 +4,7 @@ import android.graphics.Color;
 import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.view.activity.MainActivity;
 import project.mxdlzg.com.bluewindmill.view.base.BaseFragment;
-import project.mxdlzg.com.bluewindmill.view.fragment.SCFragment;
+import project.mxdlzg.com.bluewindmill.view.fragment.ScFragment;
 import project.mxdlzg.com.bluewindmill.view.fragment.ScheduleFragment;
 import project.mxdlzg.com.bluewindmill.view.fragment.UserFragment;
 import android.support.v4.app.FragmentManager;
@@ -33,7 +33,7 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
         fragments.clear();
         fragments.add(new ScheduleFragment());
-        fragments.add(new SCFragment());
+        fragments.add(new ScFragment());
         fragments.add(new UserFragment());
     }
 

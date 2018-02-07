@@ -1,12 +1,12 @@
 package project.mxdlzg.com.bluewindmill.model.process;
 
-import android.mxdlzg.com.bluewindmill.model.config.Config;
-import android.mxdlzg.com.bluewindmill.model.entity.Cell;
-import android.mxdlzg.com.bluewindmill.model.entity.NetResult;
-import android.mxdlzg.com.bluewindmill.model.entity.SCActivityDetail;
-import android.mxdlzg.com.bluewindmill.model.entity.SCInfo;
-import android.mxdlzg.com.bluewindmill.model.entity.SCScoreDetail;
-import android.mxdlzg.com.bluewindmill.model.entity.Table;
+import project.mxdlzg.com.bluewindmill.model.config.Config;
+import project.mxdlzg.com.bluewindmill.model.entity.Cell;
+import project.mxdlzg.com.bluewindmill.model.entity.NetResult;
+import project.mxdlzg.com.bluewindmill.model.entity.SCActivityDetail;
+import project.mxdlzg.com.bluewindmill.model.entity.SCInfo;
+import project.mxdlzg.com.bluewindmill.model.entity.SCScoreDetail;
+import project.mxdlzg.com.bluewindmill.model.entity.Table;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
