@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+    <android.support.v7.widget.CardView
+        app:cardElevation="@dimen/dp_4"
+        app:cardCornerRadius="@dimen/dp_4"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_height="150dp"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:background="@color/blue500"
+                android:id="@+id/sc_child_rcy_headerView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+            </View>
+            <View
+                android:id="@+id/rcy_dot_view"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="#81ffffff"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+
+            <TextView android:text="UI TestUI TestUI TestUI TestUI TestUI Test"
+                android:lines="1"
+                android:ellipsize="end"
+                android:maxEms="14"
+                android:id="@+id/sc_child_rcy_label"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_alignStart="@+id/rcy_dot_view"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+
+            <TextView
+                android:id="@+id/sc_child_rcy_WeekTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sc_child_rcy_headerView"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/rcy_dot_view"
+                android:text="TODAY"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/sc_child_rcy_Time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sc_child_rcy_WeekTime"
+                android:layout_toEndOf="@+id/rcy_dot_view"
+                android:text="TODAY"
+                android:textColor="@color/grey700"
+                android:textSize="12sp" />
+
+            <TextView
+                android:lines="2"
+                android:ellipsize="end"
+                android:id="@+id/sc_child_rcy_TitleContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sc_child_rcy_Time"
+                android:layout_below="@+id/sc_child_rcy_Time"
+                android:layout_marginStart="@dimen/dp_4"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/grey900"
+                android:textSize="14sp"
+                android:lineSpacingMultiplier="1.25"
+                android:text="党的十九大精神宣讲：建设美丽中国，实现美好生活党的十九大精神宣讲：建设美丽中国，实现美好生活" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

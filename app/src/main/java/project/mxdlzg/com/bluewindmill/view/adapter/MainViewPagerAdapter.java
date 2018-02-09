@@ -74,19 +74,17 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
                     MainActivity activity = (MainActivity) parentActivity;
                     switch (nextPosition){
                         case 0:
-                            activity.getToolbar().setBackgroundColor(activity.getColor(R.color.blue700));
-                            activity.getNiceSpinner().setVisibility(View.VISIBLE);
                             break;
                         case 1:
                             Animation fadeIns = AnimationUtils.loadAnimation(parentActivity, R.anim.fade_in);
                             activity.getToolbar().startAnimation(fadeIns);
-                            activity.getToolbar().setBackgroundColor(Color.TRANSPARENT);
+                            activity.hideToolbarColor();
                             activity.getNiceSpinner().setVisibility(View.INVISIBLE);
                             break;
                         case 2:
                             Animation fadeIn = AnimationUtils.loadAnimation(parentActivity, R.anim.fade_in);
                             activity.getToolbar().startAnimation(fadeIn);
-                            activity.getToolbar().setBackgroundColor(Color.TRANSPARENT);
+                            activity.hideToolbarColor();
                             activity.getNiceSpinner().setVisibility(View.INVISIBLE);
                             break;
                         default:break;
@@ -98,7 +96,8 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
                     MainActivity activity = (MainActivity) parentActivity;
                     activity.getViewPager().setCurrentItem(nextPosition,true);
                     activity.setMainFragment(activity.getNavigationAdapter().getCurrentFragment());
-                    willBeDisplay();
+
+                    willBeDisplay(nextPosition);
                 }
 
                 @Override
@@ -109,11 +108,32 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
         }
     }
 
-    public void willBeDisplay() {
+    public void willBeDisplay(final int postion) {
         if (currentFragment.getContainer() != null) {
             Animation fadeIn = AnimationUtils.loadAnimation(parentActivity, R.anim.fade_in);
+            fadeIn.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    if (postion == 0){
+                        MainActivity activity = (MainActivity) parentActivity;
+                        activity.showToolbarColor();
+                        activity.getNiceSpinner().setVisibility(View.VISIBLE);
+                    }
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
             currentFragment.getContainer().startAnimation(fadeIn);
         }
+
     }
 
 }

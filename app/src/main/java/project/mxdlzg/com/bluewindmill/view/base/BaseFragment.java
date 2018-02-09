@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.Unbinder;
+
 /**
  * Created by mxdlzg on 18-2-6.
  */
@@ -19,6 +21,7 @@ public abstract class BaseFragment extends Fragment {
     private boolean isVisible;                  //是否可见状态
     protected View view;
     protected View fragmentContainer;
+    protected Unbinder unbinder;
 
     @Nullable
     @Override

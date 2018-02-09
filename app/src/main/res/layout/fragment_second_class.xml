@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:contentDescription="@string/app_name"
@@ -21,48 +22,86 @@
 
         <View
             android:layout_width="match_parent"
-            android:background="#473b3b3b"
+            android:background="#182128"
             android:layout_height="160dp"/>
     </FrameLayout>
 
     <FrameLayout
-        android:clipToPadding="true"
+        android:elevation="@dimen/dp_4" tools:targetApi="LOLLIPOP"
         android:id="@+id/secondTabHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:background="@android:color/transparent"
-        android:fitsSystemWindows="true">
+        android:layout_height="120dp"
+        android:background="#ff252e39">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_gravity="center"
-            android:layout_marginTop="18dp"
-            android:background="@android:color/transparent" />
+            android:layout_marginTop="52dp"
+            android:background="#182128"/>
 
         <com.gigamole.navigationtabstrip.NavigationTabStrip
             android:id="@+id/second_nts_center"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:layout_gravity="center"
+            android:layout_marginTop="35dp"
             android:layout_marginEnd="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginStart="30dp"
             app:nts_active_color="#fff"
-            app:nts_size="6pt"
-            app:nts_color="#ab00fff2"
+            app:nts_color="#3cdedd"
             app:nts_corners_radius="3.5dp"
             app:nts_factor="0.8"
             app:nts_gravity="bottom"
-            app:nts_inactive_color="#cdffffff"
+            app:nts_inactive_color="#81ffffff"
             app:nts_titles="@array/titles"
             app:nts_type="point"
             app:nts_typeface="fonts/moon.otf"
-            app:nts_weight="7dp" />
+            app:nts_weight="7dp"/>
 
     </FrameLayout>
+
+    <!--<FrameLayout-->
+        <!--android:elevation="@dimen/dp_4" tools:targetApi="LOLLIPOP"-->
+        <!--android:clipToPadding="true"-->
+        <!--android:id="@+id/secondTabHeader"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="116dp"-->
+        <!--android:background="@android:color/transparent"-->
+        <!--android:fitsSystemWindows="true">-->
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="4dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginTop="18dp"-->
+            <!--android:background="#182128" />-->
+
+        <!--<com.gigamole.navigationtabstrip.NavigationTabStrip-->
+            <!--android:id="@+id/second_nts_center"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="42dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginEnd="30dp"-->
+            <!--android:layout_marginLeft="30dp"-->
+            <!--android:layout_marginRight="30dp"-->
+            <!--android:layout_marginStart="30dp"-->
+            <!--app:nts_active_color="#fff"-->
+            <!--app:nts_size="6pt"-->
+            <!--app:nts_color="#3cdedd"-->
+            <!--app:nts_corners_radius="3.5dp"-->
+            <!--app:nts_factor="0.8"-->
+            <!--app:nts_gravity="bottom"-->
+            <!--app:nts_inactive_color="#cdffffff"-->
+            <!--app:nts_titles="@array/titles"-->
+            <!--app:nts_type="point"-->
+            <!--app:nts_typeface="fonts/moon.otf"-->
+            <!--app:nts_weight="7dp" />-->
+
+    <!--</FrameLayout>-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/second_viewPager"

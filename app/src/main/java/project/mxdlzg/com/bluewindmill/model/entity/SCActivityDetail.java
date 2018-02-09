@@ -1,5 +1,10 @@
 package project.mxdlzg.com.bluewindmill.model.entity;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import project.mxdlzg.com.bluewindmill.util.Util;
+
 /**
  * Created by 廷江 on 2018/1/3.
  */
@@ -9,10 +14,25 @@ public class SCActivityDetail {
     private String location,timeSpan,manager,managerPhone,host,organizer;
     private String startTime,cardStart,cardEnd;
 
+    private StringBuilder label = new StringBuilder();
+    private String weekTime;
+
+    private static Pattern pattern = Pattern.compile("【.*?】");
+
     public SCActivityDetail(String id, String title, String time) {
         this.id = id;
         this.title = title;
         this.time = time;
+
+        Matcher matcher = pattern.matcher(title);
+        if (matcher.find()){
+
+            for (int i = 0; i < matcher.groupCount(); i++) {
+                label.append(matcher.group(i));
+                this.title = title.replace(matcher.group(i),"");
+            }
+        }
+        weekTime = Util.getWeekTime(time);
     }
 
     public SCActivityDetail(String[] strings) {
@@ -86,5 +106,13 @@ public class SCActivityDetail {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getLabel() {
+        return label.toString();
+    }
+
+    public String getWeekTime() {
+        return weekTime;
     }
 }

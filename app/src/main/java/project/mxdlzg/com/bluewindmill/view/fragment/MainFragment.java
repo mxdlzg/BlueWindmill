@@ -74,7 +74,7 @@ public class MainFragment extends Fragment {
         MainFragment fragment = new MainFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("index", index);
-        fragment.setArguments(bundle);//add one bundle,will be use in onCreateView
+        fragment.setArguments(bundle);//add one bundle,will be used in onCreateView
         return fragment;
     }
 

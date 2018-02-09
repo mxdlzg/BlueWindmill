@@ -1,9 +1,16 @@
 package project.mxdlzg.com.bluewindmill.util;
 
 import android.content.Context;
+import android.text.format.DateUtils;
+
 import project.mxdlzg.com.bluewindmill.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
 
@@ -12,6 +19,9 @@ import java.util.TimeZone;
  */
 
 public class Util {
+    public static SimpleDateFormat format;
+
+
     /**
      * @param context context
      * @return height of statusbar
@@ -101,5 +111,22 @@ public class Util {
                 break;
         }
         return color;
+    }
+
+    public static String getWeekTime(String time) {
+        if (format == null){
+            format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        }
+        try {
+            Date date = format.parse(time);
+            if (DateUtils.isToday(date.getTime())){
+                return "今天";
+            }else {
+                return DateUtils.getDayOfWeekString(Calendar.MONDAY,DateUtils.LENGTH_MEDIUM);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

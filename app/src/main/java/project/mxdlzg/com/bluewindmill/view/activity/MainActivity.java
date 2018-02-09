@@ -2,6 +2,9 @@ package project.mxdlzg.com.bluewindmill.view.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.view.adapter.MainViewPagerAdapter;
 import project.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
@@ -21,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -90,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         //create
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main);
+        ButterKnife.bind(this);
 
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
@@ -98,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
-        toolbar.setOverflowIcon(getDrawable(R.drawable.ic_more_horiz_black_24dp));
+        toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
+        toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_horiz_black_24dp));
 
         //init widgets
         initBottomNavigation();
@@ -164,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         niceSpinner = (NiceSpinner) findViewById(R.id.schedule_niceSpinner);
         List<String> dataset = new LinkedList<>(Arrays.asList("第1周", "第2周", "第3周", "第4周", "第5周", "第6周", "第7周", "第8周", "第9周", "第10周", "第11周", "第12周", "第13周", "第14周", "第15周", "第16周", "第17周", "第18周", "第19周", "第20周"));
         niceSpinner.attachDataSource(dataset);
-        niceSpinner.setTextColor(getColor(R.color.white));
+        niceSpinner.setTextColor(getResources().getColor(R.color.white));
         niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -227,10 +233,10 @@ public class MainActivity extends AppCompatActivity {
         AHBottomNavigationItem item2 = new AHBottomNavigationItem("item2",R.drawable.ic_toys_black_24dp);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem("item3",R.drawable.ic_person_black_24dp);
 
-        item1.setColor(getColor(R.color.blue900));
-        item2.setColor(getColor(R.color.grey800));
-        item3.setColor(getColor(R.color.brown900));
-        bottomNavigation.setAccentColor(getColor(R.color.blue400));
+        item1.setColor(getResources().getColor(R.color.blue900));
+        item2.setColor(getResources().getColor(R.color.grey800));
+        item3.setColor(getResources().getColor(R.color.brown900));
+        bottomNavigation.setAccentColor(getResources().getColor(R.color.blue400));
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
@@ -248,6 +254,24 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+
+    public void hideToolbarColor(){
+        toolbar.setBackgroundColor(Color.TRANSPARENT);
+    }
+
+    public void showToolbarColor(){
+        toolbar.setBackgroundColor(getResources().getColor(R.color.blue700));
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     public void updateBottomNavigationColor(boolean isColored){
