@@ -18,18 +18,20 @@ public class SCActivityDetail {
     private String weekTime;
 
     private static Pattern pattern = Pattern.compile("【.*?】");
+    private static String[] colors = new String[]{"#18B781","2799E8","#8264BA","#797B7C"};
 
     public SCActivityDetail(String id, String title, String time) {
         this.id = id;
         this.title = title;
         this.time = time;
 
+        int i = 0;
         Matcher matcher = pattern.matcher(title);
-        if (matcher.find()){
-
-            for (int i = 0; i < matcher.groupCount(); i++) {
-                label.append(matcher.group(i));
-                this.title = title.replace(matcher.group(i),"");
+        while (matcher.find()){
+            label.append("<font color='").append(colors[i]).append("'>").append(matcher.group()).append("</font>");
+            this.title = title.replace(matcher.group(),"");
+            if (i++ == colors.length){
+                i = 0;
             }
         }
         weekTime = Util.getWeekTime(time);
@@ -109,6 +111,7 @@ public class SCActivityDetail {
     }
 
     public String getLabel() {
+
         return label.toString();
     }
 

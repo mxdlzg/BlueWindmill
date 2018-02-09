@@ -15,6 +15,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +33,20 @@ public class ScDetailFragment extends BaseFragment {
     RecyclerView recyclerView;
 
     private List<SCActivityDetail> list;
+    private ScRcyAdapter adapter;
+
+    private BaseQuickAdapter.RequestLoadMoreListener requestLoadMoreListener = new BaseQuickAdapter.RequestLoadMoreListener() {
+        @Override
+        public void onLoadMoreRequested() {
+            recyclerView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.loadMoreFail();
+                    Toast.makeText(getContext(), "Load more!!!", Toast.LENGTH_SHORT).show();
+                }
+            },500);
+        }
+    };
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +57,7 @@ public class ScDetailFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this,view);
 
         list = new LinkedList<>();
-        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+        list.add(new SCActivityDetail("111","【天天讲】【生态天天讲】野趣魔都——野生动植物保护二三事","2018-02-08 13:44:57"));
         list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
         list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
         list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
@@ -49,9 +66,14 @@ public class ScDetailFragment extends BaseFragment {
         list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
         list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
 
+        //Adapter
+        adapter = new ScRcyAdapter(list,getContext());
         //recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.setAdapter(new ScRcyAdapter(list));
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnLoadMoreListener(requestLoadMoreListener,recyclerView);
+        adapter.disableLoadMoreIfNotFullPage(recyclerView);
 
         //Return
         return view;
