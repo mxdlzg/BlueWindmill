@@ -7,6 +7,7 @@
     android:clickable="true"
     android:layout_marginTop="2dp"
     android:focusable="true"
+    android:transitionName="@string/sc_rcy_item_2_scDtl"
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="@dimen/dp_4"
     app:cardElevation="@dimen/dp_4">

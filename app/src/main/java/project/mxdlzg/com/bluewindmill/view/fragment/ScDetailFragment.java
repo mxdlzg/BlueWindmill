@@ -5,8 +5,13 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.model.entity.SCActivityDetail;
+import project.mxdlzg.com.bluewindmill.view.activity.ScDetailActivity;
 import project.mxdlzg.com.bluewindmill.view.adapter.ScRcyAdapter;
 import project.mxdlzg.com.bluewindmill.view.base.BaseFragment;
+
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -74,6 +79,17 @@ public class ScDetailFragment extends BaseFragment {
 
         adapter.setOnLoadMoreListener(requestLoadMoreListener,recyclerView);
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getContext().startActivity(new Intent(getContext(), ScDetailActivity.class),
+                            ActivityOptions.makeSceneTransitionAnimation(getActivity(),view,getString(R.string.sc_rcy_item_2_scDtl)).toBundle());
+                }else {
+                    getContext().startActivity(new Intent(getContext(), ScDetailActivity.class));
+                }
+            }
+        });
 
         //Return
         return view;

@@ -11,7 +11,7 @@ import project.mxdlzg.com.bluewindmill.util.Util;
 
 public class SCActivityDetail {
     private String id,title,time;
-    private String location,timeSpan,manager,managerPhone,host,organizer;
+    private String location,timeSpan,manager,managerPhone,host,organizer,content;
     private String startTime,cardStart,cardEnd;
 
     private StringBuilder label = new StringBuilder();
@@ -38,17 +38,20 @@ public class SCActivityDetail {
     }
 
     public SCActivityDetail(String[] strings) {
-        this.id = strings[0];
-        this.location = strings[1];
-        this.timeSpan = strings[2];
-        this.manager = strings[3];
-        this.managerPhone = strings[4];
-        this.host = strings[5];
-        this.organizer = strings[6];
-        this.startTime = strings[7];
-        this.cardStart = strings[8];
-        this.cardEnd = strings[9];
+        this.content = strings[0];
+        this.id = strings[1];
+        this.location = strings[2];
+        this.timeSpan = strings[3];
+        this.manager = strings[4];
+        this.managerPhone = strings[5];
+        this.host = strings[6];
+        this.organizer = strings[7];
+        this.startTime = strings[8];
+        this.cardStart = strings[9];
+        this.cardEnd = strings[10];
     }
+
+    public String getContent() {return content;}
 
     public String getLocation() {
         return location;

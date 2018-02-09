@@ -9,7 +9,9 @@ import project.mxdlzg.com.bluewindmill.model.entity.SCScoreDetail;
 import project.mxdlzg.com.bluewindmill.model.entity.Table;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -134,10 +136,16 @@ public class SCBaseProcess extends BaseProcess{
     public static SCActivityDetail getActivityDetail(String content) {
         content = content.substring(6000);
 
-        String[] strings = new String[10];
+        String[] strings = new String[11];
+
+        Document document = Jsoup.parse(content);
+        Elements element = document.select("div[style=padding:30px 50px; font-size:14px;]");
+        if (null != element.get(0)){
+            strings[0] = element.get(0).text();
+        }
 
         Pattern pattern = null;Matcher matcher = null;
-        for (int i = 0; i < pats.length; i++) {
+        for (int i = 1; i < pats.length; i++) {
             pattern = Pattern.compile(pats[i]);
             matcher = pattern.matcher(content);
             if (matcher.find()){

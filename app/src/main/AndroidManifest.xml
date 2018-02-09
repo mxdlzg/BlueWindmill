@@ -36,6 +36,9 @@
         <activity android:name="project.mxdlzg.com.bluewindmill.view.activity.NetTest">
 
         </activity>
+        <activity android:name=".view.activity.ScDetailActivity">
+
+        </activity>
     </application>
 
 </manifest>

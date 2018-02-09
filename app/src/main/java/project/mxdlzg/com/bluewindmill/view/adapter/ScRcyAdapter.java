@@ -1,6 +1,8 @@
 package project.mxdlzg.com.bluewindmill.view.adapter;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.model.entity.SCActivityDetail;
+import project.mxdlzg.com.bluewindmill.view.activity.ScDetailActivity;
 
 /**
  * Created by mxdlzg on 18-2-8.
@@ -28,12 +31,7 @@ public class ScRcyAdapter extends BaseQuickAdapter<SCActivityDetail,BaseViewHold
         this.isFirstOnly(false);
         this.context = context;
 
-        this.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(context, "onItemClick" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
 
