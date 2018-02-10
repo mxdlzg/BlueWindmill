@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
 import butterknife.BindView;
+import project.mxdlzg.com.bluewindmill.view.widgets.ViewPagerCustomDuration;
 
 /**
  * Created by mxdlzg on 18-2-6.
@@ -22,7 +23,7 @@ import butterknife.BindView;
 
 public class ScFragment extends BaseFragment {
     @BindView(R.id.second_viewPager)
-    public ViewPager viewPager;
+    public ViewPagerCustomDuration viewPager;
     @BindView(R.id.second_nts_center)
     public NavigationTabStrip navigationTabStrip;
 
@@ -57,6 +58,7 @@ public class ScFragment extends BaseFragment {
         viewPager.setOffscreenPageLimit(10);
         viewPagerAdapter = new ScViewPagerAdapter(this.getChildFragmentManager(),this.getContext());
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setScrollDurationFactor(0.5);
 
         //Tab
         navigationTabStrip.setViewPager(viewPager,0);

@@ -33,7 +33,7 @@ public class ScDetailActivity extends AppCompatActivity {
                 findViewById(R.id.sc_dtl_progressBar).setVisibility(View.GONE);
                 findViewById(R.id.relativeLayout2).setVisibility(View.VISIBLE);
             }
-        },2000);
+        },1000);
 
 
     }
@@ -50,7 +50,7 @@ public class ScDetailActivity extends AppCompatActivity {
                         btnApply.setText("√");
                     }
                 });
-                //Toast.makeText(getApplicationContext(), "Click", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Click", Toast.LENGTH_SHORT).show();
             }
         },1000);
     }
