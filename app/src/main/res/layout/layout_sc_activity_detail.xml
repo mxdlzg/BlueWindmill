@@ -114,24 +114,30 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
             android:foregroundGravity="center"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/relativeLayout2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="visible">
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/appCompatButton"
+            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                android:id="@+id/sc_dtl_btnApply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView4"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
+                android:background="@drawable/circle_btn_shape"
                 android:backgroundTint="@color/blue700"
                 android:text="申请"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                app:finalCornerAngle="30dp"
+                app:initialCornerAngle="30dp"
+                app:spinning_bar_color="#FFF"
+                app:spinning_bar_padding="15dp"
+                app:spinning_bar_width="2dp" />
 
             <TextView
                 android:id="@+id/textView4"

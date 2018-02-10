@@ -29,7 +29,7 @@ public class SCActivityDetail {
         Matcher matcher = pattern.matcher(title);
         while (matcher.find()){
             label.append("<font color='").append(colors[i]).append("'>").append(matcher.group()).append("</font>");
-            this.title = title.replace(matcher.group(),"");
+            this.title = this.title.replace(matcher.group(),"");
             if (i++ == colors.length){
                 i = 0;
             }

@@ -1,7 +1,9 @@
 package project.mxdlzg.com.bluewindmill.util;
 
 import android.content.Context;
+import android.text.SpannableString;
 import android.text.format.DateUtils;
+import android.text.style.LeadingMarginSpan;
 
 import project.mxdlzg.com.bluewindmill.R;
 
@@ -128,5 +130,11 @@ public class Util {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static SpannableString createIndentedText(String text, int marginFirstLine, int marginNextLines) {
+        SpannableString result=new SpannableString(text);
+        result.setSpan(new LeadingMarginSpan.Standard(marginFirstLine, marginNextLines),0,text.length(),0);
+        return result;
     }
 }
