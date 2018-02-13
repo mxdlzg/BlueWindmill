@@ -39,14 +39,15 @@ import java.util.List;
 
 public class ScDetailFragment extends BaseFragment {
     @BindView(R.id.second_child_swipeLayout)
-    SmartRefreshLayout smartRefreshLayout;
+    SmartRefreshLayout smartRefreshLayout;  //header refreshLayout
     @BindView(R.id.second_child_recyclerView)
-    RecyclerView recyclerView;
+    RecyclerView recyclerView;              //rcyView
 
-    private List<SCActivityDetail> list;
-    private ScRcyAdapter adapter;
-    private EmptyView emptyView;
+    private List<SCActivityDetail> list;    //Data List
+    private ScRcyAdapter adapter;           //Data Adapter
+    private EmptyView emptyView;            //rcyEmptyView
 
+    /*footer loadmore listener*/
     private BaseQuickAdapter.RequestLoadMoreListener requestLoadMoreListener = new BaseQuickAdapter.RequestLoadMoreListener() {
         @Override
         public void onLoadMoreRequested() {
@@ -64,6 +65,7 @@ public class ScDetailFragment extends BaseFragment {
         }
     };
 
+    /*rcy item click listener*/
     private BaseQuickAdapter.OnItemClickListener onItemClickListener = new BaseQuickAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -76,6 +78,7 @@ public class ScDetailFragment extends BaseFragment {
         }
     };
 
+    /*REFRESH-1 header refresh listener*/
     private OnRefreshListener OnRefreshListener = new OnRefreshListener() {
         @Override
         public void onRefresh(final RefreshLayout refreshLayout) {
@@ -83,6 +86,7 @@ public class ScDetailFragment extends BaseFragment {
         }
     };
 
+    //REFRESH-2 empty refresh listener
     private View.OnClickListener emptyOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -90,7 +94,12 @@ public class ScDetailFragment extends BaseFragment {
         }
     };
 
+    /**
+     * Do request data in this method
+     * @param refreshLayout refreshLayout
+     */
     private void refreshData(RefreshLayout refreshLayout){
+        //request data
         if (list == null){list = new LinkedList<>();}
         list.add(new SCActivityDetail("111","【天天讲】【生态天天讲】野趣魔都——野生动植物保护二三事","2018-02-08 13:44:57"));
         list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
@@ -101,9 +110,15 @@ public class ScDetailFragment extends BaseFragment {
         list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
         list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
 
+        //commit change
         finishRefresh(list,refreshLayout);
     }
 
+    /**
+     * finish Refresh
+     * @param list newList OR append Data
+     * @param refreshLayout header refreshlayout
+     */
     private void finishRefresh(List<SCActivityDetail> list,RefreshLayout refreshLayout){
         adapter.setNewData(list);
         if (refreshLayout != null){
@@ -146,9 +161,6 @@ public class ScDetailFragment extends BaseFragment {
 
         //Smart Swipe
         smartRefreshLayout.setOnRefreshListener(OnRefreshListener);
-
-        //Init & Show Data
-        //refreshData(null);
     }
 
     @Override
@@ -157,17 +169,4 @@ public class ScDetailFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @Override
-    protected void onShow() {
-        Context context = getContext();
-        if (context != null)
-        Toast.makeText(getContext(), "Show", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onHide() {
-        Context context = getContext();
-        if (context != null)
-        Toast.makeText(getContext(), "Hide", Toast.LENGTH_SHORT).show();
-    }
 }
