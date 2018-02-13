@@ -23,6 +23,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +36,7 @@ import java.util.List;
 
 public class ScDetailFragment extends BaseFragment {
     @BindView(R.id.second_child_swipeLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
+    SmartRefreshLayout smartRefreshLayout;
     @BindView(R.id.second_child_recyclerView)
     RecyclerView recyclerView;
 
@@ -46,12 +49,36 @@ public class ScDetailFragment extends BaseFragment {
             recyclerView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    adapter.loadMoreFail();
+                    list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+                    list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+                    list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+                    list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+                    adapter.loadMoreComplete();
                     Toast.makeText(getContext(), "Load more!!!", Toast.LENGTH_SHORT).show();
                 }
             },500);
         }
     };
+
+    private OnRefreshListener OnRefreshListener = new OnRefreshListener() {
+        @Override
+        public void onRefresh(final RefreshLayout refreshLayout) {
+            list.clear();
+            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+            finishRefresh(refreshLayout);
+        }
+    };
+
+    private void finishRefresh(RefreshLayout refreshLayout){
+        refreshLayout.finishRefresh(true);
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,6 +106,7 @@ public class ScDetailFragment extends BaseFragment {
 
         adapter.setOnLoadMoreListener(requestLoadMoreListener,recyclerView);
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
+        adapter.setEmptyView(inflater.inflate(R.layout.rcy_empty_view,container,false));
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -90,6 +118,9 @@ public class ScDetailFragment extends BaseFragment {
                 }
             }
         });
+
+        //Smart Swipe
+        smartRefreshLayout.setOnRefreshListener(OnRefreshListener);
 
         //Return
         return view;

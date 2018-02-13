@@ -75,4 +75,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.35'
-    compile 'br.com.simplepass:loading-button-android:1.12.1'}
+    compile 'br.com.simplepass:loading-button-android:1.12.1'
+    compile 'com.airbnb.android:lottie:2.5.0-rc1'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+}

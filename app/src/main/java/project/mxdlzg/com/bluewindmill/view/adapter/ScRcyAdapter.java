@@ -30,8 +30,6 @@ public class ScRcyAdapter extends BaseQuickAdapter<SCActivityDetail,BaseViewHold
         this.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         this.isFirstOnly(false);
         this.context = context;
-
-
     }
 
 

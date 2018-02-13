@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 /**
  * Created by mxdlzg on 18-2-7.
  */

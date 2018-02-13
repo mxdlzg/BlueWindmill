@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/user_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -52,5 +54,14 @@
         android:layout_below="@+id/test_toggleButton2"
         android:layout_marginTop="14dp"
         android:text="考试安排" />
+
+
+    <!--<com.airbnb.lottie.LottieAnimationView-->
+        <!--android:id="@+id/test_Animation"-->
+        <!--android:elevation="@dimen/dp_4" tools:targetApi="LOLLIPOP"-->
+        <!--android:layout_marginTop="300dp"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--/>-->
 
 </RelativeLayout>
