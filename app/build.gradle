@@ -78,4 +78,5 @@ dependencies {
     compile 'br.com.simplepass:loading-button-android:1.12.1'
     compile 'com.airbnb.android:lottie:2.5.0-rc1'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    compile 'com.github.santalu:emptyview:1.0.5'
 }

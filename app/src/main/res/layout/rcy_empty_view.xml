@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.santalu.emptyview.EmptyView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_centerInParent="true"
-    android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <!--<com.airbnb.lottie.LottieAnimationView-->
-        <!--android:id="@+id/test_Animation"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:elevation="@dimen/dp_4" tools:targetApi="LOLLIPOP"-->
-        <!--android:layout_width="50dp"-->
-        <!--android:layout_height="50dp"-->
-        <!--app:lottie_fileName="Loading.json"-->
-        <!--app:lottie_loop="true"-->
-        <!--app:lottie_autoPlay="true"-->
-        <!--/>-->
-
-    <TextView
-        android:text="下拉刷新"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-</LinearLayout>
+    android:id="@+id/sc_rcy_emptyView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:emptyAnimateLayoutChanges="true"
+    app:emptyButtonText="@string/try_again"
+    app:emptyButtonTextColor="@color/colorPrimaryDark"
+    app:emptyDrawable="@drawable/ic_sentiment_dissatisfied"
+    app:emptyDrawableTint="@color/colorPrimary"
+    app:emptyGravity="center"
+    app:errorBackgroundColor="@color/red700"
+    app:errorButtonBackgroundColor="@color/white"
+    app:errorButtonText="@string/try_again"
+    app:errorButtonTextColor="@color/black"
+    app:errorDrawable="@drawable/ic_sentiment_very_dissatisfied"
+    app:errorDrawableTint="@color/white"
+    app:errorText="@string/emptyview_error_unknown"
+    app:errorTextColor="@color/white"
+    app:loadingDrawable="@drawable/ic_sentiment_satisfied"
+    app:loadingStyle="circular"
+    app:loadingText="@string/emptyview_loading"
+    app:loadingTint="@color/colorPrimary">
+</com.santalu.emptyview.EmptyView>

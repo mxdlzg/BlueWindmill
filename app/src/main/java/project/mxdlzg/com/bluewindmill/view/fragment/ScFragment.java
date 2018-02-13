@@ -6,6 +6,7 @@ import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.view.adapter.ScViewPagerAdapter;
 import project.mxdlzg.com.bluewindmill.view.base.BaseFragment;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,13 +50,14 @@ public class ScFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        viewPagerAdapter.getItem(0).setUserVisibleHint(true);
     }
 
     private void initSecondClass(View view) {
         fragmentContainer = (RelativeLayout) view.findViewById(R.id.second_class_container);
 
         //View Pager
-        viewPager.setOffscreenPageLimit(10);
+        viewPager.setOffscreenPageLimit(2);
         viewPagerAdapter = new ScViewPagerAdapter(this.getChildFragmentManager(),this.getContext());
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setScrollDurationFactor(0.5);

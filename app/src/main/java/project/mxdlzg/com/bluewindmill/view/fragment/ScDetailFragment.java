@@ -10,6 +10,7 @@ import project.mxdlzg.com.bluewindmill.view.adapter.ScRcyAdapter;
 import project.mxdlzg.com.bluewindmill.view.base.BaseFragment;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,12 +18,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.santalu.emptyview.EmptyView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -42,6 +45,7 @@ public class ScDetailFragment extends BaseFragment {
 
     private List<SCActivityDetail> list;
     private ScRcyAdapter adapter;
+    private EmptyView emptyView;
 
     private BaseQuickAdapter.RequestLoadMoreListener requestLoadMoreListener = new BaseQuickAdapter.RequestLoadMoreListener() {
         @Override
@@ -60,35 +64,34 @@ public class ScDetailFragment extends BaseFragment {
         }
     };
 
-    private OnRefreshListener OnRefreshListener = new OnRefreshListener() {
+    private BaseQuickAdapter.OnItemClickListener onItemClickListener = new BaseQuickAdapter.OnItemClickListener() {
         @Override
-        public void onRefresh(final RefreshLayout refreshLayout) {
-            list.clear();
-            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-            list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-            finishRefresh(refreshLayout);
+        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getContext().startActivity(new Intent(getContext(), ScDetailActivity.class),
+                        ActivityOptions.makeSceneTransitionAnimation(getActivity(),view,getString(R.string.sc_rcy_item_2_scDtl)).toBundle());
+            }else {
+                getContext().startActivity(new Intent(getContext(), ScDetailActivity.class));
+            }
         }
     };
 
-    private void finishRefresh(RefreshLayout refreshLayout){
-        refreshLayout.finishRefresh(true);
-        adapter.notifyDataSetChanged();
-    }
+    private OnRefreshListener OnRefreshListener = new OnRefreshListener() {
+        @Override
+        public void onRefresh(final RefreshLayout refreshLayout) {
+            refreshData(refreshLayout);
+        }
+    };
 
-    @Override
-    protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //View
-        View view = inflater.inflate(R.layout.fragment_second_child,container,false);
+    private View.OnClickListener emptyOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            refreshData(null);
+        }
+    };
 
-        //Bind
-        unbinder = ButterKnife.bind(this,view);
-
-        list = new LinkedList<>();
+    private void refreshData(RefreshLayout refreshLayout){
+        if (list == null){list = new LinkedList<>();}
         list.add(new SCActivityDetail("111","【天天讲】【生态天天讲】野趣魔都——野生动植物保护二三事","2018-02-08 13:44:57"));
         list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
         list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
@@ -98,29 +101,24 @@ public class ScDetailFragment extends BaseFragment {
         list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
         list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
 
-        //Adapter
-        adapter = new ScRcyAdapter(list,getContext());
-        //recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.setAdapter(adapter);
+        finishRefresh(list,refreshLayout);
+    }
 
-        adapter.setOnLoadMoreListener(requestLoadMoreListener,recyclerView);
-        adapter.disableLoadMoreIfNotFullPage(recyclerView);
-        adapter.setEmptyView(inflater.inflate(R.layout.rcy_empty_view,container,false));
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    getContext().startActivity(new Intent(getContext(), ScDetailActivity.class),
-                            ActivityOptions.makeSceneTransitionAnimation(getActivity(),view,getString(R.string.sc_rcy_item_2_scDtl)).toBundle());
-                }else {
-                    getContext().startActivity(new Intent(getContext(), ScDetailActivity.class));
-                }
-            }
-        });
+    private void finishRefresh(List<SCActivityDetail> list,RefreshLayout refreshLayout){
+        adapter.setNewData(list);
+        if (refreshLayout != null){
+            refreshLayout.finishRefresh(true);
+        }
+    }
 
-        //Smart Swipe
-        smartRefreshLayout.setOnRefreshListener(OnRefreshListener);
+    @Override
+    protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //View
+        View view = inflater.inflate(R.layout.fragment_second_child,container,false);
+        emptyView = (EmptyView) inflater.inflate(R.layout.rcy_empty_view,container,false);
+
+        //Bind
+        unbinder = ButterKnife.bind(this,view);
 
         //Return
         return view;
@@ -128,12 +126,48 @@ public class ScDetailFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        //Data List
 
+        //EmptyView
+        emptyView.setOnClickListener(emptyOnClickListener);
+        emptyView.showEmpty("点击重试或下拉刷新！");
+        Log.e("dtlFragment","emptyView");
+
+        //Adapter & Recyclerview
+        adapter = new ScRcyAdapter(null,getContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerView.setAdapter(adapter);
+
+        //Adapter
+        adapter.setOnLoadMoreListener(requestLoadMoreListener,recyclerView);
+        adapter.disableLoadMoreIfNotFullPage(recyclerView);
+        adapter.setEmptyView(emptyView);
+        adapter.setOnItemClickListener(onItemClickListener);
+
+        //Smart Swipe
+        smartRefreshLayout.setOnRefreshListener(OnRefreshListener);
+
+        //Init & Show Data
+        //refreshData(null);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    protected void onShow() {
+        Context context = getContext();
+        if (context != null)
+        Toast.makeText(getContext(), "Show", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onHide() {
+        Context context = getContext();
+        if (context != null)
+        Toast.makeText(getContext(), "Hide", Toast.LENGTH_SHORT).show();
     }
 }
