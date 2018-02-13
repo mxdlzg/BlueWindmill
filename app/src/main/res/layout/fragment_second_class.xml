@@ -53,15 +53,15 @@
             android:layout_marginRight="30dp"
             android:layout_marginStart="30dp"
             app:nts_active_color="#fff"
-            app:nts_color="#3cdedd"
-            app:nts_corners_radius="3.5dp"
+            app:nts_color="#ffffff"
+            app:nts_corners_radius="1dp"
             app:nts_factor="0.8"
             app:nts_gravity="bottom"
             app:nts_inactive_color="#81ffffff"
             app:nts_titles="@array/titles"
-            app:nts_type="point"
+            app:nts_type="line"
             app:nts_typeface="fonts/moon.otf"
-            app:nts_weight="7dp"/>
+            app:nts_weight="3dp"/>
 
     </FrameLayout>
 
