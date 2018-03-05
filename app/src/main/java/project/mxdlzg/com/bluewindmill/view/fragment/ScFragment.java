@@ -3,12 +3,14 @@ package project.mxdlzg.com.bluewindmill.view.fragment;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import project.mxdlzg.com.bluewindmill.R;
+import project.mxdlzg.com.bluewindmill.util.Util;
 import project.mxdlzg.com.bluewindmill.view.adapter.ScViewPagerAdapter;
 import project.mxdlzg.com.bluewindmill.view.base.BaseFragment;
 import android.os.Bundle;
 import android.os.Debug;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -54,13 +56,15 @@ public class ScFragment extends BaseFragment {
     }
 
     private void initSecondClass(View view) {
+
+
+        //Container
         fragmentContainer = (RelativeLayout) view.findViewById(R.id.second_class_container);
 
         //View Pager
         viewPager.setOffscreenPageLimit(2);
         viewPagerAdapter = new ScViewPagerAdapter(this.getChildFragmentManager(),this.getContext());
         viewPager.setAdapter(viewPagerAdapter);
-        viewPager.setScrollDurationFactor(0.5);
 
         //Tab
         navigationTabStrip.setViewPager(viewPager,0);

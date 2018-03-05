@@ -27,8 +27,8 @@ public class ScRcyAdapter extends BaseQuickAdapter<SCActivityDetail,BaseViewHold
 
     public ScRcyAdapter(@Nullable List<SCActivityDetail> data, final Context context) {
         super(R.layout.second_child_rcy_item,data);
-        this.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-        this.isFirstOnly(false);
+        this.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        this.isFirstOnly(true);
         this.context = context;
     }
 

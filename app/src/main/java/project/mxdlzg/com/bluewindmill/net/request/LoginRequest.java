@@ -12,10 +12,18 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.cookie.store.CookieStore;
 import com.lzy.okgo.model.Response;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
+import project.mxdlzg.com.bluewindmill.util.Util;
 
 /**
  * Created by 廷江 on 2017/12/18.
@@ -42,7 +50,12 @@ public class LoginRequest {
                     public void onSuccess(Response<String> response) {
                         if (!response.body().contains(context.getString(R.string.loginCheckEMS))){
                             emsLoginStatus = Config.NOT_LOGIN;
-                            callback.onFail(context.getString(R.string.loginFailEMS));
+                            if (response.body().contains(context.getString(R.string.loginCheckEMSPassError))){
+                                callback.onFail(context.getString(R.string.loginCheckEMSPassError));
+                            }else {
+                                Document document = Jsoup.parse(response.body());
+                                callback.onFail(document.select("div[style=color:red;font-size:10pt;text-align:center]").text());
+                            }
                         }else {
                             emsLoginStatus = Config.LOGIN;
                             callback.onSuccess(response.message());
@@ -66,26 +79,6 @@ public class LoginRequest {
      * @param callback callback
      */
     public static void loginSC(final Context context,final CommonCallback<String> callback){
-//        OkGo.<String>post(Config.SC_LOGIN_URL)
-//                .tag(context)
-//                .params("j_username",ManageSetting.getStringSetting(context,Config.USER_NAME))
-//                .params("j_password",ManageSetting.getStringSetting(context,Config.USER_PASSWORD))
-//                .params("returnUrl","")
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onSuccess(Response<String> response) {
-//                        scLoginStatus = Config.LOGIN;
-//                        callback.onSuccess(Config.codeConvertor(response.code()));
-//                    }
-//
-//                    @Override
-//                    public void onError(Response<String> response) {
-//                        scLoginStatus = Config.NOT_LOGIN;
-//                        callback.onError(Config.codeConvertor(response.code()));
-//                    }
-//                });
-
-
         OkGo.<String>post(Config.SC_LOGIN_PASS_URL)
                 .tag(context)
                 .params("Login.Token1",ManageSetting.getStringSetting(context,Config.USER_NAME))
@@ -109,6 +102,41 @@ public class LoginRequest {
                 });
 
 
+    }
+
+    public static void refreshCaptcha(Context context, int type, final CommonCallback<String> callback){
+        String url = "";
+        final String path = context.getFilesDir().getPath()+context.getPackageName()+"cache/";
+        switch (type){
+            case 0:
+                url = Config.EMS_CAPTCHA_URL;
+                break;
+            case 1:
+                url = Config.SC_CAPTCHA_URL;
+                break;
+            default:break;
+        }
+        OkGo.<String>get(url)
+                .tag(context)
+                .execute(new StringCallback(){
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        InputStream inputStream = response.getRawResponse().body().byteStream();
+                        if (inputStream != null){
+                            if (Util.saveImage("captcha.jpg",path,inputStream)){
+                                callback.onSuccess(path+"captcha.jpg");
+                            }
+                        }else {
+                            callback.onFail("请求验证码失败");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        callback.onFail("请求验证码失败");
+                    }
+                });
     }
 
     private static void securityCheck(Context context, final CommonCallback<String> callback){

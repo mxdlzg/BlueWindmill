@@ -1,12 +1,25 @@
 package project.mxdlzg.com.bluewindmill.util;
 
 import android.content.Context;
+import android.graphics.Point;
+import android.os.Build;
 import android.text.SpannableString;
 import android.text.format.DateUtils;
 import android.text.style.LeadingMarginSpan;
+import android.view.Display;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
+import android.view.ViewConfiguration;
+import android.view.WindowManager;
 
 import project.mxdlzg.com.bluewindmill.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -136,5 +149,94 @@ public class Util {
         SpannableString result=new SpannableString(text);
         result.setSpan(new LeadingMarginSpan.Standard(marginFirstLine, marginNextLines),0,text.length(),0);
         return result;
+    }
+
+    /**
+     * Save image
+     * @param name captcha
+     * @param path image path
+     * @param inputStream stream
+     * @return isTrue
+     */
+    public static boolean saveImage(String name, String path, InputStream inputStream){
+        try {
+            OutputStream output = new FileOutputStream(path + name);
+            try {
+                byte[] buffer = new byte[1024];
+                int bytesRead = 0;
+                while ((bytesRead = inputStream.read(buffer, 0, buffer.length)) >= 0) {
+                    output.write(buffer, 0, bytesRead);
+                }
+                return true;
+            } finally {
+                output.close();
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Check if navigation bar visible
+     * @param context Context
+     * @return isVisble
+     */
+    public static boolean isNavigationBarVisible(Context context){
+        return !ViewConfiguration.get(context).hasPermanentMenuKey() && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+    }
+
+    /**
+     * Get navigationbar size
+     * @param context Context
+     * @return Navigation Bar Size
+     */
+    public static Point getNavigationBarSize(Context context) {
+        Point appUsableSize = getAppUsableScreenSize(context);
+        Point realScreenSize = getRealScreenSize(context);
+
+        // navigation bar on the right
+        if (appUsableSize.x < realScreenSize.x) {
+            return new Point(realScreenSize.x - appUsableSize.x, appUsableSize.y);
+        }
+
+        // navigation bar at the bottom
+        if (appUsableSize.y < realScreenSize.y) {
+            return new Point(appUsableSize.x, realScreenSize.y - appUsableSize.y);
+        }
+
+        // navigation bar is not present
+        return new Point();
+    }
+
+    private static Point getAppUsableScreenSize(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
+    }
+
+    private static Point getRealScreenSize(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        Point size = new Point();
+
+        if (Build.VERSION.SDK_INT >= 17) {
+            display.getRealSize(size);
+        } else if (Build.VERSION.SDK_INT >= 14) {
+            try {
+                size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
+                size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return size;
     }
 }

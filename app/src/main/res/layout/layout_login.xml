@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
-
-    <ImageView
-        android:alpha="1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/login_background_other" />
     <TextView
         android:textColor="@color/black"
         android:layout_marginTop="100dp"
@@ -20,7 +15,6 @@
         android:layout_height="wrap_content"
         android:textSize="40sp"
         android:text="Welcome"/>
-
     <android.support.design.widget.TextInputLayout
         android:layout_below="@id/login_title"
         android:layout_width="250dp"
@@ -56,40 +50,47 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:id="@+id/login_linerlayout"
         android:layout_marginTop="15dp"
-        android:id="@+id/login_verificationLayout"
         android:layout_below="@+id/login_passwordLayout"
-        android:layout_centerHorizontal="true">
-
-        <EditText
-            android:inputType="textPassword"
-            android:id="@+id/login_verification"
-            android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:hint="验证码" />
+            android:id="@+id/login_verificationLayout"
+            android:layout_centerHorizontal="true">
+
+            <EditText
+                android:inputType="textPassword"
+                android:id="@+id/login_verification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="验证码" />
+        </android.support.design.widget.TextInputLayout>
         <ImageView
+            android:src="@drawable/scbackground"
             android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:scaleType="fitStart"
             android:background="@android:color/transparent"/>
-    </android.support.design.widget.TextInputLayout>
-
+    </LinearLayout>
 
 
     <android.support.v7.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_below="@id/login_linerlayout"
         android:text="登录"
-        android:id="@+id/login_btn_login"
-        android:backgroundTint="@color/blue600"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_verificationLayout"
+        android:textColor="@color/white"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp" />
-
+        android:id="@+id/login_btn_login"
+        android:background="@color/blue700"
+        android:backgroundTint="@color/blue700" tools:targetApi="LOLLIPOP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

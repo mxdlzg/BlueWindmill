@@ -34,6 +34,10 @@ public class ScViewPagerAdapter extends FragmentPagerAdapter {
         list.add(new ScDetailFragment());
         list.add(new ScDetailFragment());
         list.add(new ScDetailFragment());
+        list.add(new ScDetailFragment());
+        list.add(new ScDetailFragment());
+        list.add(new ScDetailFragment());
+        list.add(new ScDetailFragment());
     }
 
     @Override

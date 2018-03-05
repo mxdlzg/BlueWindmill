@@ -5,6 +5,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.model.entity.SCActivityDetail;
+import project.mxdlzg.com.bluewindmill.util.Util;
 import project.mxdlzg.com.bluewindmill.view.activity.ScDetailActivity;
 import project.mxdlzg.com.bluewindmill.view.adapter.ScRcyAdapter;
 import project.mxdlzg.com.bluewindmill.view.base.BaseFragment;
@@ -134,6 +135,12 @@ public class ScDetailFragment extends BaseFragment {
 
         //Bind
         unbinder = ButterKnife.bind(this,view);
+
+        //View
+        if (Util.getNavigationBarSize(getContext()).equals(0,0)){
+            System.out.println("Set Padding--------------->>>>>>>>>>>>>>>>>>>>>>");
+            recyclerView.setPadding(0,0,0,0);
+        }
 
         //Return
         return view;
