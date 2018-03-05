@@ -178,10 +178,12 @@ public class Util {
     }
 
     /**
+     * @deprecated Can not fit with all device, Use{@link project.mxdlzg.com.bluewindmill.util.Util#getNavigationBarSize(Context)} instead
      * Check if navigation bar visible
      * @param context Context
      * @return isVisble
      */
+    @Deprecated
     public static boolean isNavigationBarVisible(Context context){
         return !ViewConfiguration.get(context).hasPermanentMenuKey() && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
     }

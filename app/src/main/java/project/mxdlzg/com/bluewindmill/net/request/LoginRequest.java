@@ -1,6 +1,8 @@
 package project.mxdlzg.com.bluewindmill.net.request;
 
 import android.content.Context;
+
+import okhttp3.OkHttpClient;
 import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.model.config.Config;
 import project.mxdlzg.com.bluewindmill.model.local.ManageSetting;
@@ -139,7 +141,7 @@ public class LoginRequest {
                 });
     }
 
-    private static void securityCheck(Context context, final CommonCallback<String> callback){
+    private static void securityCheck(final Context context, final CommonCallback<String> callback){
         OkGo.<String>post(Config.SC_LOGIN_URL)
                 .tag(context)
                 .params("j_username",ManageSetting.getStringSetting(context,Config.USER_NAME))
@@ -155,7 +157,7 @@ public class LoginRequest {
                     @Override
                     public void onError(Response<String> response) {
                         scLoginStatus = Config.NOT_LOGIN;
-                        callback.onError(Config.codeConvertor(response.code()));
+                        callback.onError(context,response,true);
                     }
                 });
     }

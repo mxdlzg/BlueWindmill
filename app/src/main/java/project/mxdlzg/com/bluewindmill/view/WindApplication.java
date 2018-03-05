@@ -46,7 +46,7 @@ public class WindApplication extends Application {
             //Timeout
             builder.readTimeout(OkGo.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);      //Read
             builder.writeTimeout(OkGo.DEFAULT_MILLISECONDS,TimeUnit.MILLISECONDS);      //Write
-            builder.connectTimeout(OkGo.DEFAULT_MILLISECONDS,TimeUnit.MILLISECONDS);    //Connect
+            builder.connectTimeout(8000,TimeUnit.MILLISECONDS);    //Connect
 
             //Cookie
             builder.cookieJar(new CookieJarImpl(new DBCookieStore(this)));  //Use Database to maintain Cookie
@@ -68,7 +68,7 @@ public class WindApplication extends Application {
                     .setOkHttpClient(builder.build())
                     .setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)      //First to request
                     .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)           //Never
-                    .setRetryCount(2);                                         //2 Times to retry
+                    .setRetryCount(0);                                         //0 Times to retry
 //                    .addCommonHeaders(headers)
 //                    .addCommonParams(params);
 

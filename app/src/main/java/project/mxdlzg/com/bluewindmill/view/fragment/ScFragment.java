@@ -3,6 +3,9 @@ package project.mxdlzg.com.bluewindmill.view.fragment;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import project.mxdlzg.com.bluewindmill.R;
+import project.mxdlzg.com.bluewindmill.model.config.Config;
+import project.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
+import project.mxdlzg.com.bluewindmill.net.request.LoginRequest;
 import project.mxdlzg.com.bluewindmill.util.Util;
 import project.mxdlzg.com.bluewindmill.view.adapter.ScViewPagerAdapter;
 import project.mxdlzg.com.bluewindmill.view.base.BaseFragment;
@@ -14,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
@@ -52,7 +56,23 @@ public class ScFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        //Set 0 Visible
         viewPagerAdapter.getItem(0).setUserVisibleHint(true);
+
+        //Check Sc Login Status
+        if (LoginRequest.scLoginStatus == Config.NOT_LOGIN){
+            LoginRequest.loginSC(getContext(), new CommonCallback<String>() {
+                @Override
+                public void onSuccess(String message) {
+                    Toast.makeText(getContext(), "SC login !", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onError(String message) {
+                    Toast.makeText(getContext(), "SC login fail !", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void initSecondClass(View view) {
