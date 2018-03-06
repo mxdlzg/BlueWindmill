@@ -25,7 +25,7 @@ public class SCRequest {
      * @param context context
      * @param callback callback
      */
-    public static void requestItemCount(Context context, final CommonCallback<SCInfo> callback){
+    public static void requestScInfo(Context context, final CommonCallback<SCInfo> callback){
         OkGo.<SCInfo>get(Config.SC_SCORE_DETAIL_URL)
                 .tag(context)
                 .execute(new AbsCallback<SCInfo>() {
@@ -114,25 +114,25 @@ public class SCRequest {
      * @param categoryID id
      * @param callback callback
      */
-    public static void requestActivityList(final Context context,String pageNo,String pageSize, String categoryID, final CommonCallback<List<SCActivityDetail>> callback){
-        OkGo.<List<SCActivityDetail>>get(Config.SC_ACTIVITY_LIST_URL)
+    public static void requestActivityList(final Context context,int pageNo,int pageSize, String categoryID, final CommonCallback<NetResult<List<SCActivityDetail>>> callback){
+        OkGo.<NetResult<List<SCActivityDetail>>>get(Config.SC_ACTIVITY_LIST_URL)
                 .tag(context)
                 .params("pageNo",pageNo)
                 .params("pageSize",pageSize)
                 .params("categoryId",categoryID)
-                .execute(new AbsCallback<List<SCActivityDetail>>() {
+                .execute(new AbsCallback<NetResult<List<SCActivityDetail>>>() {
                     @Override
-                    public void onSuccess(Response<List<SCActivityDetail>> response) {
+                    public void onSuccess(Response<NetResult<List<SCActivityDetail>>> response) {
                         callback.onSuccess(response.body());
                     }
 
                     @Override
-                    public void onError(Response<List<SCActivityDetail>> response) {
-                        callback.onError(response.getException().getMessage(),context);
+                    public void onError(Response<NetResult<List<SCActivityDetail>>> response) {
+                        callback.onError(context,response,false);
                     }
 
                     @Override
-                    public List<SCActivityDetail> convertResponse(okhttp3.Response response) throws Throwable {
+                    public NetResult<List<SCActivityDetail>> convertResponse(okhttp3.Response response) throws Throwable {
                         return SCBaseProcess.getActivityList(response.body().string());
                     }
                 });

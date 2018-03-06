@@ -4,7 +4,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import project.mxdlzg.com.bluewindmill.R;
+import project.mxdlzg.com.bluewindmill.model.entity.NetResult;
 import project.mxdlzg.com.bluewindmill.model.entity.SCActivityDetail;
+import project.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
+import project.mxdlzg.com.bluewindmill.net.request.SCRequest;
 import project.mxdlzg.com.bluewindmill.util.Util;
 import project.mxdlzg.com.bluewindmill.view.activity.ScDetailActivity;
 import project.mxdlzg.com.bluewindmill.view.adapter.ScRcyAdapter;
@@ -47,6 +50,10 @@ public class ScDetailFragment extends BaseFragment {
     private List<SCActivityDetail> list;    //Data List
     private ScRcyAdapter adapter;           //Data Adapter
     private EmptyView emptyView;            //rcyEmptyView
+
+    private int pageNo = 1;
+    private int pageSize = 20;
+    private String categoryID = "";
 
     /*footer loadmore listener*/
     private BaseQuickAdapter.RequestLoadMoreListener requestLoadMoreListener = new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -91,7 +98,23 @@ public class ScDetailFragment extends BaseFragment {
     private View.OnClickListener emptyOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            emptyView.showLoading();
             refreshData(null);
+//            emptyView.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    //refreshData(null);
+//                    emptyView.showEmpty();
+//                }
+//            },1000);
+        }
+    };
+
+    //REFRESH CommonCallback
+    private CommonCallback<List<SCActivityDetail>> commonCallback = new CommonCallback<List<SCActivityDetail>>() {
+        @Override
+        public void onSuccess(List<SCActivityDetail> message) {
+
         }
     };
 
@@ -99,20 +122,30 @@ public class ScDetailFragment extends BaseFragment {
      * Do request data in this method
      * @param refreshLayout refreshLayout
      */
-    private void refreshData(RefreshLayout refreshLayout){
+    private void refreshData(final RefreshLayout refreshLayout){
         //request data
-        if (list == null){list = new LinkedList<>();}
-        list.add(new SCActivityDetail("111","【天天讲】【生态天天讲】野趣魔都——野生动植物保护二三事","2018-02-08 13:44:57"));
-        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+        //if (list == null){list = new LinkedList<>();}
+//        list.add(new SCActivityDetail("111","【天天讲】【生态天天讲】野趣魔都——野生动植物保护二三事","2018-02-08 13:44:57"));
+//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
 
-        //commit change
-        finishRefresh(list,refreshLayout);
+        //Net request
+        SCRequest.requestActivityList(getContext(), pageNo, pageSize, categoryID, new CommonCallback<NetResult<List<SCActivityDetail>>>() {
+            @Override
+            public void onSuccess(NetResult<List<SCActivityDetail>> message) {
+                finishRefresh(message.getData(),refreshLayout);
+            }
+
+            @Override
+            public void onError(NetResult netResult) {
+                finishRefresh(null,refreshLayout);
+            }
+        });
     }
 
     /**
@@ -124,6 +157,8 @@ public class ScDetailFragment extends BaseFragment {
         adapter.setNewData(list);
         if (refreshLayout != null){
             refreshLayout.finishRefresh(true);
+        }else if (list == null){
+            emptyView.showEmpty();
         }
     }
 
@@ -148,11 +183,10 @@ public class ScDetailFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        //Data List
-
         //EmptyView
         emptyView.setOnClickListener(emptyOnClickListener);
-        emptyView.showEmpty("点击重试或下拉刷新！");
+        emptyView.showEmpty();
+        emptyView.findViewById(R.id.empty_button).performClick();
         Log.e("dtlFragment","emptyView");
 
         //Adapter & Recyclerview
@@ -176,4 +210,7 @@ public class ScDetailFragment extends BaseFragment {
         unbinder.unbind();
     }
 
+    public void setCategoryID(String categoryID) {
+        this.categoryID = categoryID;
+    }
 }

@@ -103,7 +103,7 @@ public class NetTest extends AppCompatActivity {
         findViewById(R.id.net_sc_items).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SCRequest.requestItemCount(NetTest.this, new CommonCallback<SCInfo>() {
+                SCRequest.requestScInfo(NetTest.this, new CommonCallback<SCInfo>() {
                     @Override
                     public void onSuccess(SCInfo message) {
                         Toast.makeText(NetTest.this, "item Success", Toast.LENGTH_SHORT).show();
@@ -138,9 +138,9 @@ public class NetTest extends AppCompatActivity {
         findViewById(R.id.net_sc_ac_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SCRequest.requestActivityList(NetTest.this, "1", "20", "001", new CommonCallback<List<SCActivityDetail>>() {
+                SCRequest.requestActivityList(NetTest.this, 1, 20, "001", new CommonCallback<NetResult<List<SCActivityDetail>>>() {
                     @Override
-                    public void onSuccess(List<SCActivityDetail> message) {
+                    public void onSuccess(NetResult<List<SCActivityDetail>> message) {
                         Toast.makeText(NetTest.this, "ac list success", Toast.LENGTH_SHORT).show();
                     }
                 });

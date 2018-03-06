@@ -64,7 +64,7 @@ public class ScFragment extends BaseFragment {
             LoginRequest.loginSC(getContext(), new CommonCallback<String>() {
                 @Override
                 public void onSuccess(String message) {
-                    Toast.makeText(getContext(), "SC login !", Toast.LENGTH_SHORT).show();
+
                 }
 
                 @Override
@@ -76,8 +76,6 @@ public class ScFragment extends BaseFragment {
     }
 
     private void initSecondClass(View view) {
-
-
         //Container
         fragmentContainer = (RelativeLayout) view.findViewById(R.id.second_class_container);
 

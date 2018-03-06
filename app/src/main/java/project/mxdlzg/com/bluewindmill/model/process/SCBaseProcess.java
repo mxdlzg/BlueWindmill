@@ -159,12 +159,13 @@ public class SCBaseProcess extends BaseProcess{
         return new SCActivityDetail(strings);
     }
 
-    public static List<SCActivityDetail> getActivityList(String content) {
+    public static NetResult<List<SCActivityDetail>> getActivityList(String content) {
         //Table
         Table table = BaseProcess.processUL(content,"ul[class=ul_7]");
 
         //Result
         List<SCActivityDetail> list = new ArrayList<>();
+        NetResult<List<SCActivityDetail>> netResult = new NetResult<>(null);
 
         Pattern idPat = Pattern.compile("(?<=activityId=).*?(?=>)");
 
@@ -177,8 +178,9 @@ public class SCBaseProcess extends BaseProcess{
                 list.add(new SCActivityDetail(idPat.matcher(cell.getName()).group(0),element.text(),
                         table.getCell(i,1).getName().replace("<span>","").replace("</span>","")));
             }
+            netResult.setData(list);
         }
-        return list;
+        return netResult;
     }
 
 }

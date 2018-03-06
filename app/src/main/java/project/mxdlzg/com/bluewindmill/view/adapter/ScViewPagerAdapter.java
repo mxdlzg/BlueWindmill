@@ -28,7 +28,6 @@ public class ScViewPagerAdapter extends FragmentPagerAdapter {
     public ScViewPagerAdapter(FragmentManager fm,Context context) {
         super(fm);
         this.context = context;
-
         list.clear();
         list.add(new ScDetailFragment());
         list.add(new ScDetailFragment());
@@ -38,6 +37,12 @@ public class ScViewPagerAdapter extends FragmentPagerAdapter {
         list.add(new ScDetailFragment());
         list.add(new ScDetailFragment());
         list.add(new ScDetailFragment());
+    }
+
+    public void addFragment(String categoryID){
+        ScDetailFragment detailFragment = new ScDetailFragment();
+        detailFragment.setCategoryID(categoryID);
+        list.add(detailFragment);
     }
 
     @Override
