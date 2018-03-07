@@ -3,6 +3,8 @@ package project.mxdlzg.com.bluewindmill.view;
 import android.app.Application;
 import project.mxdlzg.com.bluewindmill.model.config.Config;
 
+import com.facebook.stetho.Stetho;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -26,6 +28,7 @@ public class WindApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Stetho.initializeWithDefaults(this);
 
         //Init Config
         Config.getInstance().init(this);
@@ -42,11 +45,13 @@ public class WindApplication extends Application {
             loggingInterceptor.setColorLevel(Level.INFO);
 
             builder.addInterceptor(loggingInterceptor);
+            builder.addNetworkInterceptor(new StethoInterceptor());
 
             //Timeout
             builder.readTimeout(OkGo.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);      //Read
             builder.writeTimeout(OkGo.DEFAULT_MILLISECONDS,TimeUnit.MILLISECONDS);      //Write
             builder.connectTimeout(8000,TimeUnit.MILLISECONDS);    //Connect
+            builder.followRedirects(false);
 
             //Cookie
             builder.cookieJar(new CookieJarImpl(new DBCookieStore(this)));  //Use Database to maintain Cookie

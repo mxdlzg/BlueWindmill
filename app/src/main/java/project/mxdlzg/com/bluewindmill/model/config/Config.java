@@ -60,6 +60,8 @@ public class Config {
     public static final String SC_LOGIN_FAIL_URL = "http://my.sit.edu.cn/loginFailure.portal";
     public static final String EMS_CAPTCHA_URL = "http://ems.sit.edu.cn:85/GetImageCode";
     public static final String SC_CAPTCHA_URL = "http://my.sit.edu.cn/captchaGenerate.portal";
+    public static final String MAIN_INDEX = "http://my.sit.edu.cn/index.portal";
+    public static final String SC_PORTAL = "http://sc.sit.edu.cn/portal.jsp";
 
     //var
     public static List<HttpParams> httpParamsList;

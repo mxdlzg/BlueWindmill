@@ -59,20 +59,7 @@ public class ScFragment extends BaseFragment {
         //Set 0 Visible
         viewPagerAdapter.getItem(0).setUserVisibleHint(true);
 
-        //Check Sc Login Status
-        if (LoginRequest.scLoginStatus == Config.NOT_LOGIN){
-            LoginRequest.loginSC(getContext(), new CommonCallback<String>() {
-                @Override
-                public void onSuccess(String message) {
 
-                }
-
-                @Override
-                public void onError(String message) {
-                    Toast.makeText(getContext(), "SC login fail !", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
     }
 
     private void initSecondClass(View view) {

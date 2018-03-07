@@ -117,6 +117,12 @@ public class SCRequest {
     public static void requestActivityList(final Context context,int pageNo,int pageSize, String categoryID, final CommonCallback<NetResult<List<SCActivityDetail>>> callback){
         OkGo.<NetResult<List<SCActivityDetail>>>get(Config.SC_ACTIVITY_LIST_URL)
                 .tag(context)
+                .headers("Accept","ext/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                .headers("Accept-Encoding","gzip, deflate, sdch")
+                .headers("Connection","keep-alive")
+                .headers("Host","sc.sit.edu.cn")
+                .headers("User-Agent","Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104 Safari/537.36 Core/1.53.4620.400 QQBrowser/9.7.12995.400")
+                .headers("Cookie","iPlanetDirectoryPro=AQIC5wM2LY4SfcxxjUNRJ85lHd4JcJLMdXGkQdA1jEBFytY%3D%40AAJTSQACMDE%3D%23; JSESSIONID=25C0DE5DAAE76F859E6510C39B582054")
                 .params("pageNo",pageNo)
                 .params("pageSize",pageSize)
                 .params("categoryId",categoryID)

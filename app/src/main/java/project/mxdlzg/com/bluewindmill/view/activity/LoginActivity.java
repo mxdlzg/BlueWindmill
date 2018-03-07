@@ -1,6 +1,9 @@
 package project.mxdlzg.com.bluewindmill.view.activity;
 
 import android.app.ProgressDialog;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.model.config.Config;
 import project.mxdlzg.com.bluewindmill.model.local.ManageSetting;
@@ -11,27 +14,33 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
+
+import com.airbnb.lottie.L;
 
 /**
  * Created by 廷江 on 2017/3/22.
  */
 
 public class LoginActivity extends AppCompatActivity{
-    private AppCompatButton buttonLogin;
-    private TextInputLayout userLayout;
-    private TextInputLayout passwordLayout;
+    @BindView(R.id.login_btn_login)
+    public AppCompatButton buttonLogin;
+    @BindView(R.id.login_userLayout)
+    public TextInputLayout userLayout;
+    @BindView(R.id.login_passwordLayout)
+    public TextInputLayout passwordLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_login);
 
-        //user/password
-        userLayout = (TextInputLayout) findViewById(R.id.login_userLayout);
-        passwordLayout = (TextInputLayout) findViewById(R.id.login_passwordLayout);
+        //ButterKnife
+        ButterKnife.bind(this);
 
+        //Text input
         userLayout.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -50,7 +59,6 @@ public class LoginActivity extends AppCompatActivity{
         });
 
         //login Button
-        buttonLogin = (AppCompatButton) findViewById(R.id.login_btn_login);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,8 +78,14 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
+        setData();
     }
 
+    /**
+     * Login into system
+     * @param user userid
+     * @param password pass
+     */
     private void Login(String user, String password){
         final ProgressDialog dialog = ProgressDialog.show(this,"Login","Login into EMS system",true,true);
 
@@ -79,8 +93,7 @@ public class LoginActivity extends AppCompatActivity{
         ManageSetting.tryCacheValue(this, Config.USER_NAME,user,Config.USER_PASSWORD,password);
 
         //OkGo_Login
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.loginEMS(this, new CommonCallback<String>() {
+        LoginRequest.login(this, new CommonCallback<String>() {
             @Override
             public void onSuccess(String message) {
                 dialog.dismiss();
@@ -95,5 +108,20 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
+    }
+
+    /**
+     * Read user info from storage and display on edittext
+     */
+    private void setData(){
+        String user = ManageSetting.getStringSetting(this, Config.USER_NAME);
+        String pass = ManageSetting.getStringSetting(this, Config.USER_NAME);
+
+        if (!TextUtils.isEmpty(user) && userLayout.getEditText() != null){
+            userLayout.getEditText().setText(user);
+        }
+        if (!TextUtils.isEmpty(pass) && passwordLayout.getEditText() != null){
+            passwordLayout.getEditText().setText(pass);
+        }
     }
 }

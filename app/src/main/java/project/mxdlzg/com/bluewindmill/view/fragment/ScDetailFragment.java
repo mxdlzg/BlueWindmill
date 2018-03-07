@@ -53,7 +53,7 @@ public class ScDetailFragment extends BaseFragment {
 
     private int pageNo = 1;
     private int pageSize = 20;
-    private String categoryID = "";
+    private String categoryID = "001";
 
     /*footer loadmore listener*/
     private BaseQuickAdapter.RequestLoadMoreListener requestLoadMoreListener = new BaseQuickAdapter.RequestLoadMoreListener() {

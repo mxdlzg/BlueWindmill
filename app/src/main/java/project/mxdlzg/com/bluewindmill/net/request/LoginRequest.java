@@ -5,6 +5,7 @@ import android.content.Context;
 import okhttp3.OkHttpClient;
 import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.model.config.Config;
+import project.mxdlzg.com.bluewindmill.model.entity.NetResult;
 import project.mxdlzg.com.bluewindmill.model.local.ManageSetting;
 import project.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import java.util.List;
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 import project.mxdlzg.com.bluewindmill.util.Util;
+import project.mxdlzg.com.bluewindmill.view.activity.LoginActivity;
 
 /**
  * Created by 廷江 on 2017/12/18.
@@ -38,9 +40,9 @@ public class LoginRequest {
     /**
      * Read Params from config(user,password)
      */
-    public void loginEMS(final Context context, final CommonCallback<String> callback) {
+    public static void loginEMS(final Context context, final CommonCallback<String> callback) {
         OkGo.<String>get(Config.EMS_LOGIN_URL)
-                .tag(this)
+                .tag(context)
                 .params("loginName", ManageSetting.getStringSetting(context, Config.USER_NAME))
                 .params("password", ManageSetting.getStringSetting(context, Config.USER_PASSWORD))
                 .params("authtype", Config.AUTH_TYPE)
@@ -53,10 +55,10 @@ public class LoginRequest {
                         if (!response.body().contains(context.getString(R.string.loginCheckEMS))){
                             emsLoginStatus = Config.NOT_LOGIN;
                             if (response.body().contains(context.getString(R.string.loginCheckEMSPassError))){
-                                callback.onFail(context.getString(R.string.loginCheckEMSPassError));
+                                callback.onError(context.getString(R.string.loginCheckEMSPassError));
                             }else {
                                 Document document = Jsoup.parse(response.body());
-                                callback.onFail(document.select("div[style=color:red;font-size:10pt;text-align:center]").text());
+                                callback.onError(document.select("div[style=color:red;font-size:10pt;text-align:center]").text());
                             }
                         }else {
                             emsLoginStatus = Config.LOGIN;
@@ -69,7 +71,7 @@ public class LoginRequest {
                         emsLoginStatus = Config.NOT_LOGIN;
                         Toast.makeText(context, Config.codeConvertor(response.code()), Toast.LENGTH_SHORT).show();
                         if (callback!=null){
-                            callback.onFail(Config.codeConvertor(response.code()));
+                            callback.onError(Config.codeConvertor(response.code()));
                         }
                     }
                 });
@@ -93,17 +95,55 @@ public class LoginRequest {
                         CookieStore cookieStore = OkGo.getInstance().getCookieJar().getCookieStore();
                         List<Cookie> cookies = cookieStore.getCookie(HttpUrl.parse(Config.SC_LOGIN_PASS_URL));
                         addCookie(cookies,HttpUrl.parse(Config.SC_LOGIN_URL));
-                        securityCheck(context,callback);
+                        getJsessionId(context,callback);
+                        //securityCheck(context,callback);
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         scLoginStatus = Config.NOT_LOGIN;
-                        callback.onError(Config.codeConvertor(response.code()));
+                        callback.onError(context,response,true);
                     }
                 });
 
 
+    }
+
+    private static void getJsessionId(final Context context, final CommonCallback<String> callback) {
+        OkGo.<String>get(Config.MAIN_INDEX)
+                .tag(context)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        portal(context,callback);
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        callback.onError(context,response,true);
+                    }
+                });
+    }
+
+    private static void portal(final Context context, final CommonCallback<String> callback) {
+        CookieStore cookieStore = OkGo.getInstance().getCookieJar().getCookieStore();
+        List<Cookie> cookies = cookieStore.getCookie(HttpUrl.parse(Config.SC_PORTAL));
+        System.out.println(cookies.toString());
+
+        OkGo.<String>get(Config.SC_PORTAL)
+                .tag(context)// TODO: 18-3-7 GET JSESSIONID
+                .params("jsessionid",cookies.get(0).value())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        securityCheck(context,callback);
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        callback.onError(context,response,true);
+                    }
+                });
     }
 
     public static void refreshCaptcha(Context context, int type, final CommonCallback<String> callback){
@@ -141,8 +181,10 @@ public class LoginRequest {
                 });
     }
 
+
+
     private static void securityCheck(final Context context, final CommonCallback<String> callback){
-        OkGo.<String>post(Config.SC_LOGIN_URL)
+        OkGo.<String>get(Config.SC_LOGIN_URL)
                 .tag(context)
                 .params("j_username",ManageSetting.getStringSetting(context,Config.USER_NAME))
                 .params("j_password",ManageSetting.getStringSetting(context,Config.USER_PASSWORD))
@@ -150,12 +192,14 @@ public class LoginRequest {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        System.out.println("login----------------->securityCheck success!!");
                         scLoginStatus = Config.LOGIN;
                         callback.onSuccess(Config.codeConvertor(response.code()));
                     }
 
                     @Override
                     public void onError(Response<String> response) {
+                        System.out.println("login----------------->securityCheck fail!!");
                         scLoginStatus = Config.NOT_LOGIN;
                         callback.onError(context,response,true);
                     }
@@ -169,5 +213,19 @@ public class LoginRequest {
                 cookies) {
             cookieStore.saveCookie(aimURL,builder.name(cookie.name()).value(cookie.value()).domain(aimURL.host()).expiresAt(cookie.expiresAt()).path(cookie.path()).build());
         }
+    }
+
+    public static void login(final Context context, final CommonCallback<String> callback) {
+        loginSC(context, new CommonCallback<String>() {
+            @Override
+            public void onSuccess(String message) {
+                callback.onSuccess(message);
+            }
+
+            @Override
+            public void onError(NetResult netResult) {
+                callback.onError(netResult);
+            }
+        });
     }
 }
