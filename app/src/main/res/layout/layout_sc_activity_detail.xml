@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+
     <RelativeLayout
         android:id="@+id/sc_dtl_linearLayout4"
         android:layout_width="match_parent"
@@ -100,11 +102,14 @@
             android:textSize="14sp" />
     </RelativeLayout>
 
-
+    <ScrollView
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_below="@id/sc_dtl_linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/sc_dtl_linearLayout4">
+        android:layout_height="wrap_content">
 
         <ProgressBar
             android:id="@+id/sc_dtl_progressBar"
@@ -118,17 +123,18 @@
 
         <RelativeLayout
             android:id="@+id/relativeLayout2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:visibility="invisible">
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/sc_dtl_btnApply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView4"
+                android:layout_below="@+id/sc_dtl_tvContent"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
+                android:layout_marginBottom="@dimen/dp_40"
                 android:background="@drawable/circle_btn_shape"
                 android:backgroundTint="@color/blue700"
                 android:text="申请"
@@ -140,11 +146,11 @@
                 app:spinning_bar_width="2dp" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/sc_dtl_tvContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView5"
+                android:layout_below="@+id/sc_dtl_tvHost"
                 android:layout_marginEnd="@dimen/dp_40"
                 android:layout_marginStart="@dimen/dp_40"
                 android:layout_marginTop="30dp"
@@ -154,42 +160,54 @@
                 android:textSize="@dimen/sp_16" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/sc_dtl_tvHost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView3"
+                android:layout_below="@+id/sc_dtl_tvStartEndTime"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginEnd="@dimen/dp_40"
                 android:text=" 主办方：材料学院       承办方：材料学院" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/sc_dtl_tvStartEndTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/linearLayout3"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
                 android:text="2018-01-10 18:00:00  --至--  2018-01-10 20:00:00" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/textView3"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="24dp"
-                android:text="活动时长：120 分钟" />
+            <LinearLayout
+                android:paddingStart="@dimen/dp_40"
+                android:paddingEnd="@dimen/dp_40"
+                android:id="@+id/linearLayout3"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView"
-                android:layout_alignBottom="@+id/textView"
-                android:layout_alignStart="@+id/textView3"
-                android:text="活动地点：图B102" />
+                <TextView
+                    android:gravity="center"
+                    android:layout_gravity="bottom"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/sc_dtl_tvLocation"
+                    android:layout_height="wrap_content"
+                    android:text="活动地点：图B102" />
+                <TextView
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:id="@+id/sc_dtl_tvTimeSpan"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="活动时长：120 分钟" />
+            </LinearLayout>
+
         </RelativeLayout>
 
     </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

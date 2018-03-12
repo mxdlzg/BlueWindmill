@@ -35,11 +35,11 @@ public class ScRcyAdapter extends BaseQuickAdapter<SCActivityDetail,BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder helper, SCActivityDetail item) {
-
         helper.setText(R.id.sc_child_rcy_label, Html.fromHtml(item.getLabel()))
                 .setText(R.id.sc_child_rcy_WeekTime,item.getWeekTime())
                 .setText(R.id.sc_child_rcy_Time,item.getTime())
                 .setText(R.id.sc_child_rcy_TitleContent,item.getTitle());
+        helper.setTag(R.id.sc_child_rcy_headerView,item);
         //helper.getView(R.id.sc_child_rcy_headerView).setBackgroundColor(mContext.getResources().getColor(R.color.pink400));
     }
 }

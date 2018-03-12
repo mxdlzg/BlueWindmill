@@ -122,7 +122,6 @@ public class SCRequest {
                 .headers("Connection","keep-alive")
                 .headers("Host","sc.sit.edu.cn")
                 .headers("User-Agent","Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104 Safari/537.36 Core/1.53.4620.400 QQBrowser/9.7.12995.400")
-                .headers("Cookie","iPlanetDirectoryPro=AQIC5wM2LY4SfcxxjUNRJ85lHd4JcJLMdXGkQdA1jEBFytY%3D%40AAJTSQACMDE%3D%23; JSESSIONID=25C0DE5DAAE76F859E6510C39B582054")
                 .params("pageNo",pageNo)
                 .params("pageSize",pageSize)
                 .params("categoryId",categoryID)
@@ -162,11 +161,12 @@ public class SCRequest {
 
                     @Override
                     public void onError(Response<SCActivityDetail> response) {
-                        callback.onError(response.getException().getMessage(),context);
+                        callback.onError(context,response,false);
                     }
 
                     @Override
                     public SCActivityDetail convertResponse(okhttp3.Response response) throws Throwable {
+                        //throw new UnsupportedOperationException();
                         return SCBaseProcess.getActivityDetail(response.body().string());
                     }
                 });

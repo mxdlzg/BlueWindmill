@@ -104,11 +104,11 @@ public class BaseProcess {
             cells = rows.get(i).getAllElements();
 
             //add row
-            for (int j = 1; j < cells.size(); j++) {
+            for (int j = 0; j < cells.size(); j++) {
                 if (j>=table.getColNumber()){
                     table.addColumn(ColumnLocation.RIGHT);
                 }
-                table.setCell(new Cell(cells.get(j).html()),i,j);
+                table.setCell(new Cell(cells.get(j).outerHtml()),i,j);
             }
         }
 

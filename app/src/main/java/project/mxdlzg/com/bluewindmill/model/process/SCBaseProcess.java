@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  * Created by 廷江 on 2018/1/2.
  */
 
-public class SCBaseProcess extends BaseProcess{
+public class SCBaseProcess extends BaseProcess {
     public final static String[] pats = new String[]{
             "活动编号：\\d+",
             "活动地点：.*?(?=&nbsp)",
@@ -43,10 +43,11 @@ public class SCBaseProcess extends BaseProcess{
 
     /**
      * Get Sc Info
+     *
      * @param content body
      * @return Scinfo
      */
-    public static SCInfo getSCInfo(String content){
+    public static SCInfo getSCInfo(String content) {
         Pattern pattern = Pattern.compile("\\d+(?=</b)");
         Pattern totalPagesPat = Pattern.compile("\\d+(?=</span>页)");
         Pattern totalPattern = Pattern.compile("\\d+(\\.\\d+)?(?=</font)");
@@ -59,64 +60,65 @@ public class SCBaseProcess extends BaseProcess{
         Matcher detailMatcher = detailPattern.matcher(content);
         Matcher urlsMatcher = urlsPat.matcher(content);
 
-        int count = 0,totalPages = 0;
+        int count = 0, totalPages = 0;
         float[] scScore = new float[3];
         float[] scPresentation = new float[5];
-        Map<String,String> urlKV = new HashMap<>();
+        Map<String, String> urlKV = new HashMap<>();
 
-        if (matcher.find()){
+        if (matcher.find()) {
             count = Integer.parseInt(matcher.group(0));
         }
-        if (totalMatcher.find()){
+        if (totalMatcher.find()) {
             scScore[0] = Float.parseFloat(totalMatcher.group(0));
             scScore[1] = Float.parseFloat(totalMatcher.group(1));
             scScore[2] = Float.parseFloat(totalMatcher.group(2));
         }
-        if (detailMatcher.find()){
+        if (detailMatcher.find()) {
             scPresentation[0] = Float.parseFloat(detailMatcher.group(0));
             scPresentation[1] = Float.parseFloat(detailMatcher.group(1));
             scPresentation[2] = Float.parseFloat(detailMatcher.group(2));
             scPresentation[3] = Float.parseFloat(detailMatcher.group(3));
             scPresentation[4] = Float.parseFloat(detailMatcher.group(4));
         }
-        if (matcherPat.find()){
+        if (matcherPat.find()) {
             totalPages = Integer.parseInt(matcherPat.group(0));
         }
-        if (urlsMatcher.find()){
+        if (urlsMatcher.find()) {
             String str = null;
             for (int i = 0; i < urlsMatcher.groupCount(); i++) {
                 str = urlsMatcher.group(i);
-                urlKV.put(str.substring(10,str.indexOf("\"")),str.substring(str.indexOf("<span>"),str.lastIndexOf("</span>")));
+                urlKV.put(str.substring(10, str.indexOf("\"")), str.substring(str.indexOf("<span>"), str.lastIndexOf("</span>")));
             }
         }
 
-        return new SCInfo(count,totalPages,scScore,scPresentation,urlKV);
+        return new SCInfo(count, totalPages, scScore, scPresentation, urlKV);
     }
 
     /**
      * Get Sc Score Detail
+     *
      * @param content content
      * @return netResult
      */
-    public static NetResult<List<SCScoreDetail>> getScoreDetailList(String content){
+    public static NetResult<List<SCScoreDetail>> getScoreDetailList(String content) {
         //Table
-        Table table = processTable(content,"tbody");
+        Table table = processTable(content, "tbody");
 
         //Result
         NetResult<List<SCScoreDetail>> result = new NetResult<>(null, Config.NET_RESULT_DEFAULT_ERROR_CODE);
         List<SCScoreDetail> list = null;
 
-        if (table != null){
+        if (table != null) {
             list = new ArrayList<>(table.getRowNumber());
             for (int i = 0; i < table.getRowNumber(); i++) {
-                list.add(new SCScoreDetail(table.getCell(i,0).getName(),
-                        table.getCell(i,1).getName(),
-                        table.getCell(i,2).getName(),
-                        table.getCell(i,3).getName(),
-                        table.getCell(i,4).getName(),
-                        table.getCell(i,5).getName(),
-                        table.getCell(i,6).getName()
-                        ));
+                list.add(new SCScoreDetail(table.getCell(i, 0).getName(),
+                        table.getCell(i, 1).getName(),
+                        table.getCell(i, 2).getName(),
+                        table.getCell(i, 3).getName(),
+                        table.getCell(i, 4).getName(),
+                        table.getCell(i, 5).getName(),
+                        table.getCell(i, 6).getName()
+                ));
             }
             result.setData(list);
         }
@@ -140,47 +142,59 @@ public class SCBaseProcess extends BaseProcess{
 
         Document document = Jsoup.parse(content);
         Elements element = document.select("div[style=padding:30px 50px; font-size:14px;]");
-        if (null != element.get(0)){
+        if (null != element.get(0)) {
             strings[0] = element.get(0).text();
         }
 
-        Pattern pattern = null;Matcher matcher = null;
+        Pattern pattern = null;
+        Matcher matcher = null;
         for (int i = 1; i < pats.length; i++) {
             pattern = Pattern.compile(pats[i]);
             matcher = pattern.matcher(content);
-            if (matcher.find()){
+            if (matcher.find()) {
                 strings[i] = matcher.group(0);
-                if (i == pats.length-1){
-                    strings[i+1] = matcher.group(1);
-                    strings[i+2] = matcher.group(2);
+                if (i == pats.length - 1) {
+                    if (matcher.find())strings[i + 1] = matcher.group(0);
+                    if (matcher.find())strings[i + 2] = matcher.group(0);
                 }
             }
         }
         return new SCActivityDetail(strings);
     }
 
+    /**
+     * Ac List
+     * @param content response body
+     * @return activity list
+     */
     public static NetResult<List<SCActivityDetail>> getActivityList(String content) {
         //Table
-        Table table = BaseProcess.processUL(content,"ul[class=ul_7]");
+        Table table = BaseProcess.processUL(content, "ul[class=ul_7]");
 
         //Result
         List<SCActivityDetail> list = new ArrayList<>();
         NetResult<List<SCActivityDetail>> netResult = new NetResult<>(null);
 
-        Pattern idPat = Pattern.compile("(?<=activityId=).*?(?=>)");
+        Pattern idPat = Pattern.compile("(?<=activityId=).*?(?=\">)");
 
         //IF
-        if (table != null){
+        if (table != null) {
             for (int i = 0; i < table.getRowNumber(); i++) {
-                Cell cell = table.getCell(i,0);
-                Element element = Jsoup.parse(cell.getName());
+                Element element = Jsoup.parse(table.getCell(i,1).getName());
+                Matcher matcher = idPat.matcher(table.getCell(i, 0).getName());
+                String time = table.getCell(i, 2).getName();
 
-                list.add(new SCActivityDetail(idPat.matcher(cell.getName()).group(0),element.text(),
-                        table.getCell(i,1).getName().replace("<span>","").replace("</span>","")));
+                if (!time.contains("<span>20")){
+                    time = table.getCell(i, 3).getName();
+                }
+
+                if (matcher.find()) {
+                    list.add(new SCActivityDetail(matcher.group(), element.text().replaceFirst("·",""),
+                            time.replace("<span>", "").replace("</span>", "")));
+                }
             }
             netResult.setData(list);
         }
         return netResult;
     }
-
 }

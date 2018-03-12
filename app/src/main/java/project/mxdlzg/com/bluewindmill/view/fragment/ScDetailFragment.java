@@ -52,24 +52,14 @@ public class ScDetailFragment extends BaseFragment {
     private EmptyView emptyView;            //rcyEmptyView
 
     private int pageNo = 1;
-    private int pageSize = 20;
+    final int pageSize = 20;
     private String categoryID = "001";
 
     /*footer loadmore listener*/
     private BaseQuickAdapter.RequestLoadMoreListener requestLoadMoreListener = new BaseQuickAdapter.RequestLoadMoreListener() {
         @Override
         public void onLoadMoreRequested() {
-            recyclerView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-                    list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-                    list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-                    list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-                    adapter.loadMoreComplete();
-                    Toast.makeText(getContext(), "Load more!!!", Toast.LENGTH_SHORT).show();
-                }
-            },500);
+            loadMoreData();
         }
     };
 
@@ -77,11 +67,18 @@ public class ScDetailFragment extends BaseFragment {
     private BaseQuickAdapter.OnItemClickListener onItemClickListener = new BaseQuickAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            //Intent
+            Intent intent = new Intent(getContext(),ScDetailActivity.class);
+            intent.putExtra("activityId",(SCActivityDetail)view.findViewById(R.id.sc_child_rcy_headerView).getTag());
+
+            //Start Activity
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getContext().startActivity(new Intent(getContext(), ScDetailActivity.class),
+                //Animation
+                getContext().startActivity((intent),
                         ActivityOptions.makeSceneTransitionAnimation(getActivity(),view,getString(R.string.sc_rcy_item_2_scDtl)).toBundle());
             }else {
-                getContext().startActivity(new Intent(getContext(), ScDetailActivity.class));
+                //No animation
+                getContext().startActivity(intent);
             }
         }
     };
@@ -100,13 +97,6 @@ public class ScDetailFragment extends BaseFragment {
         public void onClick(View v) {
             emptyView.showLoading();
             refreshData(null);
-//            emptyView.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    //refreshData(null);
-//                    emptyView.showEmpty();
-//                }
-//            },1000);
         }
     };
 
@@ -135,7 +125,7 @@ public class ScDetailFragment extends BaseFragment {
 //        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
 
         //Net request
-        SCRequest.requestActivityList(getContext(), pageNo, pageSize, categoryID, new CommonCallback<NetResult<List<SCActivityDetail>>>() {
+        SCRequest.requestActivityList(getContext(), 1, pageSize, categoryID, new CommonCallback<NetResult<List<SCActivityDetail>>>() {
             @Override
             public void onSuccess(NetResult<List<SCActivityDetail>> message) {
                 finishRefresh(message.getData(),refreshLayout);
@@ -149,12 +139,40 @@ public class ScDetailFragment extends BaseFragment {
     }
 
     /**
+     * Load more activity list data
+     * <Note>上拉自动加载触发-》pageSize为每页显示的数量，超过该数量才会调用加载更多的回调。</Note>
+     */
+    private void loadMoreData(){
+        SCRequest.requestActivityList(getContext(), pageNo+1, pageSize, categoryID, new CommonCallback<NetResult<List<SCActivityDetail>>>() {
+            @Override
+            public void onSuccess(NetResult<List<SCActivityDetail>> message) {
+                pageNo++;
+                if (list != null){
+                    list.addAll(message.getData());
+                }
+                adapter.loadMoreComplete();
+            }
+
+            @Override
+            public void onError(NetResult netResult) {
+                adapter.loadMoreFail();
+            }
+        });
+
+
+
+
+    }
+
+    /**
      * finish Refresh
      * @param list newList OR append Data
      * @param refreshLayout header refreshlayout
      */
     private void finishRefresh(List<SCActivityDetail> list,RefreshLayout refreshLayout){
         adapter.setNewData(list);
+        this.list = list;
+        pageNo = 1;
         if (refreshLayout != null){
             refreshLayout.finishRefresh(true);
         }else if (list == null){
