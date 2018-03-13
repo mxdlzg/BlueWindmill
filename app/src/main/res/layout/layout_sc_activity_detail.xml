@@ -97,9 +97,10 @@
             android:ellipsize="end"
             android:lineSpacingMultiplier="1.25"
             android:lines="2"
+            android:textStyle="bold"
             android:text="党的十九大精神宣讲：建设美丽中国，实现美好生活党的十九大精神宣讲：建设美丽中国，实现美好生活"
-            android:textColor="@color/grey900"
-            android:textSize="14sp" />
+            android:textColor="@color/grey700"
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <ScrollView

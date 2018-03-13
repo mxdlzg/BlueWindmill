@@ -172,4 +172,74 @@ public class SCRequest {
                 });
     }
 
+    public static void applyActivity(final Context context, final String activityId, final CommonCallback<NetResult<String>> callback){
+        checkUser(context, activityId, new CommonCallback<NetResult<String>>() {
+            @Override
+            public void onSuccess(NetResult<String> message) {
+                executeApplyActivity(context,activityId,callback);
+            }
+
+            @Override
+            public void onError(NetResult netResult) {
+                callback.onError(netResult);
+            }
+        });
+    }
+
+    private static void checkUser(final Context context, String activityId, final CommonCallback<NetResult<String>> callback){
+        OkGo.<NetResult<String>>post(Config.SC_ACTIVITY_CHECK_USER)
+                .tag(context)
+                .params("activityId",activityId)
+                .execute(new AbsCallback<NetResult<String>>() {
+                    @Override
+                    public void onSuccess(Response<NetResult<String>> response) {
+                        callback.onSuccess(response.body());
+                    }
+
+                    @Override
+                    public void onError(Response<NetResult<String>> response) {
+                        callback.onError(response.body());
+                    }
+
+                    @Override
+                    public NetResult<String> convertResponse(okhttp3.Response response) throws Throwable {
+                        String body = response.body().string();
+                        if (body.equals("")){
+                            return new NetResult<>(null,"尚未申请",true);
+                        }else if (body.equals("2")){
+                            return new NetResult<>(null,"您已申请过该活动，不能重复申请！",false);
+                        }else if (body.equals("4")){
+                            return new NetResult<>(null,"对不起，该活动的申请人数已达上限！",false);
+                        }
+                        return null;
+                    }
+                });
+    }
+
+    private static void executeApplyActivity(final Context context, String activityId, final CommonCallback<NetResult<String>> callback){
+        OkGo.<NetResult<String>>get(Config.SC_ACTIVITY_APPLY)
+                .tag(context)
+                .params("activityId",activityId)
+                .execute(new AbsCallback<NetResult<String>>() {
+                    @Override
+                    public void onSuccess(Response<NetResult<String>> response) {
+                        callback.onSuccess(response.body());
+                    }
+
+                    @Override
+                    public void onError(Response<NetResult<String>> response) {
+                        callback.onError(response.body());
+                    }
+
+                    @Override
+                    public NetResult<String> convertResponse(okhttp3.Response response) throws Throwable {
+                        String body = response.body().string();
+                        if (body.contains("申请成功")){
+                            return new NetResult<>(null,"申请成功！",true);
+                        }else {
+                            return new NetResult<>(null,body,false);
+                        }
+                    }
+                });
+    }
 }

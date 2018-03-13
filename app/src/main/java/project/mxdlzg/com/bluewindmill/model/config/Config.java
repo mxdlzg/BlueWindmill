@@ -21,6 +21,7 @@ public class Config {
     public static final int CALENDAR_MAXHEIGHT = 350;
     public static final int CALENDAR_MINHEIGHT = 30;
     public static final int GET_COOKIE_ERROR = -1;
+    public static final int NET_RESULT_SUCCESS = 1;
     public static final int NET_RESULT_DEFAULT_CODE = 0;
     public static final int NET_RESULT_DEFAULT_ERROR_CODE = -50;
 
@@ -62,6 +63,8 @@ public class Config {
     public static final String SC_CAPTCHA_URL = "http://my.sit.edu.cn/captchaGenerate.portal";
     public static final String MAIN_INDEX = "http://my.sit.edu.cn/index.portal";
     public static final String SC_PORTAL = "http://sc.sit.edu.cn/portal.jsp";
+    public static final String SC_ACTIVITY_CHECK_USER = "http://sc.sit.edu.cn/public/pcenter/checkUser.action";
+    public static final String SC_ACTIVITY_APPLY = "http://sc.sit.edu.cn/public/pcenter/applyActivity.action";
 
     //var
     public static List<HttpParams> httpParamsList;

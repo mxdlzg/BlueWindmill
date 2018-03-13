@@ -1,11 +1,15 @@
 package project.mxdlzg.com.bluewindmill.view.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.transition.Explode;
+import android.transition.Fade;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,6 +17,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.stetho.inspector.screencast.ScreencastDispatcher;
+import com.lzy.okgo.OkGo;
 
 import java.util.List;
 
@@ -71,6 +78,25 @@ public class ScDetailActivity extends AppCompatActivity {
         }
     };
 
+    private CommonCallback<NetResult<String>> applyCallback = new CommonCallback<NetResult<String>>() {
+        @Override
+        public void onSuccess(NetResult<String> message) {
+            btnApply.revertAnimation(new OnAnimationEndListener() {
+                @Override
+                public void onAnimationEnd() {
+                    btnApply.setText("√");
+                }
+            });
+            Toast.makeText(ScDetailActivity.this, message.getMsg(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(NetResult netResult) {
+            btnApply.revertAnimation();
+            Toast.makeText(ScDetailActivity.this, netResult.getMsg(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +113,8 @@ public class ScDetailActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(new Explode());
             getWindow().setExitTransition(null);
+            //getWindow().setSharedElementExitTransition(null);
+            //getWindow().setSharedElementReturnTransition(null);
         }
 
         SCRequest.requestActivityDetail(this, item.getId(), commonCallback);
@@ -98,16 +126,11 @@ public class ScDetailActivity extends AppCompatActivity {
     private void showDetail(final boolean isSuccess){
         //Animation
         final Animation fadein = AnimationUtils.loadAnimation(this,R.anim.view_fade_in);
-        findViewById(R.id.sc_dtl_progressBar).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                findViewById(R.id.sc_dtl_progressBar).setVisibility(View.GONE);
-                findViewById(R.id.relativeLayout2).setVisibility(View.VISIBLE);
-                findViewById(R.id.relativeLayout2).startAnimation(fadein);
 
-            }
-        },1000);
-
+        //Show
+        progressBar.setVisibility(View.GONE);
+        bottomLayout.setVisibility(View.VISIBLE);
+        bottomLayout.startAnimation(fadein);
     }
 
     /**
@@ -117,18 +140,20 @@ public class ScDetailActivity extends AppCompatActivity {
     @OnClick(R.id.sc_dtl_btnApply)
     void apply(final CircularProgressButton btnApply){
         btnApply.startAnimation();
-        btnApply.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                btnApply.revertAnimation(new OnAnimationEndListener() {
-                    @Override
-                    public void onAnimationEnd() {
-                        btnApply.setText("√");
-                    }
-                });
-                Toast.makeText(getApplicationContext(), "Click", Toast.LENGTH_SHORT).show();
-            }
-        },1000);
+        SCRequest.applyActivity(this,item.getId(),applyCallback);
+
+//        btnApply.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                btnApply.revertAnimation(new OnAnimationEndListener() {
+//                    @Override
+//                    public void onAnimationEnd() {
+//                        btnApply.setText("√");
+//                    }
+//                });
+//                Toast.makeText(getApplicationContext(), "Click", Toast.LENGTH_SHORT).show();
+//            }
+//        },1000);
     }
 
     @Override

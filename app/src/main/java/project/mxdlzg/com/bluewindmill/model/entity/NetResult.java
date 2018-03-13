@@ -10,6 +10,7 @@ public class NetResult<T>{
     private T data = null;
     private int code = Config.NET_RESULT_DEFAULT_CODE;
     private String msg = "";
+    private boolean isSuccess = false;
 
     private NetResult(){
 
@@ -17,6 +18,23 @@ public class NetResult<T>{
 
     public NetResult(T data) {
         this.data = data;
+    }
+
+    public NetResult(T data, boolean isSuccess) {
+        this.data = data;
+        this.isSuccess = isSuccess;
+        if (isSuccess){
+            this.code = Config.NET_RESULT_SUCCESS;
+        }
+    }
+
+    public NetResult(T data,String msg, boolean isSuccess) {
+        this.data = data;
+        this.isSuccess = isSuccess;
+        if (isSuccess){
+            this.code = Config.NET_RESULT_SUCCESS;
+        }
+        this.msg = msg;
     }
 
     public NetResult(T data, int code) {
