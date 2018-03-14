@@ -141,19 +141,6 @@ public class ScDetailActivity extends AppCompatActivity {
     void apply(final CircularProgressButton btnApply){
         btnApply.startAnimation();
         SCRequest.applyActivity(this,item.getId(),applyCallback);
-
-//        btnApply.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                btnApply.revertAnimation(new OnAnimationEndListener() {
-//                    @Override
-//                    public void onAnimationEnd() {
-//                        btnApply.setText("√");
-//                    }
-//                });
-//                Toast.makeText(getApplicationContext(), "Click", Toast.LENGTH_SHORT).show();
-//            }
-//        },1000);
     }
 
     @Override

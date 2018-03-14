@@ -81,4 +81,8 @@ public class NetResult<T>{
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
+    public boolean isSuccess() {
+        return isSuccess;
+    }
 }

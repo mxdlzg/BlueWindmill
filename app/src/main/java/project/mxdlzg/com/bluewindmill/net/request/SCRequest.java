@@ -193,7 +193,9 @@ public class SCRequest {
                 .execute(new AbsCallback<NetResult<String>>() {
                     @Override
                     public void onSuccess(Response<NetResult<String>> response) {
+                        if (response.body().isSuccess())
                         callback.onSuccess(response.body());
+                        else callback.onError(response.body());
                     }
 
                     @Override
