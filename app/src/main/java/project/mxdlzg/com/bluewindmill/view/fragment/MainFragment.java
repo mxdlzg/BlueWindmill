@@ -166,35 +166,35 @@ public class MainFragment extends Fragment {
     }
 
     private void initUserSetting(View view) {
-        fragmentContainer = (RelativeLayout) view.findViewById(R.id.user_container);
-        final ToggleButton toggleButton = (ToggleButton) view.findViewById(R.id.test_toggleButton2);
-        toggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (toggleButton.isChecked()) {
-                    MainActivity activity = (MainActivity) getActivity();
-                    activity.updateBottomNavigationColor(true);
-//                    activity.getBottomNavigation().hideBottomNavigation();
-                } else {
-                    MainActivity activity = (MainActivity) getActivity();
-                    activity.updateBottomNavigationColor(false);
-                }
-            }
-        });
-        ImageView userImage = (ImageView) view.findViewById(R.id.user_image);
-        userImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), LoginActivity.class));
-            }
-        });
-        Button btnExam = (Button) view.findViewById(R.id.user_btn_exam);
-        btnExam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), ExamActivity.class));
-            }
-        });
+//        fragmentContainer = (RelativeLayout) view.findViewById(R.id.user_container);
+//        final ToggleButton toggleButton = (ToggleButton) view.findViewById(R.id.test_toggleButton2);
+//        toggleButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (toggleButton.isChecked()) {
+//                    MainActivity activity = (MainActivity) getActivity();
+//                    activity.updateBottomNavigationColor(true);
+////                    activity.getBottomNavigation().hideBottomNavigation();
+//                } else {
+//                    MainActivity activity = (MainActivity) getActivity();
+//                    activity.updateBottomNavigationColor(false);
+//                }
+//            }
+//        });
+//        ImageView userImage = (ImageView) view.findViewById(R.id.user_image);
+//        userImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getContext(), LoginActivity.class));
+//            }
+//        });
+//        Button btnExam = (Button) view.findViewById(R.id.user_btn_exam);
+//        btnExam.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getContext(), ExamActivity.class));
+//            }
+//        });
     }
 
 

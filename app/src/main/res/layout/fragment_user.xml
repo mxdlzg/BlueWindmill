@@ -6,62 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/user_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/relativeLayout">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitXY"
-            android:src="@drawable/background" />
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="60dp"
-            android:src="@drawable/user_background" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/user_image"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="@string/app_name"
-            android:textColor="@color/white" />
-    </RelativeLayout>
-
-    <ToggleButton
-        android:id="@+id/test_toggleButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ToggleButton"
-        android:layout_marginTop="99dp"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_centerHorizontal="true" />
-
-
-    <Button
-        android:id="@+id/user_btn_exam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/test_toggleButton2"
-        android:layout_below="@+id/test_toggleButton2"
-        android:layout_marginTop="14dp"
-        android:text="考试安排" />
 
 
     <!--<com.airbnb.lottie.LottieAnimationView-->
-        <!--android:id="@+id/test_Animation"-->
-        <!--android:elevation="@dimen/dp_4" tools:targetApi="LOLLIPOP"-->
-        <!--android:layout_marginTop="300dp"-->
-        <!--android:layout_width="50dp"-->
-        <!--android:layout_height="50dp"-->
-        <!--/>-->
-
-</RelativeLayout>
+    <!--android:id="@+id/test_Animation"-->
+    <!--android:elevation="@dimen/dp_4" tools:targetApi="LOLLIPOP"-->
+    <!--android:layout_marginTop="300dp"-->
+    <!--android:layout_width="50dp"-->
+    <!--android:layout_height="50dp"-->
+    <!--/>-->
