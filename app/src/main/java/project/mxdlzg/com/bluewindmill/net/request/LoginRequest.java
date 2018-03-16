@@ -8,9 +8,16 @@ import project.mxdlzg.com.bluewindmill.model.config.Config;
 import project.mxdlzg.com.bluewindmill.model.entity.NetResult;
 import project.mxdlzg.com.bluewindmill.model.local.ManageSetting;
 import project.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
+
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.AbsCallback;
+import com.lzy.okgo.callback.BitmapCallback;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.cookie.store.CookieStore;
 import com.lzy.okgo.model.Response;
@@ -18,10 +25,14 @@ import com.lzy.okgo.model.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Cookie;
@@ -52,17 +63,34 @@ public class LoginRequest {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        if (!response.body().contains(context.getString(R.string.loginCheckEMS))){
+                        String body = null;
+                        try {
+                            body = URLDecoder.decode(response.body(),"gbk");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        if (body == null){
+                            callback.onError("获取错误信息失败！");
+                            return;
+                        }
+                        if (body.contains(context.getString(R.string.loginEmsLocation))){
+                            emsLoginStatus = Config.LOGIN;
+                            List<Cookie> cookies = new ArrayList<>();
+                            Cookie.Builder builder = new Cookie.Builder();
+                            cookies.add(builder.name("token").value(String.valueOf(System.currentTimeMillis())).domain(".sit.edu.cn").expiresAt(0).path("/").build());
+                            addCookie(cookies,HttpUrl.parse(Config.EMS_URL),"token");
+                            callback.onSuccess(response.message());
+                        }else {
                             emsLoginStatus = Config.NOT_LOGIN;
-                            if (response.body().contains(context.getString(R.string.loginCheckEMSPassError))){
+                            if (body.contains(context.getString(R.string.loginCheckEMSPassError))){
                                 callback.onError(context.getString(R.string.loginCheckEMSPassError));
-                            }else {
-                                Document document = Jsoup.parse(response.body());
+                            }else if (body.contains(context.getString(R.string.loginCheckCaptchaError))){
+                                callback.onFail(context.getString(R.string.loginCheckCaptchaError));
+                            }
+                            else {
+                                Document document = Jsoup.parse(body);
                                 callback.onError(document.select("div[style=color:red;font-size:10pt;text-align:center]").text());
                             }
-                        }else {
-                            emsLoginStatus = Config.LOGIN;
-                            callback.onSuccess(response.message());
                         }
                     }
 
@@ -94,7 +122,8 @@ public class LoginRequest {
                     public void onSuccess(Response<String> response) {
                         CookieStore cookieStore = OkGo.getInstance().getCookieJar().getCookieStore();
                         List<Cookie> cookies = cookieStore.getCookie(HttpUrl.parse(Config.SC_LOGIN_PASS_URL));
-                        addCookie(cookies,HttpUrl.parse(Config.SC_LOGIN_URL));
+                        addCookie(cookies,HttpUrl.parse(Config.SC_LOGIN_URL),"iPlanetDirectoryPro");
+                        addCookie(cookies,HttpUrl.parse(Config.EMS_URL),"iPlanetDirectoryPro");
                         getJsessionId(context,callback);
                         //securityCheck(context,callback);
                     }
@@ -146,6 +175,32 @@ public class LoginRequest {
                 });
     }
 
+    public static void refershCaptchaAsBitmap(Context context,int type,final CommonCallback<Bitmap> callback){
+        String url = "";
+        switch (type){
+            case 0:
+                url = Config.EMS_CAPTCHA_URL;
+                break;
+            case 1:
+                url = Config.SC_CAPTCHA_URL;
+                break;
+            default:break;
+        }
+        OkGo.<Bitmap>get(url)
+                .tag(context).
+                execute(new BitmapCallback() {
+                    @Override
+                    public void onSuccess(Response<Bitmap> response) {
+                        callback.onSuccess(response.body());
+                    }
+
+                    @Override
+                    public void onError(Response<Bitmap> response) {
+                        callback.onFail(null);
+                    }
+                });
+    }
+
     public static void refreshCaptcha(Context context, int type, final CommonCallback<String> callback){
         String url = "";
         final String path = context.getFilesDir().getPath()+context.getPackageName()+"cache/";
@@ -160,23 +215,29 @@ public class LoginRequest {
         }
         OkGo.<String>get(url)
                 .tag(context)
-                .execute(new StringCallback(){
+                .execute(new AbsCallback<String>(){
                     @Override
-                    public void onSuccess(Response<String> response) {
-                        InputStream inputStream = response.getRawResponse().body().byteStream();
-                        if (inputStream != null){
-                            if (Util.saveImage("captcha.jpg",path,inputStream)){
-                                callback.onSuccess(path+"captcha.jpg");
+                    public String convertResponse(okhttp3.Response response) throws Throwable {
+                        InputStream inputStream = response.networkResponse().body().byteStream();
+                        if (inputStream != null) {
+                            if (Util.saveImage("captcha.jpg", path, inputStream)) {
+                                return path;
                             }
                         }else {
-                            callback.onFail("请求验证码失败");
+                            throw new Exception("请求验证码失败");
                         }
+                        return null;
+                    }
+
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        callback.onSuccess(response.body());
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-                        callback.onFail("请求验证码失败");
+                        callback.onFail(response.getException().getMessage());
                     }
                 });
     }
@@ -206,26 +267,24 @@ public class LoginRequest {
                 });
     }
 
-    private static void addCookie(List<Cookie> cookies,HttpUrl aimURL){
+    private static void addCookie(List<Cookie> cookies,HttpUrl aimURL,String aimName){
         CookieStore cookieStore = OkGo.getInstance().getCookieJar().getCookieStore();
         Cookie.Builder builder = new Cookie.Builder();
         for (Cookie cookie :
                 cookies) {
-            cookieStore.saveCookie(aimURL,builder.name(cookie.name()).value(cookie.value()).domain(aimURL.host()).expiresAt(cookie.expiresAt()).path(cookie.path()).build());
+            if (!TextUtils.isEmpty(aimName) && cookie.name().equals(aimName)){
+                cookieStore.saveCookie(aimURL,builder.name(cookie.name()).value(cookie.value()).domain(aimURL.host()).expiresAt(cookie.expiresAt()).path(cookie.path()).build());
+                break;
+            }
         }
     }
 
     public static void login(final Context context, final CommonCallback<String> callback) {
-        loginSC(context, new CommonCallback<String>() {
-            @Override
-            public void onSuccess(String message) {
-                callback.onSuccess(message);
-            }
+        //loginSC(context, callback);
+        loginEMS(context,callback);
+    }
 
-            @Override
-            public void onError(NetResult netResult) {
-                callback.onError(netResult);
-            }
-        });
+    public static void sendCaptcha(Context context, String captchaEditTextText, CommonCallback<String> callback) {
+
     }
 }

@@ -9,6 +9,9 @@ import com.lzy.okgo.model.Response;
 
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import project.mxdlzg.com.bluewindmill.model.config.Config;
@@ -22,6 +25,11 @@ import project.mxdlzg.com.bluewindmill.view.activity.LoginActivity;
  */
 
 public abstract class CommonCallback<T> {
+    final List<String> list = new ArrayList<>(Arrays.asList(
+            "http://sc.sit.edu.cn/portal.jsp",
+            "http://sc.sit.edu.cn/private/menu/menu.action",
+            "http://ems.sit.edu.cn/"));
+
     //
     public abstract void onSuccess(T message);
 
@@ -50,13 +58,15 @@ public abstract class CommonCallback<T> {
     }
 
     public void onError(Context context,Response<T> response,boolean isCode){
-        System.out.println("login---------->On Error!!!");
         if (response.getException() instanceof SocketTimeoutException){
             Toast.makeText(context, "连接超时", Toast.LENGTH_SHORT).show();
         }
-
+        String location = "";
+        if (response.getRawResponse() != null){
+            location = response.getRawResponse().header("Location");
+        }
         //Auto login
-        if (response.code() == 302 &&(response.getRawResponse().header("Location").equals("http://sc.sit.edu.cn/portal.jsp") || response.getRawResponse().header("Location").equals("http://sc.sit.edu.cn/private/menu/menu.action"))){
+        if (response.code() == 302 && list.contains(location)){
             Toast.makeText(context, "请登录！", Toast.LENGTH_SHORT).show();
             context.startActivity(new Intent(context, LoginActivity.class));
         }else if (response.getException() instanceof ProtocolException || response.getException() instanceof IndexOutOfBoundsException){

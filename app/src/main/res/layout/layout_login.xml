@@ -51,8 +51,9 @@
     </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
+        android:visibility="invisible"
         android:layout_centerHorizontal="true"
-        android:id="@+id/login_linerlayout"
+        android:id="@+id/login_captchalayout"
         android:layout_marginTop="15dp"
         android:layout_below="@+id/login_passwordLayout"
         android:orientation="horizontal"
@@ -65,13 +66,14 @@
             android:layout_centerHorizontal="true">
 
             <EditText
-                android:inputType="textPassword"
+                android:inputType="number"
                 android:id="@+id/login_verification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="验证码" />
         </android.support.design.widget.TextInputLayout>
         <ImageView
+            android:id="@+id/login_captchaView"
             android:src="@drawable/scbackground"
             android:layout_gravity="center"
             android:layout_width="100dp"
@@ -83,7 +85,7 @@
 
     <android.support.v7.widget.AppCompatButton
         android:layout_marginTop="@dimen/dp_10"
-        android:layout_below="@id/login_linerlayout"
+        android:layout_below="@id/login_captchalayout"
         android:text="登录"
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"

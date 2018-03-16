@@ -44,8 +44,11 @@ public class ManageSetting {
         for (int i = 0; i < kvs.length; i+=2) {
             if (!preferences.contains(kvs[i])){
                 editor.putString(kvs[i],kvs[i+1]);
-                editor.apply();
+            }else {
+                editor.remove(kvs[i]);
+                editor.putString(kvs[i],kvs[i+1]);
             }
+            editor.apply();
         }
     }
 

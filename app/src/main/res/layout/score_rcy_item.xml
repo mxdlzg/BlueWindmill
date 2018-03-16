@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:diagonal="http://schemas.android.com/apk/res-auto"
+    xmlns:squint="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginBottom="@dimen/dp_4"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true">
+
+    <com.intrusoft.squint.DiagonalView
+        android:id="@+id/score_item_diagonal_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginEnd="20dp"
+        squint:solidColor="@color/blue600"
+        squint:diagonalDirection="bottom_to_top"
+        squint:angle="20"
+        squint:gravity="left" />
+
+    <TextView
+        android:id="@+id/score_tv_item_total_score"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_30"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_toEndOf="@id/score_item_diagonal_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="@dimen/sp_18"
+            android:id="@+id/score_tv_itemName"
+            android:text="@string/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_10"
+            android:id="@+id/score_item_leftLinear"
+            android:layout_below="@id/score_tv_itemName"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/score_tv_item_peaceScore"
+                android:text="@string/app_name"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/score_tv_item_middleScore"
+                android:textSize="12sp"
+                android:text="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="12sp"
+                android:id="@+id/score_tv_item_finalScore"
+                android:text="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_40"
+            android:layout_toEndOf="@id/score_item_leftLinear"
+            android:layout_below="@id/score_tv_itemName"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/score_tv_item_secondFinalScore"
+                android:textSize="12sp"
+                android:text="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/score_tv_item_secondTotalScore"
+                android:textSize="12sp"
+                android:text="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

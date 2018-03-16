@@ -12,7 +12,7 @@
         android:background="@color/blue700"
         android:id="@+id/setting_toolbar"
         android:fitsSystemWindows="true"
-        android:elevation="3dp" tools:targetApi="LOLLIPOP"
+        android:elevation="10dp" tools:targetApi="LOLLIPOP"
         android:layout_height="wrap_content">
     </android.support.v7.widget.Toolbar>
 

@@ -81,4 +81,5 @@ dependencies {
     compile 'com.github.santalu:emptyview:1.0.5'
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     compile 'com.github.developer-shivam:Diagonalify:1.1'
+    compile 'com.github.IntruderShanky:Squint:3.0.1'
 }

@@ -39,6 +39,8 @@
         <activity android:name=".view.activity.ScDetailActivity">
 
         </activity>
+        <activity android:name=".view.activity.ScoreActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

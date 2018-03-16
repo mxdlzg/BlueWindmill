@@ -241,4 +241,12 @@ public class Util {
 
         return size;
     }
+
+    public static String convertParam(String text){
+        if (text.contains("第1学期")){
+            return text.substring(0,4)+"秋";
+        }else {
+            return text.substring(5,9)+"春";
+        }
+    }
 }

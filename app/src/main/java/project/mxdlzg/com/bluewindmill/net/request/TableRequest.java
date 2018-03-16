@@ -16,10 +16,12 @@ import android.widget.Toast;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.lzy.okgo.request.base.Request;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -122,9 +124,7 @@ public class TableRequest {
 
                     @Override
                     public void onError(Response<NetResult<List<ScoreOBJ>>> response) {
-                        if (callback != null){
-                            callback.onError(Config.codeConvertor(response.code()));
-                        }
+                        callback.onError(context,response,false);
                     }
 
                     @Override

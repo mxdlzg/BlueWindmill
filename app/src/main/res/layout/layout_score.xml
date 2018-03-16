@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/score_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue700"
+        android:elevation="10dp"
+        android:fitsSystemWindows="true"
+        tools:targetApi="LOLLIPOP"/>
+
+    <org.angmarch.views.NiceSpinner
+        android:elevation="@dimen/dp_4" tools:targetApi="LOLLIPOP"
+        android:id="@+id/score_term_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/score_toolbar"
+        app:arrowTint="@color/grey500"
+        android:textSize="18sp"
+        app:textTint="@color/grey600" />
+
+    <android.support.v7.widget.RecyclerView
+        android:background="@color/grey100"
+        android:layout_below="@id/score_term_spinner"
+        android:id="@+id/score_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>

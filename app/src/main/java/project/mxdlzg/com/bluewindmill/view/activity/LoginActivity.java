@@ -3,12 +3,16 @@ package project.mxdlzg.com.bluewindmill.view.activity;
 import android.app.ProgressDialog;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.model.config.Config;
 import project.mxdlzg.com.bluewindmill.model.local.ManageSetting;
 import project.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import project.mxdlzg.com.bluewindmill.net.request.LoginRequest;
+
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -16,9 +20,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.airbnb.lottie.L;
+
+import java.io.File;
 
 /**
  * Created by 廷江 on 2017/3/22.
@@ -31,6 +40,12 @@ public class LoginActivity extends AppCompatActivity{
     public TextInputLayout userLayout;
     @BindView(R.id.login_passwordLayout)
     public TextInputLayout passwordLayout;
+    @BindView(R.id.login_captchalayout)
+    LinearLayout captchaLayout;
+    @BindView(R.id.login_captchaView)
+    ImageView captchaView;
+    @BindView(R.id.login_verification)
+    EditText captchaEditText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,6 +107,20 @@ public class LoginActivity extends AppCompatActivity{
         //Storage with UserInfo
         ManageSetting.tryCacheValue(this, Config.USER_NAME,user,Config.USER_PASSWORD,password);
 
+        //Send Captcha
+        if (captchaLayout.getVisibility()==View.VISIBLE){
+            LoginRequest.sendCaptcha(this,captchaEditText.getText().toString(),new CommonCallback<String>(){
+                @Override
+                public void onSuccess(String message) {
+                    login(dialog);
+                }
+            });
+        }else {
+            login(dialog);
+        }
+    }
+
+    private void login(final ProgressDialog dialog){
         //OkGo_Login
         LoginRequest.login(this, new CommonCallback<String>() {
             @Override
@@ -102,9 +131,17 @@ public class LoginActivity extends AppCompatActivity{
             }
 
             @Override
-            public void onFail(String message) {
+            public void onError(String message) {
                 dialog.dismiss();
                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFail(String message) {
+                dialog.dismiss();
+                if (message.equals(getString(R.string.loginCheckCaptchaError))){
+                    refreshCaptcha();
+                }
             }
         });
 
@@ -123,5 +160,40 @@ public class LoginActivity extends AppCompatActivity{
         if (!TextUtils.isEmpty(pass) && passwordLayout.getEditText() != null){
             passwordLayout.getEditText().setText(pass);
         }
+    }
+
+    private void refreshCaptcha(){
+        if (captchaLayout.getVisibility()==View.INVISIBLE){
+            captchaLayout.setVisibility(View.VISIBLE);
+        }
+        LoginRequest.refershCaptchaAsBitmap(this, 0, new CommonCallback<Bitmap>() {
+            @Override
+            public void onSuccess(Bitmap message) {
+                Toast.makeText(LoginActivity.this, "请填写验证码", Toast.LENGTH_SHORT).show();
+                captchaView.setImageBitmap(message);
+            }
+
+            @Override
+            public void onFail(Bitmap message) {
+                Toast.makeText(LoginActivity.this, "刷新验证码失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+//        LoginRequest.refreshCaptcha(this, 0, new CommonCallback<String>() {
+//            @Override
+//            public void onSuccess(String path) {
+//                Toast.makeText(LoginActivity.this, "请填写验证码", Toast.LENGTH_SHORT).show();
+//                File file = new File(path,"captcha.jpg");
+//                Uri uri = null;
+//                if(file.exists()) {
+//                    uri = Uri.fromFile(file);
+//                }
+//                captchaView.setImageURI(uri);
+//            }
+//
+//            @Override
+//            public void onFail(String message) {
+//                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 }

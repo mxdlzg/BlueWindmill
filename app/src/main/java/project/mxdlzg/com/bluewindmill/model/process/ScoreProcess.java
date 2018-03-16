@@ -33,17 +33,17 @@ public class ScoreProcess extends BaseProcess {
         //If Table
         if (table != null){
             List<ScoreOBJ> list = new ArrayList<>(table.getRowNumber());
-            for (int i = 0; i < table.getRowNumber(); i++) {
-                list.add(new ScoreOBJ(table.getCell(i,0).getName(),
-                        table.getCell(i,1).getName(),
-                        table.getCell(i,2).getName(),
-                        table.getCell(i,3).getName(),
-                        table.getCell(i,4).getName(),
-                        table.getCell(i,5).getName(),
-                        table.getCell(i,6).getName(),
-                        table.getCell(i,7).getName(),
-                        table.getCell(i,8).getName()
-                        ));
+            for (int i = 1; i < table.getRowNumber(); i++) {
+                list.add(new ScoreOBJ(table.getCell(i, 0).getName(),
+                        table.getCell(i, 1).getName(),
+                        table.getCell(i, 2).getName(),
+                        table.getCell(i, 3).getName(),
+                        table.getCell(i, 4).getName(),
+                        table.getCell(i, 5).getName(),
+                        table.getCell(i, 6).getName(),
+                        table.getCell(i, 7).getName(),
+                        table.getCell(i, 8).getName()
+                ));
             }
             result.setData(list);
         }

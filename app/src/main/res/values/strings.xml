@@ -2,11 +2,13 @@
     <string name="app_name">BlueWindmill</string>
     <string name="loginFailEMS">Login into EMS fail!</string>
     <string name="loginCheckEMS">欢迎进入管理系统</string>
+    <string name="loginEmsLocation">http://ems.sit.edu.cn:85/student?authtype=</string>
     <string name="requestScheduleFail">Get Schedule Fail!</string>
     <string name="titleExam">Exam</string>
     <string name="sc_rcy_item_2_scDtl">sc_rcy_item_2_scDtl</string>
     <string name="try_again">重试</string>
     <string name="empty">空</string>
+    <string name="loginCheckCaptchaError">验证码不正确</string>
     <string name="loginCheckSCPassError">用户不存在或密码错误</string>
     <string name="loginCheckEMSPassError">错误的用户名或密码</string>
     <string name="rcy_empty_retry">点击重试或下拉刷新！</string>
