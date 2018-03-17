@@ -3,6 +3,7 @@ package project.mxdlzg.com.bluewindmill.net.request;
 import android.content.Context;
 
 import okhttp3.OkHttpClient;
+import okhttp3.internal.http.HttpDate;
 import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.model.config.Config;
 import project.mxdlzg.com.bluewindmill.model.entity.NetResult;
@@ -51,13 +52,13 @@ public class LoginRequest {
     /**
      * Read Params from config(user,password)
      */
-    public static void loginEMS(final Context context, final CommonCallback<String> callback) {
+    public static void loginEMS(final Context context,String loginYzm, final CommonCallback<String> callback) {
         OkGo.<String>get(Config.EMS_LOGIN_URL)
                 .tag(context)
                 .params("loginName", ManageSetting.getStringSetting(context, Config.USER_NAME))
                 .params("password", ManageSetting.getStringSetting(context, Config.USER_PASSWORD))
                 .params("authtype", Config.AUTH_TYPE)
-                .params("loginYzm", "")
+                .params("loginYzm", loginYzm)
                 .params("Login.Token1", "")
                 .params("Login.Token2", "")
                 .execute(new StringCallback() {
@@ -77,7 +78,7 @@ public class LoginRequest {
                             emsLoginStatus = Config.LOGIN;
                             List<Cookie> cookies = new ArrayList<>();
                             Cookie.Builder builder = new Cookie.Builder();
-                            cookies.add(builder.name("token").value(String.valueOf(System.currentTimeMillis())).domain(".sit.edu.cn").expiresAt(0).path("/").build());
+                            cookies.add(builder.name("token").value(String.valueOf(System.currentTimeMillis())).domain("sit.edu.cn").expiresAt(HttpDate.MAX_DATE).path("/").build());
                             addCookie(cookies,HttpUrl.parse(Config.EMS_URL),"token");
                             callback.onSuccess(response.message());
                         }else {
@@ -125,13 +126,12 @@ public class LoginRequest {
                         addCookie(cookies,HttpUrl.parse(Config.SC_LOGIN_URL),"iPlanetDirectoryPro");
                         addCookie(cookies,HttpUrl.parse(Config.EMS_URL),"iPlanetDirectoryPro");
                         getJsessionId(context,callback);
-                        //securityCheck(context,callback);
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         scLoginStatus = Config.NOT_LOGIN;
-                        callback.onError(context,response,true);
+                        callback.onError(context,response,"第二课堂登录：");
                     }
                 });
 
@@ -149,7 +149,7 @@ public class LoginRequest {
 
                     @Override
                     public void onError(Response<String> response) {
-                        callback.onError(context,response,true);
+                        callback.onError(context,response,"第二课堂登录：");
                     }
                 });
     }
@@ -170,7 +170,7 @@ public class LoginRequest {
 
                     @Override
                     public void onError(Response<String> response) {
-                        callback.onError(context,response,true);
+                        callback.onError(context,response,"第二课堂登录：");
                     }
                 });
     }
@@ -201,49 +201,6 @@ public class LoginRequest {
                 });
     }
 
-    public static void refreshCaptcha(Context context, int type, final CommonCallback<String> callback){
-        String url = "";
-        final String path = context.getFilesDir().getPath()+context.getPackageName()+"cache/";
-        switch (type){
-            case 0:
-                url = Config.EMS_CAPTCHA_URL;
-                break;
-            case 1:
-                url = Config.SC_CAPTCHA_URL;
-                break;
-            default:break;
-        }
-        OkGo.<String>get(url)
-                .tag(context)
-                .execute(new AbsCallback<String>(){
-                    @Override
-                    public String convertResponse(okhttp3.Response response) throws Throwable {
-                        InputStream inputStream = response.networkResponse().body().byteStream();
-                        if (inputStream != null) {
-                            if (Util.saveImage("captcha.jpg", path, inputStream)) {
-                                return path;
-                            }
-                        }else {
-                            throw new Exception("请求验证码失败");
-                        }
-                        return null;
-                    }
-
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        callback.onSuccess(response.body());
-                    }
-
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        callback.onFail(response.getException().getMessage());
-                    }
-                });
-    }
-
-
-
     private static void securityCheck(final Context context, final CommonCallback<String> callback){
         OkGo.<String>get(Config.SC_LOGIN_URL)
                 .tag(context)
@@ -262,7 +219,7 @@ public class LoginRequest {
                     public void onError(Response<String> response) {
                         System.out.println("login----------------->securityCheck fail!!");
                         scLoginStatus = Config.NOT_LOGIN;
-                        callback.onError(context,response,true);
+                        callback.onError(context,response,"第二课堂登录：");
                     }
                 });
     }
@@ -279,9 +236,13 @@ public class LoginRequest {
         }
     }
 
-    public static void login(final Context context, final CommonCallback<String> callback) {
-        //loginSC(context, callback);
-        loginEMS(context,callback);
+    public static void login(final Context context,String loginYzm, final CommonCallback<String> callback) {
+        if (scLoginStatus == Config.NOT_LOGIN){
+            loginSC(context, callback);
+        }
+        if (emsLoginStatus == Config.NOT_LOGIN){
+            loginEMS(context,loginYzm, callback);
+        }
     }
 
     public static void sendCaptcha(Context context, String captchaEditTextText, CommonCallback<String> callback) {

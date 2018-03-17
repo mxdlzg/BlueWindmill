@@ -36,7 +36,7 @@ public class NetTest extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LoginRequest loginRequest = new LoginRequest();
-                loginRequest.loginEMS(NetTest.this, new CommonCallback<String>() {
+                loginRequest.loginEMS(NetTest.this, "",new CommonCallback<String>() {
                     @Override
                     public void onSuccess(String message) {
                         Toast.makeText(NetTest.this, "Login Success!", Toast.LENGTH_SHORT).show();

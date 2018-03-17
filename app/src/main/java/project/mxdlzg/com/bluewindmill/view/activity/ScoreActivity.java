@@ -1,5 +1,6 @@
 package project.mxdlzg.com.bluewindmill.view.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -69,11 +71,24 @@ public class ScoreActivity extends AppCompatActivity {
         initView();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home)
+        {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * Init this activity
      */
     private void initView() {
-        //setSupportActionBar(scoreToolbar);
+        scoreToolbar.setTitle("本学期成绩详情");
+        scoreToolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(scoreToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Spinner
         scoreTermSpinner.attachDataSource(paramList);

@@ -41,14 +41,45 @@ public abstract class CommonCallback<T> {
     public void onProgress(String status){
 
     }
+    public void onError(String message){
 
+    }
     public void onError(NetResult netResult){
 
     }
 
     //404 | >500 will raise this callback function
-    public void onError(String message){
+    public void onError(Context context,Response<T> response,String originSource){
+        if (response.getException() instanceof SocketTimeoutException){
+            Toast.makeText(context, originSource+"连接超时", Toast.LENGTH_SHORT).show();
+        }
+        String location = "";
+        if (response.getRawResponse() != null){
+            location = response.getRawResponse().header("Location");
+        }
+        //Auto login
+        if (response.code() == 302 && list.contains(location)){
+            Toast.makeText(context, "请登录！", Toast.LENGTH_SHORT).show();
+            context.startActivity(new Intent(context, LoginActivity.class));
+        }else if (response.getException() instanceof ProtocolException || response.getException() instanceof IndexOutOfBoundsException){
+            if (response.getRawResponse() == null || response.getRawResponse().request().url().toString().equals("http://sc.sit.edu.cn/private/menu/menu.action")){
+                Toast.makeText(context, "请登录！", Toast.LENGTH_SHORT).show();
+                context.startActivity(new Intent(context, LoginActivity.class));
+            }
+        }
 
+        //Throw netresult
+        NetResult netResult = null;
+        if (response.body() == null){
+            netResult = new NetResult<String>(null,response.code());
+            netResult.setMsg("请求返回空值");
+        }else {
+            netResult = (NetResult) response.body();
+            netResult.setCode(response.code());
+            netResult.setMsg(response.message());
+        }
+
+        onError(netResult);
     }
 
     public void onError(String message,Context context){

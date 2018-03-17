@@ -46,6 +46,8 @@ public class LoginActivity extends AppCompatActivity{
     ImageView captchaView;
     @BindView(R.id.login_verification)
     EditText captchaEditText;
+    @BindView(R.id.login_verificationLayout)
+    TextInputLayout captchaInputlayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,6 +89,11 @@ public class LoginActivity extends AppCompatActivity{
                     passwordLayout.setErrorEnabled(true);
                     passwordLayout.setError("密码不能为空");
                 }
+                if (captchaLayout.getVisibility()==View.VISIBLE && captchaEditText.getText().length()==0){
+                    captchaInputlayout.setErrorEnabled(true);
+                    captchaInputlayout.setError("密码不能为空");
+                    return;
+                }
                 if (!user.equals("")&&!password.equals("")){
                     Login(user,password);
                 }
@@ -102,31 +109,27 @@ public class LoginActivity extends AppCompatActivity{
      * @param password pass
      */
     private void Login(String user, String password){
-        final ProgressDialog dialog = ProgressDialog.show(this,"Login","Login into EMS system",true,true);
+        //View Dialog
+        final ProgressDialog dialog = ProgressDialog.show(this,"登录","正在登录...",true,true);
 
         //Storage with UserInfo
         ManageSetting.tryCacheValue(this, Config.USER_NAME,user,Config.USER_PASSWORD,password);
 
         //Send Captcha
         if (captchaLayout.getVisibility()==View.VISIBLE){
-            LoginRequest.sendCaptcha(this,captchaEditText.getText().toString(),new CommonCallback<String>(){
-                @Override
-                public void onSuccess(String message) {
-                    login(dialog);
-                }
-            });
+            login(dialog,captchaEditText.getText().toString());
         }else {
-            login(dialog);
+            login(dialog,"");
         }
     }
 
-    private void login(final ProgressDialog dialog){
+    private void login(final ProgressDialog dialog,String Yzm){
         //OkGo_Login
-        LoginRequest.login(this, new CommonCallback<String>() {
+        LoginRequest.login(this,Yzm, new CommonCallback<String>() {
             @Override
             public void onSuccess(String message) {
                 dialog.dismiss();
-                Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "登录成功!", Toast.LENGTH_SHORT).show();
                 LoginActivity.this.finish();
             }
 
@@ -178,22 +181,5 @@ public class LoginActivity extends AppCompatActivity{
                 Toast.makeText(LoginActivity.this, "刷新验证码失败", Toast.LENGTH_SHORT).show();
             }
         });
-//        LoginRequest.refreshCaptcha(this, 0, new CommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String path) {
-//                Toast.makeText(LoginActivity.this, "请填写验证码", Toast.LENGTH_SHORT).show();
-//                File file = new File(path,"captcha.jpg");
-//                Uri uri = null;
-//                if(file.exists()) {
-//                    uri = Uri.fromFile(file);
-//                }
-//                captchaView.setImageURI(uri);
-//            }
-//
-//            @Override
-//            public void onFail(String message) {
-//                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 }
