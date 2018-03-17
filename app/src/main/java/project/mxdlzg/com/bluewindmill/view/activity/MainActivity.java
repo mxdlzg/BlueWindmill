@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             searchFragment.setOnSearchClickListener(new IOnSearchClickListener() {
                 @Override
                 public void OnSearchClick(String keyword) {
-                    Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
+                    ((ScFragment)mainFragment).search(keyword);
                 }
             });
         }
@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
             ScFragment scFragment = (ScFragment) navigationAdapter.getFragments().get(1);
             scFragment.enterSearchView();
             navigationAdapter.setCurrentFragment(scFragment);
+            bottomNavigation.setCurrentItem(1);
         }
         searchFragment.show(getSupportFragmentManager(),SearchFragment.TAG);
     }

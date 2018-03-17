@@ -51,7 +51,7 @@ public class ScViewPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int position) {
+    public ScDetailFragment getItem(int position) {
         return list.get(position);
     }
 

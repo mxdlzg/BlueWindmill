@@ -93,7 +93,9 @@ public class ScDetailActivity extends AppCompatActivity {
         @Override
         public void onError(NetResult netResult) {
             btnApply.revertAnimation();
-            Toast.makeText(ScDetailActivity.this, netResult.getMsg(), Toast.LENGTH_SHORT).show();
+            if (netResult != null){
+                Toast.makeText(ScDetailActivity.this, netResult.getMsg(), Toast.LENGTH_SHORT).show();
+            }
         }
     };
 

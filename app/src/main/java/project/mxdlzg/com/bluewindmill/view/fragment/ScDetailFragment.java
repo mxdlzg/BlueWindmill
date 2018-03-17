@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -54,6 +55,8 @@ public class ScDetailFragment extends BaseFragment {
     private int pageNo = 1;
     final int pageSize = 20;
     private String categoryID = "001";
+    private boolean isWaitingSearchResult = false;
+    private boolean canLoadMore = true;
 
     /*footer loadmore listener*/
     private BaseQuickAdapter.RequestLoadMoreListener requestLoadMoreListener = new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -113,17 +116,6 @@ public class ScDetailFragment extends BaseFragment {
      * @param refreshLayout refreshLayout
      */
     private void refreshData(final RefreshLayout refreshLayout){
-        //request data
-        //if (list == null){list = new LinkedList<>();}
-//        list.add(new SCActivityDetail("111","【天天讲】【生态天天讲】野趣魔都——野生动植物保护二三事","2018-02-08 13:44:57"));
-//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-//        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
-
         //Net request
         SCRequest.requestActivityList(getContext(), 1, pageSize, categoryID, new CommonCallback<NetResult<List<SCActivityDetail>>>() {
             @Override
@@ -143,6 +135,10 @@ public class ScDetailFragment extends BaseFragment {
      * <Note>上拉自动加载触发-》pageSize为每页显示的数量，超过该数量才会调用加载更多的回调。</Note>
      */
     private void loadMoreData(){
+        if (!canLoadMore){
+            adapter.loadMoreEnd();
+            return;
+        }
         SCRequest.requestActivityList(getContext(), pageNo+1, pageSize, categoryID, new CommonCallback<NetResult<List<SCActivityDetail>>>() {
             @Override
             public void onSuccess(NetResult<List<SCActivityDetail>> message) {
@@ -158,10 +154,6 @@ public class ScDetailFragment extends BaseFragment {
                 adapter.loadMoreFail();
             }
         });
-
-
-
-
     }
 
     /**
@@ -173,10 +165,21 @@ public class ScDetailFragment extends BaseFragment {
         adapter.setNewData(list);
         this.list = list;
         pageNo = 1;
+        canLoadMore = true;
         if (refreshLayout != null){
             refreshLayout.finishRefresh(true);
         }else if (list == null){
             emptyView.showEmpty();
+        }
+    }
+
+    public void finishSearch(List<SCActivityDetail> list){
+        adapter.setNewData(list);
+        this.list = list;
+        isWaitingSearchResult = false;
+        canLoadMore = false;
+        if (list == null){
+            emptyView.showEmpty("未找到搜索结果");
         }
     }
 
@@ -204,7 +207,9 @@ public class ScDetailFragment extends BaseFragment {
         //EmptyView
         emptyView.setOnClickListener(emptyOnClickListener);
         emptyView.showEmpty();
-        emptyView.findViewById(R.id.empty_button).performClick();
+        if (!isWaitingSearchResult){
+            emptyView.findViewById(R.id.empty_button).performClick();
+        }
         Log.e("dtlFragment","emptyView");
 
         //Adapter & Recyclerview
@@ -230,5 +235,9 @@ public class ScDetailFragment extends BaseFragment {
 
     public void setCategoryID(String categoryID) {
         this.categoryID = categoryID;
+    }
+
+    public void setWaitingSearchResult(boolean waitingSearchResult) {
+        isWaitingSearchResult = waitingSearchResult;
     }
 }

@@ -4,6 +4,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.model.config.Config;
+import project.mxdlzg.com.bluewindmill.model.entity.SCActivityDetail;
 import project.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import project.mxdlzg.com.bluewindmill.net.request.LoginRequest;
 import project.mxdlzg.com.bluewindmill.util.Util;
@@ -20,6 +21,9 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import project.mxdlzg.com.bluewindmill.view.widgets.ViewPagerCustomDuration;
@@ -60,9 +64,9 @@ public class ScFragment extends BaseFragment {
     protected void initData() {
         //If not enter searchView, Set 0 Visible
         if (firstEnterSearchView){
-            viewPagerAdapter.getItem(0).setUserVisibleHint(true);
-            firstEnterSearchView =false;
+            viewPagerAdapter.getItem(0).setWaitingSearchResult(true);
         }
+        viewPagerAdapter.getItem(0).setUserVisibleHint(true);
     }
 
     private void initSecondClass(View view) {
@@ -90,5 +94,22 @@ public class ScFragment extends BaseFragment {
 
     public void enterSearchView() {
         firstEnterSearchView = true;
+    }
+
+    public void search(String keyword) {
+        // TODO: 18-3-17 request.search
+        // TODO: 18-3-17 search success
+        List<SCActivityDetail> list = new ArrayList<>();
+        list.add(new SCActivityDetail("111","【天天讲】【生态天天讲】野趣魔都——野生动植物保护二三事","2018-02-08 13:44:57"));
+        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+        list.add(new SCActivityDetail("111","title","2018-02-08 13:44:57"));
+
+        viewPager.setCurrentItem(0);
+        viewPagerAdapter.getItem(0).finishSearch(list);
     }
 }
