@@ -36,6 +36,8 @@ public class ScFragment extends BaseFragment {
 
     private ScViewPagerAdapter viewPagerAdapter;
     private Unbinder unbinder;
+    private boolean firstEnterSearchView = false;
+
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,10 +58,11 @@ public class ScFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        //Set 0 Visible
-        viewPagerAdapter.getItem(0).setUserVisibleHint(true);
-
-
+        //If not enter searchView, Set 0 Visible
+        if (firstEnterSearchView){
+            viewPagerAdapter.getItem(0).setUserVisibleHint(true);
+            firstEnterSearchView =false;
+        }
     }
 
     private void initSecondClass(View view) {
@@ -83,5 +86,9 @@ public class ScFragment extends BaseFragment {
     @Override
     protected void onHide() {
         super.onHide();
+    }
+
+    public void enterSearchView() {
+        firstEnterSearchView = true;
     }
 }

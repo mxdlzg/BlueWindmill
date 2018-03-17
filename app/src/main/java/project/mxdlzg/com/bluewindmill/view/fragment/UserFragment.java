@@ -76,7 +76,9 @@ public class UserFragment extends BaseFragment {
     protected void initData() {
         //Data
         list.add(new UserRecyclerItem("考试安排","本学期考试时间表",R.drawable.ic_view_week_black_24dp,new Intent(getContext(), ExamActivity.class)));
-        list.add(new UserRecyclerItem("成绩","课程成绩，第二课堂成绩",R.drawable.ic_student,new Intent(getContext(), ScoreActivity.class)));
+        list.add(new UserRecyclerItem("成绩","课程成绩，课程内容评教",R.drawable.ic_student,new Intent(getContext(), ScoreActivity.class)));
+        list.add(new UserRecyclerItem("绩点","绩点查询，绩点计算",R.drawable.ic_bubble_chart_black_24dp,null));
+        list.add(new UserRecyclerItem("校外考试成绩","校外考试，四六级成绩查询",R.drawable.ic_student,null));
         list.add(new UserRecyclerItem("设置","详细设置",R.drawable.ic_settings_black_24dp,new Intent(getContext(), SettingActivity.class)));
 
         //Adapter

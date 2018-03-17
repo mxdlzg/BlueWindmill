@@ -63,6 +63,18 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
         super.setPrimaryItem(container, position, object);
     }
 
+    public void setCurrentFragment(BaseFragment currentFragment) {
+        this.currentFragment = currentFragment;
+    }
+
+    public void setCurrentFragmentIndex(int position) {
+        setCurrentFragment(fragments.get(position));
+    }
+
+    public ArrayList<BaseFragment> getFragments() {
+        return fragments;
+    }
+
     //BottomNav
     public void willBeHidden(final int nextPosition) {
         if (currentFragment.getContainer() != null) {

@@ -12,6 +12,7 @@ import project.mxdlzg.com.bluewindmill.model.config.Config;
 import project.mxdlzg.com.bluewindmill.model.entity.TermOBJ;
 import project.mxdlzg.com.bluewindmill.view.base.BaseFragment;
 import project.mxdlzg.com.bluewindmill.model.local.ManageSetting;
+import project.mxdlzg.com.bluewindmill.view.fragment.ScFragment;
 import project.mxdlzg.com.bluewindmill.view.fragment.ScheduleFragment;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,10 +26,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
+import com.wyt.searchbox.SearchFragment;
+import com.wyt.searchbox.custom.IOnSearchClickListener;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private BaseFragment mainFragment;
+    private SearchFragment searchFragment;
 
     //Parameter
     private Long currentId; //当前课程表的uuid
@@ -139,9 +144,33 @@ public class MainActivity extends AppCompatActivity {
             case  R.id.menu_setting:
                 startActivity(new Intent(this,SettingActivity.class));
                 break;
+            case R.id.menu_search:
+                showSearch();
+                break;
             default:break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Show search fragment
+     */
+    private void showSearch(){
+        if (searchFragment == null){
+            searchFragment = SearchFragment.newInstance();
+            searchFragment.setOnSearchClickListener(new IOnSearchClickListener() {
+                @Override
+                public void OnSearchClick(String keyword) {
+                    Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        if (!(mainFragment instanceof ScFragment)){
+            ScFragment scFragment = (ScFragment) navigationAdapter.getFragments().get(1);
+            scFragment.enterSearchView();
+            navigationAdapter.setCurrentFragment(scFragment);
+        }
+        searchFragment.show(getSupportFragmentManager(),SearchFragment.TAG);
     }
 
     @Override
