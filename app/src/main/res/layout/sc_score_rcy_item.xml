@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:squint="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginBottom="@dimen/dp_4"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="vertical">
+
+    <com.intrusoft.squint.DiagonalView
+        android:id="@+id/sc_score_item_diagonal_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        squint:angle="20"
+        squint:diagonalDirection="bottom_to_top"
+        squint:gravity="right"
+        squint:solidColor="@color/blue600" />
+
+    <TextView
+        android:layout_marginEnd="@dimen/dp_10"
+        android:id="@+id/sc_score_tv_item_total_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/sc_score_item_diagonal_view"
+        android:layout_centerVertical="true"
+        android:text="0.08"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_30" />
+
+    <TextView
+        android:id="@+id/sc_score_item_text"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/sc_score_item_diagonal_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

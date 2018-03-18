@@ -53,7 +53,7 @@ public class SCRequest {
      * @param pageSize total count / page
      * @param callback callback
      */
-    public static void requestSCScoreDetail(Context context, String pageNo, String pageSize, final CommonCallback<NetResult<List<SCScoreDetail>>> callback){
+    public static void requestSCScoreDetail(final Context context, int pageNo, int pageSize, final CommonCallback<NetResult<List<SCScoreDetail>>> callback){
         OkGo.<NetResult<List<SCScoreDetail>>>post(Config.SC_SCORE_DETAIL_URL)
                 .tag(context)
                 .params("pageNo",pageNo)
@@ -66,7 +66,7 @@ public class SCRequest {
 
                     @Override
                     public void onError(Response<NetResult<List<SCScoreDetail>>> response) {
-                        callback.onError(response.getException().getMessage()+Config.codeConvertor(response.code()));
+                        callback.onError(context,response,false);
                     }
 
                     @Override

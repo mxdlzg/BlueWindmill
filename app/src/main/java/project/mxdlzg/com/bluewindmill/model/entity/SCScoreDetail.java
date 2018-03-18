@@ -14,7 +14,7 @@ public class SCScoreDetail {
         this.date = date;
         this.score = score;
         this.honest = honest;
-        this.remark = remark;
+        this.remark = "\n"+remark;
     }
 
 

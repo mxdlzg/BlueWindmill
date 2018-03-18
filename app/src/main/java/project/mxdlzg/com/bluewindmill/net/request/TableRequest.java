@@ -158,9 +158,7 @@ public class TableRequest {
 
                     @Override
                     public void onError(Response<NetResult<String>> response) {
-                        if (callback !=null){
-                            callback.onError(Config.codeConvertor(response.code()));
-                        }
+                        callback.onError(context,response,false);
                     }
 
                     @Override

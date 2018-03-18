@@ -83,4 +83,13 @@ public class SCInfo {
     public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
     }
+
+    public String getscPresentationText() {
+        return String.format("%.2f(讲座报告)+%.2f(社会实践)+%.2f(创新创业创意)+%.2f(安全教育网络教学)+%.2f(其他)",
+                scPresentation[0],
+                scPresentation[1],
+                scPresentation[2],
+                scPresentation[3],
+                scPresentation[4]);
+    }
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/score_point_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue700"
+        android:elevation="10dp"
+        android:fitsSystemWindows="true"
+        app:theme="@style/ToolbarColoredBackArrow"
+        tools:targetApi="LOLLIPOP" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/score_point_term_start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:elevation="@dimen/dp_4"
+            android:textSize="18sp"
+            app:arrowTint="@color/grey500"
+            app:textTint="@color/grey600"
+            tools:targetApi="LOLLIPOP" />
+
+        <org.angmarch.views.NiceSpinner
+            android:layout_marginStart="@dimen/dp_4"
+            android:id="@+id/score_point_term_end"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:elevation="@dimen/dp_4"
+            android:textSize="18sp"
+            app:arrowTint="@color/grey500"
+            app:textTint="@color/grey600"
+            tools:targetApi="LOLLIPOP" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:visibility="invisible"
+        android:id="@+id/score_point_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp" />
+
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/score_point_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textSize="@dimen/sp_30" />
+
+</LinearLayout>

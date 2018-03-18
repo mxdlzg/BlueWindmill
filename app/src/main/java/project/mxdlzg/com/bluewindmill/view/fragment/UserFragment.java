@@ -26,7 +26,9 @@ import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.model.entity.UserRecyclerItem;
 import project.mxdlzg.com.bluewindmill.view.activity.ExamActivity;
 import project.mxdlzg.com.bluewindmill.view.activity.LoginActivity;
+import project.mxdlzg.com.bluewindmill.view.activity.ScScoreActivity;
 import project.mxdlzg.com.bluewindmill.view.activity.ScoreActivity;
+import project.mxdlzg.com.bluewindmill.view.activity.ScorePointActivity;
 import project.mxdlzg.com.bluewindmill.view.activity.SettingActivity;
 import project.mxdlzg.com.bluewindmill.view.adapter.UserRcyAdapter;
 import project.mxdlzg.com.bluewindmill.view.base.BaseFragment;
@@ -77,8 +79,9 @@ public class UserFragment extends BaseFragment {
         //Data
         list.add(new UserRecyclerItem("考试安排","本学期考试时间表",R.drawable.ic_view_week_black_24dp,new Intent(getContext(), ExamActivity.class)));
         list.add(new UserRecyclerItem("成绩","课程成绩，课程内容评教",R.drawable.ic_student,new Intent(getContext(), ScoreActivity.class)));
-        list.add(new UserRecyclerItem("绩点","绩点查询，绩点计算",R.drawable.ic_bubble_chart_black_24dp,null));
-        list.add(new UserRecyclerItem("校外考试成绩","校外考试，四六级成绩查询",R.drawable.ic_student,null));
+        list.add(new UserRecyclerItem("绩点","绩点查询，绩点计算",R.drawable.ic_bubble_chart_black_24dp,new Intent(getContext(), ScorePointActivity.class)));
+        //list.add(new UserRecyclerItem("校外考试成绩","校外考试，四六级成绩查询",R.drawable.ic_student,null));
+        list.add(new UserRecyclerItem("第二课堂学分","第二课堂学分，学分详情",R.drawable.ic_student,new Intent(getContext(), ScScoreActivity.class)));
         list.add(new UserRecyclerItem("设置","详细设置",R.drawable.ic_settings_black_24dp,new Intent(getContext(), SettingActivity.class)));
 
         //Adapter

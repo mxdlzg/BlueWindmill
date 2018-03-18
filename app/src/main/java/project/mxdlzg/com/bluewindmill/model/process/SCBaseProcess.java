@@ -68,27 +68,24 @@ public class SCBaseProcess extends BaseProcess {
         if (matcher.find()) {
             count = Integer.parseInt(matcher.group(0));
         }
-        if (totalMatcher.find()) {
-            scScore[0] = Float.parseFloat(totalMatcher.group(0));
-            scScore[1] = Float.parseFloat(totalMatcher.group(1));
-            scScore[2] = Float.parseFloat(totalMatcher.group(2));
+        for (int i = 0; i < 3; i++) {
+            if (totalMatcher.find()){
+                scScore[i] = Float.parseFloat(totalMatcher.group(0));
+            }
         }
-        if (detailMatcher.find()) {
-            scPresentation[0] = Float.parseFloat(detailMatcher.group(0));
-            scPresentation[1] = Float.parseFloat(detailMatcher.group(1));
-            scPresentation[2] = Float.parseFloat(detailMatcher.group(2));
-            scPresentation[3] = Float.parseFloat(detailMatcher.group(3));
-            scPresentation[4] = Float.parseFloat(detailMatcher.group(4));
+        for (int i = 0; i < 5; i++) {
+            if(detailMatcher.find()) {
+                scPresentation[i] = Float.parseFloat(detailMatcher.group(0));
+            }
         }
         if (matcherPat.find()) {
             totalPages = Integer.parseInt(matcherPat.group(0));
         }
-        if (urlsMatcher.find()) {
-            String str = null;
-            for (int i = 0; i < urlsMatcher.groupCount(); i++) {
-                str = urlsMatcher.group(i);
-                urlKV.put(str.substring(10, str.indexOf("\"")), str.substring(str.indexOf("<span>"), str.lastIndexOf("</span>")));
-            }
+        String str = null;
+        while (urlsMatcher.find()){
+            str = urlsMatcher.group(0);
+            urlKV.put(str.substring(10, str.indexOf("\"")), str.substring(str.indexOf("<span>"), str.lastIndexOf("</span>")));
+
         }
 
         return new SCInfo(count, totalPages, scScore, scPresentation, urlKV);

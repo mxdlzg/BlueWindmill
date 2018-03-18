@@ -37,7 +37,7 @@ public class ScoreRcyAdapter extends BaseMultiItemQuickAdapter<ScoreOBJ,BaseView
                         .setText(R.id.score_tv_item_secondFinalScore,setColor("二考：",item.getSe()))
                         .setText(R.id.score_tv_item_secondTotalScore,setColor("二考总评：",item.getSeTotal()));
                 if (item.getFloatTotal() < 60){
-                    DiagonalView view = helper.<DiagonalView>getView(R.id.score_item_diagonal_view);
+                    DiagonalView view = helper.<DiagonalView>getView(R.id.sc_score_item_diagonal_view);
                     view.setSolidColor(Color.parseColor("#ff5252"));
                 }
                 break;

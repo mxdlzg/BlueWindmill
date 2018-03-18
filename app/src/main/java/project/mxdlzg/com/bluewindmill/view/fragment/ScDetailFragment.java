@@ -152,10 +152,16 @@ public class ScDetailFragment extends BaseFragment {
             @Override
             public void onSuccess(NetResult<List<SCActivityDetail>> message) {
                 pageNo++;
-                if (list != null){
-                    list.addAll(message.getData());
+                if (list != null && message.getData()!=null){
+                    if (message.getData().size()!=0){
+                        list.addAll(message.getData());
+                        adapter.loadMoreComplete();
+                    }else {
+                        adapter.loadMoreEnd();
+                    }
+                }else {
+                    adapter.loadMoreEnd();
                 }
-                adapter.loadMoreComplete();
             }
 
             @Override
