@@ -28,14 +28,6 @@ public class ScViewPagerAdapter extends FragmentPagerAdapter {
     public ScViewPagerAdapter(FragmentManager fm,Context context) {
         super(fm);
         this.context = context;
-        list.clear();
-        list.add(new ScDetailFragment());
-        list.add(new ScDetailFragment());
-        list.add(new ScDetailFragment());
-        list.add(new ScDetailFragment());
-        list.add(new ScDetailFragment());
-        list.add(new ScDetailFragment());
-        list.add(new ScDetailFragment());
         list.add(new ScDetailFragment());
     }
 

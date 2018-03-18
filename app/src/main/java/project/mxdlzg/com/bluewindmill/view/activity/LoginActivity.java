@@ -129,8 +129,10 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onSuccess(String message) {
                 dialog.dismiss();
-                Toast.makeText(LoginActivity.this, "登录成功!", Toast.LENGTH_SHORT).show();
-                LoginActivity.this.finish();
+                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                if (LoginRequest.emsLoginStatus ==Config.LOGIN && LoginRequest.scLoginStatus == Config.LOGIN);{
+                    LoginActivity.this.finish();
+                }
             }
 
             @Override
@@ -155,7 +157,7 @@ public class LoginActivity extends AppCompatActivity{
      */
     private void setData(){
         String user = ManageSetting.getStringSetting(this, Config.USER_NAME);
-        String pass = ManageSetting.getStringSetting(this, Config.USER_NAME);
+        String pass = ManageSetting.getStringSetting(this, Config.USER_PASSWORD);
 
         if (!TextUtils.isEmpty(user) && userLayout.getEditText() != null){
             userLayout.getEditText().setText(user);

@@ -80,7 +80,7 @@ public class LoginRequest {
                             Cookie.Builder builder = new Cookie.Builder();
                             cookies.add(builder.name("token").value(String.valueOf(System.currentTimeMillis())).domain("sit.edu.cn").expiresAt(HttpDate.MAX_DATE).path("/").build());
                             addCookie(cookies,HttpUrl.parse(Config.EMS_URL),"token");
-                            callback.onSuccess(response.message());
+                            callback.onSuccess("教务系统登录成功");
                         }else {
                             emsLoginStatus = Config.NOT_LOGIN;
                             if (body.contains(context.getString(R.string.loginCheckEMSPassError))){
@@ -212,7 +212,7 @@ public class LoginRequest {
                     public void onSuccess(Response<String> response) {
                         System.out.println("login----------------->securityCheck success!!");
                         scLoginStatus = Config.LOGIN;
-                        callback.onSuccess(Config.codeConvertor(response.code()));
+                        callback.onSuccess("第二课堂登录成功");
                     }
 
                     @Override
@@ -237,12 +237,8 @@ public class LoginRequest {
     }
 
     public static void login(final Context context,String loginYzm, final CommonCallback<String> callback) {
-        if (scLoginStatus == Config.NOT_LOGIN){
             loginSC(context, callback);
-        }
-        if (emsLoginStatus == Config.NOT_LOGIN){
             loginEMS(context,loginYzm, callback);
-        }
     }
 
     public static void sendCaptcha(Context context, String captchaEditTextText, CommonCallback<String> callback) {

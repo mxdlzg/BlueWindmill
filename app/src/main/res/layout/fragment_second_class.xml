@@ -8,27 +8,6 @@
     <!--android:background="#ff252e39">-->
 
     <FrameLayout
-        android:visibility="gone"
-        android:id="@+id/second_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitXY"
-            android:src="@drawable/scbackground" />
-
-        <View
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:background="#182128"
-            android:layout_height="110dp"/>
-    </FrameLayout>
-
-    <FrameLayout
         android:elevation="@dimen/dp_10" tools:targetApi="LOLLIPOP"
         android:id="@+id/secondTabHeader"
         android:layout_width="match_parent"
@@ -65,47 +44,7 @@
 
     </FrameLayout>
 
-    <!--<FrameLayout-->
-        <!--android:elevation="@dimen/dp_4" tools:targetApi="LOLLIPOP"-->
-        <!--android:clipToPadding="true"-->
-        <!--android:id="@+id/secondTabHeader"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="116dp"-->
-        <!--android:background="@android:color/transparent"-->
-        <!--android:fitsSystemWindows="true">-->
-
-        <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="4dp"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginTop="18dp"-->
-            <!--android:background="#182128" />-->
-
-        <!--<com.gigamole.navigationtabstrip.NavigationTabStrip-->
-            <!--android:id="@+id/second_nts_center"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="42dp"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginEnd="30dp"-->
-            <!--android:layout_marginLeft="30dp"-->
-            <!--android:layout_marginRight="30dp"-->
-            <!--android:layout_marginStart="30dp"-->
-            <!--app:nts_active_color="#fff"-->
-            <!--app:nts_size="6pt"-->
-            <!--app:nts_color="#3cdedd"-->
-            <!--app:nts_corners_radius="3.5dp"-->
-            <!--app:nts_factor="0.8"-->
-            <!--app:nts_gravity="bottom"-->
-            <!--app:nts_inactive_color="#cdffffff"-->
-            <!--app:nts_titles="@array/titles"-->
-            <!--app:nts_type="point"-->
-            <!--app:nts_typeface="fonts/moon.otf"-->
-            <!--app:nts_weight="7dp" />-->
-
-    <!--</FrameLayout>-->
-
-    <project.mxdlzg.com.bluewindmill.view.widgets.ViewPagerCustomDuration
+    <project.mxdlzg.com.bluewindmill.view.widgets.NoScrollViewPager
         android:id="@+id/second_viewPager"
         android:background="@color/white"
         android:layout_width="match_parent"

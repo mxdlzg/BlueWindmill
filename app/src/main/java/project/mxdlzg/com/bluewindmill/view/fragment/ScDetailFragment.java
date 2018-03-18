@@ -57,6 +57,15 @@ public class ScDetailFragment extends BaseFragment {
     private String categoryID = "001";
     private boolean isWaitingSearchResult = false;
     private boolean canLoadMore = true;
+    private String[] ids = new String[]{"001",
+            "8ab17f543fe62d5d013fe62e6dc70001",
+            "ff8080814e241104014eb867e1481dc3",
+            "402881de5d62ba57015d6320f1a7000c",
+            "8ab17f2a3fe6585e013fe6596c300001",
+            "8ab17f543fe626a8013fe6278a880001",
+            "8ab17f543fe62d5d013fe62efd3a0002",
+            "8ab17f533ff05c27013ff06d10bf0001",
+            "ff8080814e241104014fedbbf7fd329d"};
 
     /*footer loadmore listener*/
     private BaseQuickAdapter.RequestLoadMoreListener requestLoadMoreListener = new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -183,6 +192,11 @@ public class ScDetailFragment extends BaseFragment {
         }
     }
 
+
+    public void startSearch() {
+        emptyView.showLoading();
+    }
+
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //View
@@ -240,4 +254,15 @@ public class ScDetailFragment extends BaseFragment {
     public void setWaitingSearchResult(boolean waitingSearchResult) {
         isWaitingSearchResult = waitingSearchResult;
     }
+
+    /**
+     * Choose another kind of Sc activities
+     * @param title key words
+     * @param index index
+     */
+    public void kindRefresh(String title, int index) {
+        categoryID = ids[index];
+        smartRefreshLayout.autoRefresh();
+    }
+
 }

@@ -144,6 +144,39 @@ public class SCRequest {
     }
 
     /**
+     * 搜索活动List
+     * @param context context
+     * @param activityName key
+     * @param callback callback
+     */
+    public static void requestSearchList(final Context context,String activityName, final CommonCallback<NetResult<List<SCActivityDetail>>> callback){
+        OkGo.<NetResult<List<SCActivityDetail>>>get(Config.SC_ACTIVITY_LIST_URL)
+                .tag(context)
+                .headers("Accept","ext/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                .headers("Accept-Encoding","gzip, deflate, sdch")
+                .headers("Connection","keep-alive")
+                .headers("Host","sc.sit.edu.cn")
+                .headers("User-Agent","Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104 Safari/537.36 Core/1.53.4620.400 QQBrowser/9.7.12995.400")
+                .params("activityName",activityName)
+                .execute(new AbsCallback<NetResult<List<SCActivityDetail>>>() {
+                    @Override
+                    public void onSuccess(Response<NetResult<List<SCActivityDetail>>> response) {
+                        callback.onSuccess(response.body());
+                    }
+
+                    @Override
+                    public void onError(Response<NetResult<List<SCActivityDetail>>> response) {
+                        callback.onError(context,response,false);
+                    }
+
+                    @Override
+                    public NetResult<List<SCActivityDetail>> convertResponse(okhttp3.Response response) throws Throwable {
+                        return SCBaseProcess.getActivityList(response.body().string());
+                    }
+                });
+    }
+
+    /**
      * 获取活动详情
      * @param context context
      * @param activityID acId
