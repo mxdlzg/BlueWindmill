@@ -1,6 +1,8 @@
 package project.mxdlzg.com.bluewindmill.view;
 
 import android.app.Application;
+import android.content.Context;
+
 import project.mxdlzg.com.bluewindmill.model.config.Config;
 
 import com.facebook.stetho.Stetho;
@@ -14,6 +16,8 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -25,10 +29,13 @@ import okhttp3.OkHttpClient;
  */
 
 public class WindApplication extends Application {
+    private RefWatcher refWatcher;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        Stetho.initializeWithDefaults(this);
+        LeakCanary.install(this);
+        //Stetho.initializeWithDefaults(this);
 
         //Init Config
         Config.getInstance().init(this);
@@ -82,4 +89,8 @@ public class WindApplication extends Application {
         }
     }
 
+    public static RefWatcher getRefWatcher(Context context) {
+        WindApplication application = (WindApplication) context.getApplicationContext();
+        return application.refWatcher;
+    }
 }

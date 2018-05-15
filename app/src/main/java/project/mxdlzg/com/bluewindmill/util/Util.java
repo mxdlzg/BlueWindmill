@@ -243,6 +243,9 @@ public class Util {
     }
 
     public static String convertParam(String text){
+        if (text.length() == 0){
+            return "";
+        }
         if (text.contains("第1学期")){
             return text.substring(0,4)+"秋";
         }else {

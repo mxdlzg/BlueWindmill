@@ -178,6 +178,7 @@ public class ScDetailFragment extends BaseFragment {
      */
     private void finishRefresh(List<SCActivityDetail> list,RefreshLayout refreshLayout){
         adapter.setNewData(list);
+        recyclerView.smoothScrollToPosition(0);
         this.list = list;
         pageNo = 1;
         canLoadMore = true;

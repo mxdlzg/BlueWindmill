@@ -44,7 +44,8 @@ public class ScorePointActivity extends AppCompatActivity {
     private AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            refresh(scorePointTermStart.getText().toString(),scorePointTermEnd.getText().toString());
+            refresh(paramList.get(scorePointTermStart.getSelectedIndex()),paramList.get(scorePointTermEnd.getSelectedIndex()),"此区间平均绩点：");
+            //refresh(scorePointTermStart.getText().toString(),scorePointTermEnd.getText().toString());
         }
 
         @Override
@@ -61,23 +62,26 @@ public class ScorePointActivity extends AppCompatActivity {
 
         scorePointTermStart.attachDataSource(paramList);
         scorePointTermEnd.attachDataSource(paramList);
-        scorePointTermEnd.setOnItemSelectedListener(listener);
         scorePointTermStart.setOnItemSelectedListener(listener);
+        scorePointTermEnd.setOnItemSelectedListener(listener);
+
+        //
+        refresh("","","当前总平均绩点为：");
     }
 
-    private void refresh(String start,String end){
+    private void refresh(String start,String end,final String description){
         String trueStart = Util.convertParam(start);
-        String trueEnd = Util.convertParam(start);
+        String trueEnd = Util.convertParam(end);
         startRefresh();
         TableRequest.requestScorePoint(this, trueStart, trueEnd, new CommonCallback<NetResult<String>>() {
             @Override
             public void onSuccess(NetResult<String> message) {
-                endRefresh(message.getData());
+                endRefresh(description+message.getData());
             }
 
             @Override
             public void onError(NetResult netResult) {
-                endRefresh(netResult.getMsg());
+                endRefresh(description+netResult.getMsg());
             }
         });
     }

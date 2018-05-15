@@ -2,6 +2,8 @@ package project.mxdlzg.com.bluewindmill.view.activity;
 
 import project.mxdlzg.com.bluewindmill.R;
 import project.mxdlzg.com.bluewindmill.model.local.ManageSetting;
+import project.mxdlzg.com.bluewindmill.util.Util;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -69,6 +71,6 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void initData(){
-        currentWeek = ManageSetting.getIntSetting(this,"currentWeek");
+        currentWeek = ManageSetting.getIntSetting(this, "currentWeek") + Util.getIncrement(ManageSetting.getLongSetting(this, "time"), System.currentTimeMillis());
     }
 }

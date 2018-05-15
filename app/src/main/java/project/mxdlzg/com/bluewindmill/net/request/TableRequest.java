@@ -112,7 +112,7 @@ public class TableRequest {
         OkGo.<NetResult<List<ScoreOBJ>>>post(Config.EMS_SCORE_URL)
                 .tag(context)
                 .charSet("gbk")
-                .params("yearTerm",yearTerm)
+                .params("yearterm",yearTerm)
                 .params("studentID", ManageSetting.getStringSetting(context,Config.USER_NAME))
                 .execute(new AbsCallback<NetResult<List<ScoreOBJ>>>() {
                     @Override
@@ -163,7 +163,7 @@ public class TableRequest {
 
                     @Override
                     public NetResult<String> convertResponse(okhttp3.Response response) throws Throwable {
-                        return ScoreProcess.getScorePoint(response.body().toString());
+                        return ScoreProcess.getScorePoint(response.body().string());
                     }
                 });
     }

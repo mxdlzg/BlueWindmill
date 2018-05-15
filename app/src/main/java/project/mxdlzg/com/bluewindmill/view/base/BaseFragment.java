@@ -9,7 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.leakcanary.RefWatcher;
+
 import butterknife.Unbinder;
+import project.mxdlzg.com.bluewindmill.view.WindApplication;
 
 /**
  * Created by mxdlzg on 18-2-6.
@@ -43,6 +46,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        RefWatcher refWatcher = WindApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
         Log.w("fragment","destory");
     }
 

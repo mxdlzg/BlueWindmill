@@ -67,7 +67,7 @@ public class NetTest extends AppCompatActivity {
         findViewById(R.id.net_point).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TableRequest.requestScorePoint(NetTest.this, "2017秋", "2017秋", new CommonCallback<NetResult<String>>() {
+                TableRequest.requestScorePoint(NetTest.this, "", "2018春", new CommonCallback<NetResult<String>>() {
                     @Override
                     public void onSuccess(NetResult<String> message) {
                         Toast.makeText(NetTest.this, "success", Toast.LENGTH_SHORT).show();
