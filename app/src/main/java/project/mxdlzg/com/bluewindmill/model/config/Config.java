@@ -57,11 +57,11 @@ public class Config {
     public static final String SC_ACTIVITY_LIST_URL = "http://sc.sit.edu.cn/public/activity/activityList.action";
     public static final String EMS_EVALUATE_URL = "http://ems.sit.edu.cn:85/student/EvalTeachScore.action";
     public static final String SC_LOGIN_PASS_URL = "http://myportal.sit.edu.cn/userPasswordValidate.portal";
-    public static final String SC_LOGIN_SUCCESS_URL = "http://my.sit.edu.cn/loginSuccess.portal";
-    public static final String SC_LOGIN_FAIL_URL = "http://my.sit.edu.cn/loginFailure.portal";
+    public static final String SC_LOGIN_SUCCESS_URL = "http://myportal.sit.edu.cn/loginSuccess.portal";
+    public static final String SC_LOGIN_FAIL_URL = "http://myportal.sit.edu.cn/loginFailure.portal";
     public static final String EMS_CAPTCHA_URL = "http://ems.sit.edu.cn:85/GetImageCode";
-    public static final String SC_CAPTCHA_URL = "http://my.sit.edu.cn/captchaGenerate.portal";
-    public static final String MAIN_INDEX = "http://my.sit.edu.cn/index.portal";
+    public static final String SC_CAPTCHA_URL = "http://myportal.sit.edu.cn/captchaGenerate.portal";
+    public static final String MAIN_INDEX = "http://myportal.sit.edu.cn/index.portal";
     public static final String SC_PORTAL = "http://sc.sit.edu.cn/portal.jsp";
     public static final String SC_ACTIVITY_CHECK_USER = "http://sc.sit.edu.cn/public/pcenter/checkUser.action";
     public static final String SC_ACTIVITY_APPLY = "http://sc.sit.edu.cn/public/pcenter/applyActivity.action";
