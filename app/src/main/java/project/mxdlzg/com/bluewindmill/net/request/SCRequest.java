@@ -209,6 +209,7 @@ public class SCRequest {
         checkUser(context, activityId, new CommonCallback<NetResult<String>>() {
             @Override
             public void onSuccess(NetResult<String> message) {
+                System.out.println(message.getMsg());
                 executeApplyActivity(context,activityId,callback);
             }
 
@@ -239,7 +240,7 @@ public class SCRequest {
                     @Override
                     public NetResult<String> convertResponse(okhttp3.Response response) throws Throwable {
                         String body = response.body().string();
-                        if (body.equals("")){
+                        if (body.equals("") || body.equals("0")){
                             return new NetResult<>(null,"尚未申请",true);
                         }else if (body.equals("2")){
                             return new NetResult<>(null,"您已申请过该活动，不能重复申请！",false);
