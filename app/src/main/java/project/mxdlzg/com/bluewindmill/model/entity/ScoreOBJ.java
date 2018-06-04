@@ -123,12 +123,17 @@ public class ScoreOBJ implements MultiItemEntity{
 
     public float getFloatFinl() {
         if (finl.equals("未评教"))
-        return -1;
+            return -1;
+        if (TextUtils.isEmpty(finl))
+            return  -2;
         else
             return Float.valueOf(finl);
     }
 
     public float getFloatTotal() {
+        if (TextUtils.isEmpty(finl)){
+            return -2;
+        }
         return finl.equals("未评教")?-1:Float.valueOf(total);
     }
 }

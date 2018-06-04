@@ -115,6 +115,15 @@ public class BaseProcess {
         return table;
     }
 
+    public static Elements processRaw(String content,String identifer){
+        Elements elements = null;
+        if (content.length()>0){
+            Document document = Jsoup.parse(content);
+            elements = document.select(identifer);
+        }
+        return elements;
+    }
+
     public String getBody() {
         return body;
     }

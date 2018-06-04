@@ -36,7 +36,7 @@ public class ScoreRcyAdapter extends BaseMultiItemQuickAdapter<ScoreOBJ,BaseView
                         .setText(R.id.score_tv_item_finalScore,setColor("期末：",item.getFloatFinl()))
                         .setText(R.id.score_tv_item_secondFinalScore,setColor("二考：",item.getSe()))
                         .setText(R.id.score_tv_item_secondTotalScore,setColor("二考总评：",item.getSeTotal()));
-                if (item.getFloatTotal() < 60){
+                if (item.getFloatTotal() < 60 && item.getFloatTotal()!=-2){
                     DiagonalView view = helper.<DiagonalView>getView(R.id.sc_score_item_diagonal_view);
                     view.setSolidColor(Color.parseColor("#ff5252"));
                 }
@@ -61,7 +61,7 @@ public class ScoreRcyAdapter extends BaseMultiItemQuickAdapter<ScoreOBJ,BaseView
      * @return colored text
      */
     private Spanned setColor(String title, float score){
-        if (score == -1){
+        if (score == -1 || score == -2){
             return Html.fromHtml(title);
         }
         StringBuilder builder = new StringBuilder();

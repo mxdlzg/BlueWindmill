@@ -1,5 +1,7 @@
 package project.mxdlzg.com.bluewindmill.model.process;
 
+import org.jsoup.select.Elements;
+
 import project.mxdlzg.com.bluewindmill.model.config.Config;
 import project.mxdlzg.com.bluewindmill.model.entity.NetResult;
 import project.mxdlzg.com.bluewindmill.model.entity.ScoreOBJ;
@@ -99,6 +101,22 @@ public class ScoreProcess extends BaseProcess {
         }
 
         //Return
+        return result;
+    }
+
+    public static NetResult<String> getCourseTeacher(String content, String courseID) {
+        Elements elements = BaseProcess.processRaw(content,"select[name=courseID]");
+
+        NetResult<String> result = new NetResult<>(null,Config.NET_RESULT_DEFAULT_CODE);
+
+        if (elements.size()>0){
+            Elements items = elements.first().getElementsByAttributeValue("value",courseID);
+            if (items.size()>0){
+                String tCode = items.first().attr("tcode");
+                result.setData(tCode,Config.NET_RESULT_SUCCESS);
+            }
+        }
+
         return result;
     }
 }

@@ -11,9 +11,12 @@ import project.mxdlzg.com.bluewindmill.model.process.PrepareExam;
 import project.mxdlzg.com.bluewindmill.model.process.PrepareSchedule;
 import project.mxdlzg.com.bluewindmill.model.process.ScoreProcess;
 import project.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
+import project.mxdlzg.com.bluewindmill.view.WindApplication;
+
 import android.widget.Toast;
 
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.HttpHeaders;
@@ -191,7 +194,24 @@ public class TableRequest {
 
                     @Override
                     public NetResult<List<UnifiedScore>> convertResponse(okhttp3.Response response) throws Throwable {
-                        return ScoreProcess.getUnifiedScore(response.body().toString());
+                        return ScoreProcess.getUnifiedScore(response.body().string());
+                    }
+                });
+    }
+
+    public static void findCourseTeacher(Context context, final String courseID, final CommonCallback<String> callback){
+        OkGo.<String>get(Config.EMS_EVAL_URL)
+                .tag(WindApplication.class)
+                //.cacheMode(CacheMode.DEFAULT)
+                .execute(new AbsCallback<String>() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        callback.onSuccess(response.body());
+                    }
+
+                    @Override
+                    public String convertResponse(okhttp3.Response response) throws Throwable {
+                        return ScoreProcess.getCourseTeacher(response.body().string(),courseID).getData();
                     }
                 });
     }
@@ -225,7 +245,12 @@ public class TableRequest {
         request.execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                callback.onSuccess(response.body());
+                String rst = response.body();
+                if (rst.contains("%B2%D9%D7%F7%B3%C9%B9%A6")){
+                    callback.onSuccess("操作成功");
+                }else {
+                    callback.onSuccess("此课程已评教");
+                }
             }
 
             @Override
@@ -236,6 +261,14 @@ public class TableRequest {
 
     }
 
+    public static void evaluateLesson(final Context context, final String yearTerm, final ScoreOBJ currentObj, final CommonCallback<String> callback) {
+        findCourseTeacher(null, currentObj.getLesionCode(), new CommonCallback<String>() {
+            @Override
+            public void onSuccess(String teacherID) {
+                evaluateTeacher(context,currentObj.getLesionCode(),"1",yearTerm,teacherID,callback);
+            }
+        });
+    }
 }
 
 

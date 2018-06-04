@@ -65,6 +65,7 @@ public class Config {
     public static final String SC_PORTAL = "http://sc.sit.edu.cn/portal.jsp";
     public static final String SC_ACTIVITY_CHECK_USER = "http://sc.sit.edu.cn/public/pcenter/checkUser.action";
     public static final String SC_ACTIVITY_APPLY = "http://sc.sit.edu.cn/public/pcenter/applyActivity.action";
+    public static final String EMS_EVAL_URL = "http://ems.sit.edu.cn:85/student/eval.jsp";
 
     //var
     public static List<HttpParams> httpParamsList;
