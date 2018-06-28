@@ -259,6 +259,11 @@ public class ScheduleFragment extends BaseFragment {
      * @param week week
      */
     public void prepareScheduleTable(int week) {
+        if (classList == null){
+            Toast.makeText(getContext(), "请添加课程表后再尝试此切换", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         currentWeek = week;
         if (scheduleParentLayout == null) {
             scheduleParentLayout = (PercentFrameLayout) getView().findViewById(R.id.schedule_percent_layout);

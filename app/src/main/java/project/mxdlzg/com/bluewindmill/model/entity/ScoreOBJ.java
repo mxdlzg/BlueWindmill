@@ -40,8 +40,12 @@ public class ScoreOBJ implements MultiItemEntity{
         this.seTotal = checkNull(seTotal);
     }
 
+    static boolean isEmpty(String str){
+        return TextUtils.isEmpty(str) || str.equals("未评教");
+    }
+
     private float checkNull(String score) {
-        return TextUtils.isEmpty(score)?-1:Float.valueOf(score);
+        return isEmpty(score)?-1:Float.valueOf(score);
     }
 
     public String getLesionCode() {
