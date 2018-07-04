@@ -5,7 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/BlueWindmill.iml" filepath="$PROJECT_DIR$/BlueWindmill.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/colorpicker-library/colorpicker-library.iml" filepath="$PROJECT_DIR$/colorpicker-library/colorpicker-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/freeRDPCore/freeRDPCore.iml" filepath="$PROJECT_DIR$/freeRDPCore/freeRDPCore.iml" />
       <module fileurl="file://$PROJECT_DIR$/nice-spinner-master/nice-spinner-master.iml" filepath="$PROJECT_DIR$/nice-spinner-master/nice-spinner-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sslvpn/sslvpn.iml" filepath="$PROJECT_DIR$/sslvpn/sslvpn.iml" />
     </modules>
   </component>
 </project>

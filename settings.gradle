@@ -1,1 +1,2 @@
-include ':app', ':nice-spinner-master', ':colorpicker-library'
+include ':app', ':nice-spinner-master', ':colorpicker-library', ':sslvpn', ':freeRDPCore'
+//project(':freeRDPCore').projectDir = new File('Studio/freeRDPCore')

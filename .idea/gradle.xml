@@ -10,7 +10,9 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/colorpicker-library" />
+            <option value="$PROJECT_DIR$/freeRDPCore" />
             <option value="$PROJECT_DIR$/nice-spinner-master" />
+            <option value="$PROJECT_DIR$/sslvpn" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
