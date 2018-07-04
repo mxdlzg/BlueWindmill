@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.percent.PercentFrameLayout;
 import android.support.percent.PercentLayoutHelper;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.AppCompatButton;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -276,7 +277,7 @@ public class ScheduleFragment extends BaseFragment {
             if (week < obj.getWeeks().length) {
                 if (obj.getWeek(week) != null && !obj.getWeek(week).equals("")) {
                     if (scheduleColored){
-                        addClassItem(classList.indexOf(obj), scheduleParentLayout, obj.getName() + "@" + obj.getWeek(week), obj.getDay(), obj.getIndex(), obj.getNum(), gradualChangedColor(Color.BLUE,Math.abs(obj.getDay()-currentDay),obj.getIndex()) /*obj.getColor()*/);
+                        addClassItem(classList.indexOf(obj), scheduleParentLayout, obj.getName() + "@" + obj.getWeek(week), obj.getDay(), obj.getIndex(), obj.getNum(), gradualChangedColor(getContext().getResources().getColor(R.color.light_BlueA700),Math.abs(obj.getDay()-currentDay),obj.getIndex()) /*obj.getColor()*/);
                     }else {
                         addClassItem(classList.indexOf(obj), scheduleParentLayout, obj.getName() + "@" + obj.getWeek(week), obj.getDay(), obj.getIndex(), obj.getNum(), obj.getColor());
                     }
@@ -305,12 +306,12 @@ public class ScheduleFragment extends BaseFragment {
      * @return color
      */
     private int gradualChangedColor(int centerColor,int horizontalDistance,int verticalDistance){
-//        int red = (centerColor&0xff0000)>>16;
-//        int green = (centerColor & 0x00ff00) >> 8;
-//        int blue = (centerColor & 0x0000ff);
-        int red = 0;
-        int green = 100;
-        int blue = 255;
+        int red = (centerColor&0xff0000)>>16;
+        int green = (centerColor & 0x00ff00) >> 8;
+        int blue = (centerColor & 0x0000ff);
+//        int red = 0;
+//        int green = 100;
+//        int blue = 255;
 
         return Color.rgb(red,green+(20*horizontalDistance),blue);
     }

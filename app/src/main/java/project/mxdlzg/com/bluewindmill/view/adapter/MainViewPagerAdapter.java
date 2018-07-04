@@ -89,8 +89,8 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
                             break;
                         case 1:
                             Animation fadeIns = AnimationUtils.loadAnimation(parentActivity, R.anim.fade_in);
-                            activity.getToolbar().startAnimation(fadeIns);
-                            activity.hideToolbarColor();
+                            //activity.getToolbar().startAnimation(fadeIns);
+                            //activity.hideToolbarColor();
                             activity.getNiceSpinner().setVisibility(View.INVISIBLE);
                             break;
                         case 2:
@@ -131,9 +131,10 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    if (postion == 0){
+                    if (postion == 0 || postion == 1){
                         MainActivity activity = (MainActivity) parentActivity;
                         activity.showToolbarColor();
+                        if (postion == 0)
                         activity.getNiceSpinner().setVisibility(View.VISIBLE);
                     }
                 }

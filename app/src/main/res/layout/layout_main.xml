@@ -11,15 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <!--<FrameLayout-->
-        <!--android:background="@color/blue700"-->
-        <!--android:fitsSystemWindows="true"-->
-        <!--android:elevation="3dp" tools:targetApi="LOLLIPOP"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
         <android.support.v7.widget.Toolbar
             android:id="@+id/main_toolbar"
-            android:elevation="10dp" tools:targetApi="LOLLIPOP"
+            android:elevation="5dp" tools:targetApi="LOLLIPOP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?colorPrimary">
@@ -29,7 +23,7 @@
                 android:layout_gravity="center"
                 app:arrowTint="?android:textColorHint"
                 app:textTint="?android:textColorPrimary"
-                app:dropDownListPaddingBottom="300dp"
+                app:dropDownListPaddingBottom="200dp"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"

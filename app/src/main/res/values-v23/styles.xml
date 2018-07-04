@@ -7,6 +7,7 @@
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorHint">@color/textColorHint</item>
+        <item name="android:colorBackground">@color/grey200</item>
         <!--<item name="android:textColor">@color/blue500</item>-->
         <item name="android:windowBackground">@color/windowBackground</item>
         <item name="android:windowTranslucentStatus">false</item>

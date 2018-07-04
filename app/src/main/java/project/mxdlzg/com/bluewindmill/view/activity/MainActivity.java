@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     private BaseFragment mainFragment;
     private SearchFragment searchFragment;
+    private boolean toolbarColored = true;
 
     //Parameter
     private Long currentId; //当前课程表的uuid
@@ -290,9 +291,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void hideToolbarColor(){
         toolbar.setBackgroundColor(Color.TRANSPARENT);
+        toolbarColored = false;
     }
 
     public void showToolbarColor(){
+        if (!toolbarColored)
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
     }
 

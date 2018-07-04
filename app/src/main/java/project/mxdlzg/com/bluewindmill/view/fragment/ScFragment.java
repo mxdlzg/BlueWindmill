@@ -12,6 +12,8 @@ import project.mxdlzg.com.bluewindmill.net.request.SCRequest;
 import project.mxdlzg.com.bluewindmill.util.Util;
 import project.mxdlzg.com.bluewindmill.view.adapter.ScViewPagerAdapter;
 import project.mxdlzg.com.bluewindmill.view.base.BaseFragment;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.support.v4.view.ViewPager;
@@ -19,7 +21,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
@@ -72,9 +76,24 @@ public class ScFragment extends BaseFragment {
         viewPagerAdapter.getItem(0).setUserVisibleHint(true);
     }
 
-    private void initSecondClass(View view) {
+    private void initSecondClass(final View view) {
         //Container
         fragmentContainer = (RelativeLayout) view.findViewById(R.id.second_class_container);
+
+        fragmentContainer.post(new Runnable() {
+            @Override
+            public void run() {
+                // 如果SDK大于4.4，布局percent中margintop+statusbar高度
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    FrameLayout scrollView = (FrameLayout) view.findViewById(R.id.secondTabHeader);
+                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) scrollView.getLayoutParams();
+                    layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin + Util.getStatusBarSize(getContext()), layoutParams.rightMargin, layoutParams.bottomMargin);
+                    scrollView.setLayoutParams(layoutParams);
+                    scrollView.requestLayout();
+                }
+            }
+        });
+
 
         //View Pager
         viewPager.setOffscreenPageLimit(2);

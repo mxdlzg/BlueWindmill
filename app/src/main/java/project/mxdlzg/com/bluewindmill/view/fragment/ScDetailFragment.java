@@ -269,7 +269,9 @@ public class ScDetailFragment extends BaseFragment {
      */
     public void kindRefresh(String title, int index) {
         categoryID = ids[index];
-        smartRefreshLayout.autoRefresh();
+        if (smartRefreshLayout!=null){
+            smartRefreshLayout.autoRefresh();
+        }
     }
 
 }
