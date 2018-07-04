@@ -38,7 +38,7 @@ public class SettingActivity extends AppCompatActivity {
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.setting_toolbar);
         toolbar.setTitle("设置");
-        toolbar.setTitleTextColor(getColor(R.color.white));
+        toolbar.setTitleTextColor(this.getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
 
         //spinner

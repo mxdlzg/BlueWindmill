@@ -46,8 +46,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = WindApplication.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+        //RefWatcher refWatcher = WindApplication.getRefWatcher(getActivity());
+        //refWatcher.watch(this);
         Log.w("fragment","destory");
     }
 

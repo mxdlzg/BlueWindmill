@@ -6,6 +6,7 @@ import android.graphics.Color;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import project.mxdlzg.com.bluewindmill.R;
+import project.mxdlzg.com.bluewindmill.util.Util;
 import project.mxdlzg.com.bluewindmill.view.adapter.MainViewPagerAdapter;
 import project.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
 import project.mxdlzg.com.bluewindmill.model.config.Config;
@@ -105,8 +106,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         DateFormat format = new SimpleDateFormat("MM");
         toolbar.setTitle(format.format(System.currentTimeMillis())+"月");
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setSubtitleTextColor(Color.WHITE);
+        //toolbar.setTitleTextColor(Color.WHITE);
+        //toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_horiz_black_24dp));
@@ -200,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         niceSpinner = (NiceSpinner) findViewById(R.id.schedule_niceSpinner);
         List<String> dataset = new LinkedList<>(Arrays.asList("第1周", "第2周", "第3周", "第4周", "第5周", "第6周", "第7周", "第8周", "第9周", "第10周", "第11周", "第12周", "第13周", "第14周", "第15周", "第16周", "第17周", "第18周", "第19周", "第20周"));
         niceSpinner.attachDataSource(dataset);
-        niceSpinner.setTextColor(getResources().getColor(R.color.white));
+        //niceSpinner.setTextColor(getResources().getColor(R.color.white));
         niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -266,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
         item1.setColor(getResources().getColor(R.color.blue900));
         item2.setColor(getResources().getColor(R.color.grey800));
         item3.setColor(getResources().getColor(R.color.brown900));
-        bottomNavigation.setAccentColor(getResources().getColor(R.color.blue400));
+        bottomNavigation.setAccentColor(getResources().getColor(R.color.textColorHint));
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
@@ -292,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showToolbarColor(){
-        toolbar.setBackgroundColor(getResources().getColor(R.color.blue700));
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
     }
 
     public int getStatusBarHeight() {

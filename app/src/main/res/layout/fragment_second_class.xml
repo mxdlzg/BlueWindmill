@@ -12,7 +12,7 @@
         android:id="@+id/secondTabHeader"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@color/blue700">
+        android:background="?colorPrimary">
 
         <View
             android:layout_width="match_parent"
@@ -31,12 +31,12 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginStart="30dp"
-            app:nts_active_color="#fff"
-            app:nts_color="#ffffff"
+            app:nts_active_color="@color/textColorHint"
+            app:nts_color="@color/textColorHint"
             app:nts_corners_radius="1dp"
             app:nts_factor="0.8"
             app:nts_gravity="bottom"
-            app:nts_inactive_color="#81ffffff"
+            app:nts_inactive_color="@color/textColorPrimaryLight"
             app:nts_titles="@array/titles"
             app:nts_type="line"
             app:nts_typeface="fonts/moon.otf"

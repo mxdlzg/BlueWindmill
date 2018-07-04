@@ -1,11 +1,14 @@
 package project.mxdlzg.com.bluewindmill.util;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.os.Build;
+import android.support.annotation.StyleRes;
 import android.text.SpannableString;
 import android.text.format.DateUtils;
 import android.text.style.LeadingMarginSpan;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -13,6 +16,7 @@ import android.view.ViewConfiguration;
 import android.view.WindowManager;
 
 import project.mxdlzg.com.bluewindmill.R;
+import project.mxdlzg.com.bluewindmill.view.WindApplication;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -251,5 +255,16 @@ public class Util {
         }else {
             return text.substring(5,9)+"春";
         }
+    }
+
+    public static int fetchAccentColor(Context mContext,int resid) {
+        TypedValue typedValue = new TypedValue();
+
+        TypedArray a = mContext.obtainStyledAttributes(typedValue.data, new int[] { resid });
+        int color = a.getColor(0, 0);
+
+        a.recycle();
+
+        return color;
     }
 }

@@ -22,13 +22,13 @@
             android:elevation="10dp" tools:targetApi="LOLLIPOP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue700">
+            android:background="?colorPrimary">
 
             <org.angmarch.views.NiceSpinner
                 android:visibility="visible"
                 android:layout_gravity="center"
-                app:arrowTint="@color/white"
-                app:textTint="@color/black"
+                app:arrowTint="?android:textColorHint"
+                app:textTint="?android:textColorPrimary"
                 app:dropDownListPaddingBottom="300dp"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
                 android:layout_width="120dp"
