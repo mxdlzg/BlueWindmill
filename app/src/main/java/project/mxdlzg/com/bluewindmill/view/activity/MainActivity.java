@@ -141,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
                     ((ScheduleFragment)mainFragment).refreshSchedule();
                 }
                 break;
+            case R.id.menu_vpn:
+                startActivity(new Intent(this,VPNActivity.class));
+                break;
             case  R.id.menu_setting:
                 startActivity(new Intent(this,SettingActivity.class));
                 break;

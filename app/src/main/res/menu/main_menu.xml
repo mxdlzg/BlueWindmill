@@ -20,6 +20,11 @@
 
     </item>
     <item
+        android:id="@+id/menu_vpn"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="VPN">
+    </item>
+    <item
         android:id="@+id/menu_setting"
         android:icon="@drawable/ic_settings_black_24dp"
         android:title="设置">
