@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="F:\AndroidDevelop\Projects\BlueWindmill\freeRDPCore\src\main\assets"/><source path="F:\AndroidDevelop\Projects\BlueWindmill\freeRDPCore\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="F:\AndroidDevelop\Projects\BlueWindmill\freeRDPCore\src\debug\assets"/></dataSet></merger>
