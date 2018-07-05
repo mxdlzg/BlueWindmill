@@ -10,6 +10,8 @@ import project.mxdlzg.com.bluewindmill.model.entity.ClassOBJ;
 import project.mxdlzg.com.bluewindmill.model.entity.TermOBJ;
 import project.mxdlzg.com.bluewindmill.model.local.ManageClassOBJ;
 import project.mxdlzg.com.bluewindmill.model.local.ManageSchedule;
+import project.mxdlzg.com.bluewindmill.view.base.BaseActivity;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,7 +36,7 @@ import java.util.List;
  * Created by 廷江 on 2017/3/26.
  */
 
-public class AddScheduleActivity extends AppCompatActivity {
+public class AddScheduleActivity extends BaseActivity {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private AppCompatButton btn_newTerm;
@@ -64,9 +66,10 @@ public class AddScheduleActivity extends AppCompatActivity {
 
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.schedule_add_toolbar);
-        toolbar.setTitleTextColor(getColor(R.color.white));
+        //toolbar.setTitleTextColor(getColor(R.color.white));
         toolbar.setTitle("课程表");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //获取数据
         ManageSchedule.getAll(this,list);

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -26,6 +27,7 @@ public class SettingActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private int currentWeek;
+    private LinkedList weekList = new LinkedList<>(Arrays.asList("第1周", "第2周", "第3周", "第4周", "第5周", "第6周", "第7周", "第8周", "第9周", "第10周", "第11周", "第12周", "第13周", "第14周", "第15周", "第16周", "第17周", "第18周", "第19周", "第20周"));
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,12 +40,12 @@ public class SettingActivity extends AppCompatActivity {
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.setting_toolbar);
         toolbar.setTitle("设置");
-        toolbar.setTitleTextColor(this.getResources().getColor(R.color.white));
+        //toolbar.setTitleTextColor(this.getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
 
         //spinner
         niceSpinner = (NiceSpinner) findViewById(R.id.setting_weeks_spinner);
-        niceSpinner.attachDataSource(new LinkedList<>(Arrays.asList("第1周", "第2周", "第3周", "第4周", "第5周", "第6周", "第7周", "第8周", "第9周", "第10周", "第11周", "第12周", "第13周", "第14周", "第15周", "第16周", "第17周", "第18周", "第19周", "第20周")));
+        niceSpinner.attachDataSource(weekList);
         niceSpinner.setSelectedIndex(currentWeek);
         niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -61,6 +63,7 @@ public class SettingActivity extends AppCompatActivity {
 //                System.out.println(calendar.getTime());
 //                System.out.println(calendar.getTimeZone());
 //                System.out.println(calendar.getTimeInMillis());
+                Toast.makeText(SettingActivity.this, "已设置："+weekList.get(position), Toast.LENGTH_SHORT).show();
             }
 
             @Override

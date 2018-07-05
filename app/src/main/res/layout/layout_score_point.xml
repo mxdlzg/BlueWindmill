@@ -10,7 +10,7 @@
         android:id="@+id/score_point_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue700"
+        android:background="?colorPrimary"
         android:elevation="10dp"
         android:fitsSystemWindows="true"
         app:theme="@style/ToolbarColoredBackArrow"

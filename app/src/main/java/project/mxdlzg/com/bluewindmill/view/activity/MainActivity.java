@@ -290,13 +290,25 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void hideToolbarColor(){
-        toolbar.setBackgroundColor(Color.TRANSPARENT);
+//        toolbar.setBackgroundColor(Color.TRANSPARENT);
+//        toolbar.setVisibility(View.GONE);
+        getSupportActionBar().hide();
         toolbarColored = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.getWindow().getDecorView().setSystemUiVisibility(0);
+        }
     }
 
     public void showToolbarColor(){
-        if (!toolbarColored)
-        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        if (!toolbarColored){
+            getSupportActionBar().show();
+            toolbarColored = true;
+//            toolbar.setVisibility(View.VISIBLE);
+            //toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+        }
     }
 
     public int getStatusBarHeight() {

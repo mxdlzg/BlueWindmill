@@ -23,12 +23,13 @@ import project.mxdlzg.com.bluewindmill.model.entity.ScoreOBJ;
 import project.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import project.mxdlzg.com.bluewindmill.net.request.TableRequest;
 import project.mxdlzg.com.bluewindmill.util.Util;
+import project.mxdlzg.com.bluewindmill.view.base.BaseActivity;
 
 /**
  * Created by mxdlzg on 18-3-18.
  */
 
-public class ScorePointActivity extends AppCompatActivity {
+public class ScorePointActivity extends BaseActivity {
     @BindView(R.id.score_point_toolbar)
     Toolbar scorePointToolbar;
     @BindView(R.id.score_point_term_start)
@@ -60,13 +61,20 @@ public class ScorePointActivity extends AppCompatActivity {
         setContentView(R.layout.layout_score_point);
         ButterKnife.bind(this);
 
+        initView();
+        //
+        refresh("","","当前总平均绩点为：");
+    }
+
+    private void initView() {
         scorePointTermStart.attachDataSource(paramList);
         scorePointTermEnd.attachDataSource(paramList);
         scorePointTermStart.setOnItemSelectedListener(listener);
         scorePointTermEnd.setOnItemSelectedListener(listener);
 
-        //
-        refresh("","","当前总平均绩点为：");
+        scorePointToolbar.setTitle("绩点");
+        setSupportActionBar(scorePointToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void refresh(String start,String end,final String description){

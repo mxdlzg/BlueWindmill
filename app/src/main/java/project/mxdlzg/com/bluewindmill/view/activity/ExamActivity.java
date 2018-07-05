@@ -7,6 +7,8 @@ import project.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import project.mxdlzg.com.bluewindmill.net.request.TableRequest;
 import project.mxdlzg.com.bluewindmill.util.wdUtil;
 import project.mxdlzg.com.bluewindmill.view.adapter.ExamAdapter;
+import project.mxdlzg.com.bluewindmill.view.base.BaseActivity;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,7 +29,7 @@ import static project.mxdlzg.com.bluewindmill.util.Util.getIncrement;
  * Created by 廷江 on 2017/4/29.
  */
 
-public class ExamActivity extends AppCompatActivity {
+public class ExamActivity extends BaseActivity {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ExamAdapter adapter;
@@ -48,9 +50,9 @@ public class ExamActivity extends AppCompatActivity {
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.exam_toolbar);
         toolbar.setTitle(getResources().getString(R.string.titleExam));
-        toolbar.setTitleTextColor(getColor(R.color.white));
+//        toolbar.setTitleTextColor(getColor(R.color.white));
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //config
         initSetting();
 

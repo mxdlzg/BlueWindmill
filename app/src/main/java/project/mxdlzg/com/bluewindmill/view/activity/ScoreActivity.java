@@ -36,12 +36,13 @@ import project.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import project.mxdlzg.com.bluewindmill.net.request.TableRequest;
 import project.mxdlzg.com.bluewindmill.util.Util;
 import project.mxdlzg.com.bluewindmill.view.adapter.ScoreRcyAdapter;
+import project.mxdlzg.com.bluewindmill.view.base.BaseActivity;
 
 /**
  * Created by mxdlzg on 18-3-16.
  */
 
-public class ScoreActivity extends AppCompatActivity {
+public class ScoreActivity extends BaseActivity {
     @BindView(R.id.score_toolbar)
     Toolbar scoreToolbar;
     @BindView(R.id.score_term_spinner)
@@ -92,22 +93,12 @@ public class ScoreActivity extends AppCompatActivity {
         initView();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home)
-        {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
      * Init this activity
      */
     private void initView() {
         scoreToolbar.setTitle("本学期成绩详情");
-        scoreToolbar.setTitleTextColor(Color.WHITE);
+//        scoreToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(scoreToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -7,6 +7,8 @@ import project.mxdlzg.com.bluewindmill.view.base.BaseFragment;
 import project.mxdlzg.com.bluewindmill.view.fragment.ScFragment;
 import project.mxdlzg.com.bluewindmill.view.fragment.ScheduleFragment;
 import project.mxdlzg.com.bluewindmill.view.fragment.UserFragment;
+
+import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -88,14 +90,14 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
                         case 0:
                             break;
                         case 1:
-                            Animation fadeIns = AnimationUtils.loadAnimation(parentActivity, R.anim.fade_in);
+                            //Animation fadeIns = AnimationUtils.loadAnimation(parentActivity, R.anim.fade_in);
                             //activity.getToolbar().startAnimation(fadeIns);
                             //activity.hideToolbarColor();
                             activity.getNiceSpinner().setVisibility(View.INVISIBLE);
                             break;
                         case 2:
-                            Animation fadeIn = AnimationUtils.loadAnimation(parentActivity, R.anim.fade_in);
-                            activity.getToolbar().startAnimation(fadeIn);
+                            //Animation fadeIn = AnimationUtils.loadAnimation(parentActivity, R.anim.fade_in);
+                            //activity.getToolbar().startAnimation(fadeIn);
                             activity.hideToolbarColor();
                             activity.getNiceSpinner().setVisibility(View.INVISIBLE);
                             break;

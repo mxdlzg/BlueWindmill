@@ -98,6 +98,11 @@ public class ScScoreActivity extends AppCompatActivity {
     }
 
     private void init() {
+        scScoreToolbar.setTitle("第二课堂成绩详情");
+//        scoreToolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(scScoreToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //EmptyView
         emptyView = (EmptyView) this.getLayoutInflater().inflate(R.layout.rcy_empty_view,null,false);
         emptyView.setOnClickListener(emptyOnClickListener);
