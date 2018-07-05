@@ -52,12 +52,90 @@ public class AddScheduleActivity extends BaseActivity {
     private NumberPicker termPicker;
 
     private View newTermView;
-    private String[] termTime = {"2016220171", "2016220172", "2017220181", "2017220182"};
+    private String[] termTime = {"2016220171", "2016220172", "2017220181", "2017220182", "2018220191", "2018220192"};
     private List<TermOBJ> list = new ArrayList<>();
     private AddScheduleAdapter addScheduleAdapter;
 
     private Handler handler_notifiy_add;
     private Unbinder unbinder = null;
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //newTermView
+            newTermView = LayoutInflater.from(AddScheduleActivity.this).inflate(R.layout.layout_schedule_new_term, null);
+            //picker
+            termPicker = (NumberPicker) newTermView.findViewById(R.id.schedule_add_term_picker);
+            String[] terms = {"2016-2017第1学期", "2016-2017第2学期", "2017-2018第1学期", "2017-2018第2学期", "2018-2019第1学期", "2018-2019第2学期"};
+            termPicker.setDisplayedValues(terms);
+            termPicker.setMaxValue(terms.length - 1);
+            termPicker.setMinValue(0);
+            termPicker.setWrapSelectorWheel(false);
+            termPicker.setValue(0);
+            termPicker.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+            //dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddScheduleActivity.this);
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(AddScheduleActivity.this, "取消", Toast.LENGTH_SHORT).show();
+                }
+            });
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // TODO: 2017/3/27 通知getSchedule去获取，cookie使用系统内存中的，如果获取完毕就启动分析函数，分析完毕
+                    // TODO: 2017/3/27 写入schedulelist文件，和一个新的schedule+uuid的文件，以后启动就获取新文件
+                    final ProgressDialog getScheduleDialog = ProgressDialog.show(AddScheduleActivity.this, "获取中", "正在获取schedule", true, false);
+
+                    String year2 = termPicker.getDisplayedValues()[termPicker.getValue()];
+                    String year1 = Util.convertParam(year2);
+
+                    TableRequest.requestSchedule(AddScheduleActivity.this, year1, "1", year2, new CommonCallback<List<ClassOBJ>>() {
+                        @Override
+                        public void onFail(List<ClassOBJ> message) {
+                            getScheduleDialog.dismiss();
+                            Toast.makeText(AddScheduleActivity.this, R.string.requestScheduleFail, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onProgress(String status) {
+                            System.out.println(status + Thread.currentThread().getId());
+                            getScheduleDialog.setMessage(status);
+                        }
+
+                        @Override
+                        public void onSuccess(List<ClassOBJ> message) {
+                            System.out.println("OnSuccess" + Thread.currentThread().getId());
+                            //分析
+                            getScheduleDialog.setMessage("正在存储Class信息");
+                            ManageClassOBJ.cacheClassList(AddScheduleActivity.this, Long.valueOf(termTime[termPicker.getValue()]), message);
+
+                            //更新ui
+                            String name = termPicker.getDisplayedValues()[termPicker.getValue()];
+                            int start = Integer.valueOf(name.substring(0, 4));
+                            int end = Integer.valueOf(name.substring(5, 9));
+                            int num = Integer.valueOf(name.substring(10, 11));
+                            Long id = Long.valueOf((start + "2" + end + num));
+                            TermOBJ termOBJ = new TermOBJ(name, start, end, num, id);
+                            list.add(termOBJ);
+
+                            // TODO: 2017/3/28 cache Schedule信息到文件
+                            getScheduleDialog.setMessage("正在存储Schedule信息");
+                            ManageSchedule.addSchedule(AddScheduleActivity.this, termOBJ);
+                            getScheduleDialog.dismiss();
+
+                            // TODO: 2017/3/28 handler更新ui
+                            handler_notifiy_add.sendMessage(new Message());
+                        }
+                    });
+                }
+            });
+            builder.setView(newTermView);
+            builder.setCancelable(true);
+            builder.show();
+
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,8 +152,8 @@ public class AddScheduleActivity extends BaseActivity {
         handler_notifiy_add = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
-                addScheduleAdapter.notifyItemInserted(0);
-                recyclerView.scrollToPosition(0);
+                addScheduleAdapter.notifyItemInserted(list.size()-1);
+                recyclerView.scrollToPosition(list.size()-1);
                 return false;
             }
         });
@@ -99,84 +177,7 @@ public class AddScheduleActivity extends BaseActivity {
         recyclerView.setAdapter(addScheduleAdapter);
 
         //btn
-        btn_newTerm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //newTermView
-                newTermView = LayoutInflater.from(AddScheduleActivity.this).inflate(R.layout.layout_schedule_new_term, null);
-                //picker
-                termPicker = (NumberPicker) newTermView.findViewById(R.id.schedule_add_term_picker);
-                String[] terms = {"2016-2017第1学期", "2016-2017第2学期", "2017-2018第1学期", "2017-2018第2学期"};
-                termPicker.setDisplayedValues(terms);
-                termPicker.setMaxValue(terms.length - 1);
-                termPicker.setMinValue(0);
-                termPicker.setValue(0);
-                termPicker.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-                //dialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(AddScheduleActivity.this);
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(AddScheduleActivity.this, "取消", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // TODO: 2017/3/27 通知getSchedule去获取，cookie使用系统内存中的，如果获取完毕就启动分析函数，分析完毕
-                        // TODO: 2017/3/27 写入schedulelist文件，和一个新的schedule+uuid的文件，以后启动就获取新文件
-                        final ProgressDialog getScheduleDialog = ProgressDialog.show(AddScheduleActivity.this, "获取中", "正在获取schedule", true, false);
-
-                        String year2 = termPicker.getDisplayedValues()[termPicker.getValue()];
-                        String year1 = Util.convertParam(year2);
-
-                        TableRequest.requestSchedule(AddScheduleActivity.this, year1, "1", year2, new CommonCallback<List<ClassOBJ>>() {
-                            @Override
-                            public void onFail(List<ClassOBJ> message) {
-                                getScheduleDialog.dismiss();
-                                Toast.makeText(AddScheduleActivity.this, R.string.requestScheduleFail, Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onProgress(String status) {
-                                System.out.println(status + Thread.currentThread().getId());
-                                getScheduleDialog.setMessage(status);
-                            }
-
-                            @Override
-                            public void onSuccess(List<ClassOBJ> message) {
-                                System.out.println("OnSuccess" + Thread.currentThread().getId());
-                                //分析
-                                getScheduleDialog.setMessage("正在存储Class信息");
-                                ManageClassOBJ.cacheClassList(AddScheduleActivity.this, Long.valueOf(termTime[termPicker.getValue()]), message);
-
-                                //更新ui
-                                String name = termPicker.getDisplayedValues()[termPicker.getValue()];
-                                int start = Integer.valueOf(name.substring(0, 4));
-                                int end = Integer.valueOf(name.substring(5, 9));
-                                int num = Integer.valueOf(name.substring(10, 11));
-                                Long id = Long.valueOf((start + "2" + end + num));
-                                TermOBJ termOBJ = new TermOBJ(name, start, end, num, id);
-                                list.add(termOBJ);
-
-                                // TODO: 2017/3/28 cache Schedule信息到文件
-                                getScheduleDialog.setMessage("正在存储Schedule信息");
-                                ManageSchedule.addSchedule(AddScheduleActivity.this, termOBJ);
-                                getScheduleDialog.dismiss();
-
-                                // TODO: 2017/3/28 handler更新ui
-                                handler_notifiy_add.sendMessage(new Message());
-                            }
-                        });
-                    }
-                });
-                builder.setView(newTermView);
-                builder.setCancelable(true);
-                builder.show();
-
-            }
-        });
-
+        btn_newTerm.setOnClickListener(onClickListener);
     }
 
     @Override

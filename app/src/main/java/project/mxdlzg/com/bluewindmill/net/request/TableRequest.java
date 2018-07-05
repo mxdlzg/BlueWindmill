@@ -12,6 +12,7 @@ import project.mxdlzg.com.bluewindmill.model.process.PrepareSchedule;
 import project.mxdlzg.com.bluewindmill.model.process.ScoreProcess;
 import project.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import project.mxdlzg.com.bluewindmill.view.WindApplication;
+import project.mxdlzg.com.bluewindmill.view.activity.ExamActivity;
 
 import android.widget.Toast;
 
@@ -96,6 +97,7 @@ public class TableRequest {
                         if (callback != null){
                             Toast.makeText(context, Config.codeConvertor(response.code()), Toast.LENGTH_SHORT).show();
                             callback.onFail(null);
+                            callback.onError(context,response,false);
                         }
                     }
 
@@ -270,6 +272,7 @@ public class TableRequest {
             }
         });
     }
+
 }
 
 

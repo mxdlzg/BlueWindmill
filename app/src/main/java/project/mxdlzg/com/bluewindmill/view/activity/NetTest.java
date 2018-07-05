@@ -31,19 +31,6 @@ public class NetTest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_net_test);
 
-        Button btnLogin = (Button) findViewById(R.id.net_login);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginRequest loginRequest = new LoginRequest();
-                loginRequest.loginEMS(NetTest.this, "",new CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String message) {
-                        Toast.makeText(NetTest.this, "Login Success!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
 
         Button btnScore = (Button) findViewById(R.id.net_score);
         btnScore.setOnClickListener(new View.OnClickListener() {
@@ -88,17 +75,6 @@ public class NetTest extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.net_sc_login).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginRequest.loginSC(NetTest.this, new CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String message) {
-                        Toast.makeText(NetTest.this, "login success into SC", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
 
         findViewById(R.id.net_sc_items).setOnClickListener(new View.OnClickListener() {
             @Override

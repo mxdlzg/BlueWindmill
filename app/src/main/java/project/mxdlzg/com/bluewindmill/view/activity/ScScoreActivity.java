@@ -28,12 +28,13 @@ import project.mxdlzg.com.bluewindmill.net.callback.CommonCallback;
 import project.mxdlzg.com.bluewindmill.net.request.SCRequest;
 import project.mxdlzg.com.bluewindmill.view.adapter.ScRcyAdapter;
 import project.mxdlzg.com.bluewindmill.view.adapter.ScScoreRcyAdapter;
+import project.mxdlzg.com.bluewindmill.view.base.BaseActivity;
 
 /**
  * Created by mxdlzg on 18-3-18.
  */
 
-public class ScScoreActivity extends AppCompatActivity {
+public class ScScoreActivity extends BaseActivity {
     @BindView(R.id.sc_score_toolbar)
     Toolbar scScoreToolbar;
     @BindView(R.id.sc_score_text)

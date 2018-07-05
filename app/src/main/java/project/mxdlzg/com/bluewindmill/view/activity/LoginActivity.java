@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity{
     EditText captchaEditText;
     @BindView(R.id.login_verificationLayout)
     TextInputLayout captchaInputlayout;
+    private boolean success = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,6 +138,7 @@ public class LoginActivity extends AppCompatActivity{
 
             @Override
             public void onError(String message) {
+                success = false;
                 dialog.dismiss();
                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
             }

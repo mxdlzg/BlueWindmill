@@ -53,6 +53,7 @@ public class ExamActivity extends BaseActivity {
 //        toolbar.setTitleTextColor(getColor(R.color.white));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //config
         initSetting();
 
@@ -63,23 +64,7 @@ public class ExamActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 //获取
-                TableRequest.requestExam(ExamActivity.this, new CommonCallback<List<String>>() {
-                    @Override
-                    public void onSuccess(List<String> message) {
-                        swipeLayout.setRefreshing(false);
-                        ManageExam.cacheExam(ExamActivity.this,message);
-                        updateAdapter(message);
-                        Toast.makeText(ExamActivity.this, "获取完毕", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFail(List<String> message) {
-                        swipeLayout.setRefreshing(false);
-                        Toast.makeText(ExamActivity.this, "获取考试信息失败", Toast.LENGTH_SHORT).show();
-                    }
-
-
-                });
+                requestData();
             }
         });
 
@@ -112,5 +97,24 @@ public class ExamActivity extends BaseActivity {
         }else {
             Toast.makeText(this, "从文件读取考试信息", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void requestData(){
+        TableRequest.requestExam(ExamActivity.this, new CommonCallback<List<String>>() {
+            @Override
+            public void onSuccess(List<String> message) {
+                swipeLayout.setRefreshing(false);
+                ManageExam.cacheExam(ExamActivity.this,message);
+                updateAdapter(message);
+                Toast.makeText(ExamActivity.this, "获取完毕", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFail(List<String> message) {
+                swipeLayout.setRefreshing(false);
+                Toast.makeText(ExamActivity.this, "获取考试信息失败", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 }
