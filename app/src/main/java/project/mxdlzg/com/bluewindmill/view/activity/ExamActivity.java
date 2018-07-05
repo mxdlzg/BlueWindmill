@@ -75,8 +75,10 @@ public class ExamActivity extends BaseActivity {
                     @Override
                     public void onFail(List<String> message) {
                         swipeLayout.setRefreshing(false);
-                        Toast.makeText(ExamActivity.this, "Get Exam Fail!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ExamActivity.this, "获取考试信息失败", Toast.LENGTH_SHORT).show();
                     }
+
+
                 });
             }
         });

@@ -58,6 +58,7 @@ public class TableRequest {
                     @Override
                     public void onError(Response<List<ClassOBJ>> response) {
                         callback.onFail(null);
+                        callback.onError(context,response,false);
                     }
 
                     @Override
